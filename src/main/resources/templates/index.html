@@ -1,62 +1,124 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <title>Login Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" th:href="@{/login.css}"/>
-        <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
-        <link rel="stylesheet" th:href="@{/solid.min.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>Resthony home page </title>
+
+    <!-- ---------------------------------------- Bootstrap --------------------------------- -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- ---------------------------------------- CSS --------------------------------------- -->
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+    <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/solid.min.css}">
 
 </head>
 
+
 <body>
 
-<h2 style="text-align:center;color:white;"> Page de connexion   </h2>
+    <img id="banner" th:src="@{/chefs.png}"/>
 
-<div >
-    <form th:action="@{/login}" method="post" style="width:500px; margin: 0 auto;color:white;">
-        <hr>
-        <div class="border border-secondary rounded p-3">
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <input type="text" class="form-control" name="username"  placeholder="Nom d'utilisateur" id="username">
+    <h2 style="text-align:center;color:white;"> Bienvenue  </h2>
+
+
+<br>
+
+
+    <table style="margin-left:350px;background-color:black;text-align:center;">
+
+        <tr style="color:white;">
+            <th><p>S'inscrire </p></th>
+            <th><p>Se connecter</p></th>
+            <th><p>réserver sans inscription </p></th>
+
+        </tr>
+        <tr>
+            <td>
+                <div class="col-sm-4" >
+                    <div class="card text-white bg-primary mb-3" style="width:230px">
+                        <div class="card-header">
+                            <div class="row" >
+                                <div class="col-sm-8"style="padding-left:30px;">
+                                    <div class="float-center"  > <img th:src="@{/chefs.png}" alt="Restaurant" titre="Restaurant" height="200px" width="200px">  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item-primary list-group-item list-group-item-action">
+                            <div class="row">
+                                <div class="float-sm-8" >
+                                    <a th:href="@{/users/new}"><p class="">Inscription </p></a>
+                                    <hr>
+                                    <p style="text-align:left;color:black;">
+                                        Cliquez ici pour avoir vous inscrire et bénéficier des avantages utilisateur
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </td>
+            <td>
+                <div class="col-sm-4">
+                    <div class="card text-white bg-primary mb-3" style="width:250px">
+                        <div class="card-header">
+                            <div class="row">
 
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Mots de passe">
-            </div>
-        </div>
-        <div class="form-group row " style="padding-left:150px;">
-            <button type="submit" name="login" class="btn btn-warning"> Se connecter </button>
-           <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  S'inscrire </button>
-        </div>
+                                <div class="col-sm-8" style="padding-left:40px;">
+                                    <div class="float-sm-center" > <img th:src="@{/drinks.jpg}"alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item-primary list-group-item list-group-item-action">
+                            <div class="row">
+                                <div class="float-sm-8" >
+                                    <a th:href="@{/login}"><p class=""> Connexion  </p></a>
+                                    <hr>
+                                    <p style="text-align:left;color:black;"> Cliquez ici pour vous connecter sur votre compte </p>
+                                </div>
 
-    </form>
-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/users/new}]]";
-    }
-</script>
+            </td>
+            <td>
+                <div class="col-sm-4" >
+                    <div class="card text-white bg-primary mb-3" style="width:250px">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-8" style="padding-left:40px;">
+                                    <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item-primary list-group-item list-group-item-action">
+                            <div class="row">
+                                <div class="float-sm-8">
+                                    <a th:href="@{/users/new}"><p class=""> Réservation  </p></a>
+                                    <hr>
+                                    <p style="text-align:left;color:black;">
+                                        Cliquez ici pour réserver une table dans votre restaurant sans inscriptiob
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br><br>
 
 </body>
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 </html>
-
-

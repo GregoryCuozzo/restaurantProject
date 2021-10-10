@@ -1,3 +1,18 @@
+#banner{
+    height:350px;
+    width:100%;
+}
+
+body{background-color: black;
+    background-size:cover;
+
+}
+th{text-align:center;}
+
+img{
+    text-align:center;
+}
+
 .wrapper {
     margin-top: 80px;
     margin-bottom: 20px;
@@ -35,11 +50,6 @@ input[type="password"] {
     border-top-right-radius: 0;
 }
 
-body{background-image: url("resto.jpg");
-    background-size:cover;
-
-}
-
 
 table{
     color:black;
@@ -55,3 +65,14 @@ table{
     margin-right:200px;
 }
 
+#banner{
+    height:200px;
+    width:70%;
+    margin-left:200px;
+}
+
+header{
+    background-color:black;
+    text-align:center;
+
+}

@@ -1,4 +1,4 @@
-package com.mycompany.user;
+package com.example.resthony.services.impl;
 
 public class UserNotFoundException extends Throwable {
     public UserNotFoundException() {

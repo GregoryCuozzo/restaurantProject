@@ -1,24 +1,37 @@
-package com.mycompany.user;
-// ----------------------------------- imports -----------------------------------------------
+package com.example.resthony.controller.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.resthony.entities.User;
+import com.example.resthony.services.impl.UserNotFoundException;
+import com.example.resthony.services.impl.UsersDetailsServiceImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
-// ---------------------------- UserController ----------------------------------------------
+/**
+ * User controller
+ */
 @Controller
-public class UserController {
-    @Autowired
-    private UserService service;
+@Component
 
-    @GetMapping("/users/index")
-    public String showHomePage() {
-        return "index";
+public class UserController {
+
+    public UsersDetailsServiceImpl service ;
+
+    @GetMapping("/user")
+    public String userPage() {
+        return "user/index";
+    }
+
+    @GetMapping("/user/register")
+    public String formPage(){
+        return "form";
     }
 
     @GetMapping("/users")
@@ -35,7 +48,7 @@ public class UserController {
     public String ShowNewForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("pagetitle","Ajout d'un nouvel utilisateur");
-        return "user_form";
+        return "form";
     }
 
     // ------------------------ save user database ------------------------------------------
@@ -50,13 +63,13 @@ public class UserController {
     // ------------------------- get the edit form ------------------------------------------
 
     @GetMapping("/users/edit/{id}")
-    public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+    public String showEditForm(@PathVariable("id") int id, Model model, RedirectAttributes ra) {
         try {
             User user = service.get(id);
             model.addAttribute("user", user);
             model.addAttribute("pageTitle"," mise à jour des informations (ID:" +id +")");
 
-            return "user_form";
+            return "form";
 
         } catch (UserNotFoundException e) {
 
@@ -67,11 +80,11 @@ public class UserController {
     }
 
     @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra){
+    public String deleteUser(@PathVariable("id") int id, RedirectAttributes ra){
         try{
             service.delete(id);
 
-    }
+        }
         catch (UserNotFoundException e){
 
 
@@ -79,8 +92,4 @@ public class UserController {
         ra.addFlashAttribute("message","l'utilisateur a été supprimé ");
         return "redirect:/users";
     }
-
 }
-
-
-
