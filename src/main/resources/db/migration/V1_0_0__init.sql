@@ -4,7 +4,7 @@ create table roles (
 ) engine=InnoDB;
 
 create table users (
-                       id_user bigint not null,
+                       id_user bigint auto_increment not null,
                        account_non_expired bit,
                        account_non_locked bit,
                        credentials_non_expired bit,
