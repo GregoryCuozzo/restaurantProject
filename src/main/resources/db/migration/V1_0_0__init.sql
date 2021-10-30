@@ -24,7 +24,10 @@ create table restaurants (
                              nbPlace int not null,
                              OpeningDay text not null,
                              primary key (id_restaurants),
-                             restaurateur bigint
+                             restaurateur bigint,
+                             telephone int not null,
+                             foreign
+
 ) engine=InnoDB;
 
 create table reservations (
