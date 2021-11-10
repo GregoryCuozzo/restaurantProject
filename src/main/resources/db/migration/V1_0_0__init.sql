@@ -18,7 +18,7 @@ create table users (
 ) engine=InnoDB;
 
 create table restaurants (
-                             id_restaurants bigint not null,
+                             id_restaurants bigint  not null,
                              name varchar(255) not null,
                              adress text not null,
                              nbPlace int not null,
@@ -28,7 +28,7 @@ create table restaurants (
 ) engine=InnoDB;
 
 create table reservations (
-                              id_reservation bigint not null,
+                              id_reservation bigint  not null,
                               date date not null,
                               time time not null,
                               restaurant bigint,

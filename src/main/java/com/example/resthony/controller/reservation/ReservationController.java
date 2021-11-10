@@ -2,6 +2,7 @@ package com.example.resthony.controller.reservation;
 
 
 import com.example.resthony.entities.Reservation;
+import com.example.resthony.entities.User;
 import com.example.resthony.services.impl.ReservationsDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,19 +23,13 @@ public class ReservationController {
 
     @GetMapping
     public String reservationPage(Model model) {
-
-        return "admin/reservations";
-    }
-
-
-    @GetMapping("/reservations")
-    public String showReservationList(Model model) {
-
-        List<Reservation> listReservations = service.listAll();
-        model.addAttribute("listUsers", listReservations);
+        List<Reservation> listReservation = service.listAll();
+        model.addAttribute("listReservation", listReservation);
         return "admin/reservations";
 
+
     }
+
 
     @PostMapping("/save")
     public String saveReservation(Reservation reservation, RedirectAttributes ra) {
