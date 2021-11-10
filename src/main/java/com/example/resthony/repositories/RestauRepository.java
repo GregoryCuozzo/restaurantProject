@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 public interface RestauRepository extends JpaRepository<Restaurant, Integer> {
 
-    Restaurant findByUsername(String name);
+
 
     public long  countById(int id);
 

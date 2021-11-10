@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+        <title>Admin Dashboard</title>
+        <!-- ---------------------------------------- Bootstrap --------------------------------- -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- ---------------------------------------- CSS --------------------------------------- -->
+        <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+        <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
+        <link rel="stylesheet" th:href="@{/solid.min.css}">
+
+    </head>
+
+
+
+
+<body>
+
+<!-- ---------------------------------- Banner import ----------------------------------- -->
+<img id="banner" th:src="@{/chefs.png}"/>
+
+<!-- ---------------------------------- Nav bar ----------------------------------------- -->
+<div  >
+    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:250px;" >
+        <ul class="nav navbar-nav " style="padding-left:300px" >
+            <li class="nav-item"><a class="nav-link" th:href="@{/users/new}"><i class="fa fa-user-plus"></i> Inscription </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="fa fa-user-plus"></i> Connexion  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/users}"><i class="fa fa-user-plus"></i> Liste des inscrits </a></li>
+
+
+        </ul>
+
+    </nav>
+
+</div>
+
+<h2 style="text-align:center;color:white;"> Page Administrateur </h2>
+<br>
+
+<table style="margin-left:200px;background-color:black;text-align:center;">
+    <tr style="color:white;">
+        <th><p>Restaurants </p></th>
+        <th><p>Utilisateurs</p></th>
+        <th><p>Inscription</p></th>
+
+    </tr>
+    <tr>
+        <td>
+            <div class="col-sm-4" >
+                <div class="card text-white bg-primary mb-3" style="width:230px">
+                    <div class="card-header">
+                        <div class="row" >
+                            <div class="col-sm-8"style="padding-left:30px;">
+                                <div class="float-center"  > <img th:src="@{/chefs.png}" alt="Restaurant" titre="Restaurant" height="200px" width="200px">  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item-primary list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="float-sm-8" >
+                                <a href="/ticket/handle"><p class="">Restaurant </p></a>
+                                <hr>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des restaurants </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="col-sm-4">
+                <div class="card text-white bg-primary mb-3" style="width:250px">
+                    <div class="card-header">
+                        <div class="row">
+
+                            <div class="col-sm-8" style="padding-left:40px;">
+                                <div class="float-sm-center" > <img th:src="@{/drinks.jpg}"alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item-primary list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="float-sm-8" >
+                                <a th:href="@{/admin/users}"><p class=""> Utilisateur </p></a>
+                                <hr>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des utilisateurs </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </td>
+        <td>
+            <div class="col-sm-4" >
+                <div class="card text-white bg-primary mb-3" style="width:250px">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-8" style="padding-left:40px;">
+                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item-primary list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="float-sm-8">
+                                <a th:href="@{/users/new}"><p class=""> Inscription </p></a>
+                                <hr>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour inscrire un nouvel utilisateur  </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+
+</table>
+
+<br><br>
+
+
+</body>
+</html>
