@@ -6,6 +6,7 @@ import com.example.resthony.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,23 +20,23 @@ public class ReservationsDetailsServiceImpl {
     }
 
 
-    public  void save(Reservation reservation) {
+    public void save(Reservation reservation) {
         reservationRepository.save(reservation);
     }
 
 
-    public List<Reservation> listAll(){
+    public List<Reservation> listAll() {
         return reservationRepository.findAll();
 
     }
 
 
-    public  void delete(Integer id) throws UserNotFoundException{
-        Long count=  reservationRepository.countById(id);
+    public void delete(Integer id) throws UserNotFoundException {
+        Long count = reservationRepository.countById(id);
         reservationRepository.deleteById(id);
 
     }
 
-    //for test
+
 
 }
