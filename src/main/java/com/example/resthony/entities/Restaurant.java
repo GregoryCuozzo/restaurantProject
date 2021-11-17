@@ -1,6 +1,9 @@
 package com.example.resthony.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -10,11 +13,15 @@ import java.time.DateTimeException;
 @Entity
 @Table(name = "restaurants")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_restaurants")
-    private int id;
+    private Integer id;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -41,15 +48,15 @@ public class Restaurant {
 
     @NotNull
     @Column(name = "telephone", nullable = false)
-    private int telephone;
+    private Integer telephone;
 
     @NotNull
     @Column(name = "XIDadmin",nullable = false)
-    private int XIDadmin;
+    private Integer XIDadmin;
 
     @NotNull
     @Column(name = "XIDville",nullable = false)
-    private int XIDville;
+    private Integer XIDville;
 
 
 

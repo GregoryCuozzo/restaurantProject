@@ -3,47 +3,122 @@ package com.example.resthony.services.impl;
 import com.example.resthony.entities.Restaurant;
 import com.example.resthony.entities.User;
 import com.example.resthony.repositories.RestauRepository;
-import com.example.resthony.repositories.UserRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+public class RestauDetailsServiceImpl implements RestoService {
+    private final RestauRepository restauRepository;
 
-public class RestauDetailsServiceImpl {
     @Autowired
-    private RestauRepository RestauRepository;
+    public RestauDetailsServiceImpl(RestauRepository restauRepository){this.restauRepository = restauRepository;}
 
-    public RestauDetailsServiceImpl(RestauRepository restauRepository) {
-        this.RestauRepository = RestauRepository;
+    @Override
+    public RestoOut get(Integer id) {
+        Restaurant restaurant = restauRepository.findById(id).orElse(null);
+
+        if(restaurant == null) return null;
+
+        RestoOut restoOut = convertRestoEntityToRestoOut(restaurant);
+
+        return restoOut;
     }
 
-    public List<Restaurant> listAll(){
-        return RestauRepository.findAll();
+    @Override
+    public List<RestoOut> getAll() {
+        List<Restaurant> restoEntities = restauRepository.findAll();
 
-    }
+        //List<RestoOut> restoOuts = restoEntities.stream().map(restoEntity -> convertRestoEntityToRestoOut(restoEntity)).collect(Collectors.toList());
+        //List<RestoOut> restoOuts = restoEntities.stream().map(this::convertRestoEntityToRestoOut).collect(Collectors.toList());
 
-    public  Restaurant get(Integer id) throws UserNotFoundException {
-        Optional<Restaurant> result= RestauRepository.findById(id);
-        if(result.isPresent()){
-            return result.get();
+        List<RestoOut> restoOuts = new ArrayList<>();
+        for (Restaurant restaurant : restoEntities) {
+            restoOuts.add(convertRestoEntityToRestoOut(restaurant));
         }
-        throw new UserNotFoundException("aucun restaurant existant avec cet identifiant  " + id);
 
+        return restoOuts;
     }
 
-    public  void delete(Integer id) throws UserNotFoundException{
-        Long count=  RestauRepository.countById(id);
-        if (count == null || count == 0){
-            throw new UserNotFoundException("aucun restaurant existant avec cet identifiant" + id);
+    @Override
+    public RestoOut create(CreateRestoIn createRestoIn) {
+        Restaurant restaurant = convertRestoInToRestoEntity(createRestoIn);
+
+        Restaurant newRestaurant = restauRepository.save(restaurant);
+
+        return convertRestoEntityToRestoOut(newRestaurant);
+    }
+
+    @Override
+    public RestoOut patch(Integer id, PatchRestoIn patchRestoIn) {
+
+        restauRepository.updateResto(
+                patchRestoIn.getNom(),
+                patchRestoIn.getAdress(),
+                patchRestoIn.getNbPlace(),
+                patchRestoIn.getJoursOuverture(),
+                patchRestoIn.getHoraires(),
+                patchRestoIn.getEmail(),
+                patchRestoIn.getTelephone(),
+                id
+        );
+
+        Restaurant restoEntity = restauRepository.getById(id);
+
+        return convertRestoEntityToRestoOut(restoEntity);
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+        try {
+            restauRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundException("No resto found", e);
         }
-        RestauRepository.deleteById(id);
 
     }
-    
-    
+
+    private RestoOut convertRestoEntityToRestoOut(Restaurant restaurant) {
+
+        RestoOut restoOut = RestoOut.builder()
+                .id_restaurants(restaurant.getId())
+                .nom(restaurant.getNom())
+                .adress(restaurant.getAdress())
+                .nbPlaces(restaurant.getNbPlace())
+                .joursOuverture(restaurant.getJoursOuverture())
+                .horaires(restaurant.getHoraires())
+                .email(restaurant.getEmail())
+                .telephone((restaurant.getTelephone()))
+                .XIDadmin((restaurant.getXIDadmin()))
+                .XIDville((restaurant.getXIDville()))
+                .build();
+        return restoOut;
+    }
+
+
+    private Restaurant convertRestoInToRestoEntity(CreateRestoIn createRestoIn) {
+        Restaurant restaurant = Restaurant.builder()
+                .nom(createRestoIn.getNom())
+                .adress(createRestoIn.getAdress())
+                .nbPlace(createRestoIn.getNbPlace())
+                .joursOuverture(createRestoIn.getJoursOuverture())
+                .horaires(createRestoIn.getHoraires())
+                .email(createRestoIn.getEmail())
+                .telephone(createRestoIn.getTelephone())
+                .XIDadmin(createRestoIn.getXIDadmin())
+                .XIDville(createRestoIn.getXIDville())
+                .build();
+        return restaurant;
+    }
+
 }
 
 
