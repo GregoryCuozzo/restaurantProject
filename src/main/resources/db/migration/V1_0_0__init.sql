@@ -22,19 +22,39 @@ create table restaurants (
                              name varchar(255) not null,
                              adress text not null,
                              nbPlace int not null,
-                             OpeningDay text not null,
+                             joursOuverture text not null,
                              primary key (id_restaurants),
-                             restaurateur bigint
+                             horaires date not null,
+                             email text not null,
+                             telephone int not null,
+                             XIDadmin bigint not null,
+                             XIDville bigint not null
+
+
 ) engine=InnoDB;
 
 create table reservations (
                               id_reservation bigint not null,
+                              primary key (id_reservation),
                               date date not null,
                               time time not null,
                               restaurant bigint,
                               client bigint
 ) engine=InnoDB;
 
+create table villes (
+                            id_ville bigint not null,
+                            name varchar(255) not null,
+                            cp int not null,
+                            primary key (id_ville),
+                            XIDpays bigint not null
+) engine=InnoDB;
+
+create table pays (
+                           id_pays bigint not null,
+                           primary key (id_pays),
+                           name varchar (255) not null
+) engine=InnoDB;
 
 create index INDEX_USER_ROLE on roles (id_user);
 
