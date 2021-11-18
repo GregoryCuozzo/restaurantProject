@@ -30,6 +30,7 @@ public class AdminController {
         return "admin/index";
     }
 
+
     @GetMapping("/users")
     public String showUserList(Model model) {
 
@@ -44,7 +45,7 @@ public class AdminController {
         try {
             User user = service.get(id);
             model.addAttribute("user", user);
-            model.addAttribute("pageTitle"," mise à jour des informations (ID:" +id +")");
+            model.addAttribute("pageTitle", " mise à jour des informations (ID:" + id + ")");
 
             return "/editUser";
 
@@ -52,21 +53,20 @@ public class AdminController {
 
 
         }
-        ra.addFlashAttribute("message","les informations ont bien été modifiées");
+        ra.addFlashAttribute("message", "les informations ont bien été modifiées");
         return "redirect:/admin/users";
 
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra){
-        try{
+    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes ra) {
+        try {
             service.delete(id);
 
-        }
-        catch (UserNotFoundException e){
+        } catch (UserNotFoundException e) {
 
         }
-        ra.addFlashAttribute("message","l'utilisateur a été supprimé ");
+        ra.addFlashAttribute("message", "l'utilisateur a été supprimé ");
         return "redirect:/admin/users";
     }
 

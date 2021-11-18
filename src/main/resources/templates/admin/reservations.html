@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html
+        xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> reservation list </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+    <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/solid.min.css}">
+
+</head>
+
+
+<img id="banner" th:src="@{/chefs.png}"/>
+
+
+<body>
+
+<h1 style="text-align:center; color:white;"> Liste des réservations  </h1>
+
+
+<div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+</div>
+
+<div class="tableau">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+
+            <th>Client</th>
+            <th>Restaurant</th>
+            <th>Date </th>
+            <th>temps</th>
+            <th>Delete </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="Reservation: ${listReservation}">
+            <tr>
+                <td>[[${Reservation.client}]]</td>
+                <td>[[${Reservation.date}]]</td>
+                <td>[[${Reservation.time}]]</td>
+
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Inscription </button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function redirectForm(){
+        window.location ="[[@{/users/new}]]";
+    }
+</script>
+
+</body>
+</html>l>
