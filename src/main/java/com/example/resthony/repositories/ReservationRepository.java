@@ -1,6 +1,6 @@
 package com.example.resthony.repositories;
 
-import com.example.resthony.entities.Reservation;
+import com.example.resthony.model.entities.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

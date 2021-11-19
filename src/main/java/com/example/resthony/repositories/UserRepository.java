@@ -1,6 +1,6 @@
 package com.example.resthony.repositories;
 
-import com.example.resthony.entities.User;
+import com.example.resthony.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

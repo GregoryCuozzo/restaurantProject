@@ -1,16 +1,14 @@
 package com.example.resthony.controller.user;
 
-import com.example.resthony.entities.User;
-import com.example.resthony.services.impl.UserNotFoundException;
-import com.example.resthony.services.impl.UsersDetailsServiceImpl;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.example.resthony.model.entities.User;
+import com.example.resthony.services.principal.UserNotFoundException;
+import com.example.resthony.services.principal.UsersDetailsServiceImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
