@@ -1,27 +1,25 @@
 package com.example.resthony.model.entities;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.sql.Time;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "reservations")
 @Data
-@Getter
-@Setter
-@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reservation")
-    private int id;
+    private Long id;
 
     @NotNull
     @Column(name = "date", nullable = false, unique = true)
@@ -33,9 +31,9 @@ public class Reservation {
 
     @NotNull
     @Column(name = "restaurant", nullable = false, unique = true)
-    private int restaurant;
+    private Integer restaurant;
 
     @NotNull
     @Column(name = "client", nullable = false, unique = true)
-    private int client;
+    private Integer client;
 }

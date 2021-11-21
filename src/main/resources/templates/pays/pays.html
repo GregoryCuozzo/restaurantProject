@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title> Liste des restaurants</title>
+    <title> Liste des pays</title>
     <!-- ---------------------------------------- Bootstrap --------------------------------- -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -18,8 +18,24 @@
 <img id="banner" th:src="@{/chefs.png}"/>
 <body>
 
+<div  >
+    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;" >
+        <ul class="nav navbar-nav " style="padding-left:300px" >
+            <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="fa fa-user-plus"></i> Connexion  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/create}"><i class="fa fa-user-plus"></i>  Nouvel utilisateur </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/list}"><i class="fa fa-user-plus"></i>  Utilisateurs </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/restaurant/list}"><i class="fa fa-user-plus"></i>  Restaurants </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation/list}"><i class="fa fa-user-plus"></i> Réservations  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/pays/list}"><i class="fa fa-user-plus"></i> Pays   </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/villes/list}"><i class="fa fa-user-plus"></i>  Villes </a></li>
+        </ul>
 
-<h1 style="text-align:center; color:white;"> Liste des inscrits  </h1>
+    </nav>
+
+</div>
+
+
+<h1 style="text-align:center; color:white;"> Liste des Pays  </h1>
 
 
 <div th:if="${message}" class="alert alert-success text-center">
@@ -54,6 +70,14 @@
         </th:block>
         </tbody>
     </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter un pays </button>
+    </div>
 </div>
-</body>
-</html>l>
+
+
+<script type="text/javascript">
+    function redirectForm(){
+        window.location ="[[@{/admin/pays/create}]]";
+    }
+</script>

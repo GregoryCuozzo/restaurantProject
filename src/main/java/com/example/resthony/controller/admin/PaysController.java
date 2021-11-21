@@ -1,4 +1,4 @@
-package com.example.resthony.controller.pays;
+package com.example.resthony.controller.admin;
 
 
 import com.example.resthony.model.dto.pays.CreatePaysIn;
@@ -27,25 +27,26 @@ public class PaysController {
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("pays",paysService.getAll());
-        return "pays.html";
+        return "pays/pays.html";
 
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("resto", new CreatePaysIn());
-        return "create.html";
+        model.addAttribute("pays", new CreatePaysIn());
+        return "pays/create.html";
     }
 
     @PostMapping("/create")
-    public String createPays(@Valid @ModelAttribute("pays") CreatePaysIn createPaysIn, BindingResult bindingResult) {
+    public String createPays(@Valid @ModelAttribute("pays") CreatePaysIn createPaysIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/create";
         }
 
         paysService.create(createPaysIn);
+        ra.addFlashAttribute("message", "le Pays à été rajouté ");
 
-        return "redirect:/web/resto/list";
+        return "redirect:/admin/pays/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -56,25 +57,26 @@ public class PaysController {
         } catch (NotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "l'utilisateur a été supprimé ");
-        return "redirect:/admin/restaurant/list";
+        ra.addFlashAttribute("message", "Le pays a été supprimé ");
+        return "redirect:/admin/pays/list";
     }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
-        model.addAttribute("resto", paysService.get(Long.valueOf(id)));
-        return "update.html";
+        model.addAttribute("pays", paysService.get(Long.valueOf(id)));
+        return "pays/update.html";
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("resto") PatchPaysIn patchPaysIn, BindingResult bindingResult) {
+    public String updateResto(@Valid @ModelAttribute("pays") PatchPaysIn patchPaysIn, BindingResult bindingResult,RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/update";
         }
 
         paysService.patch(patchPaysIn.getId(), patchPaysIn);
+        ra.addFlashAttribute("message", "le pays a été modifié  ");
 
-        return "redirect:/web/resto/list";
+        return "redirect:/admin/pays/list";
     }
 
 

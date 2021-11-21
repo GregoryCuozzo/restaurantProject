@@ -18,25 +18,25 @@ public class PatchRestoIn {
     @NotNull
     public Long id;
 
-    @NotEmpty(message = "Name must not be empty")
+    @NotEmpty(message = "ce champ ne peut pas être vide")
     @Size(min = 10, max = 200)
     public String nom;
 
-    @NotNull(message = "Adress must not be empty")
+    @NotNull(message = "ce champ ne peut pas être vide")
     public String adress;
 
-    @NotNull(message = "Restaurant must have a min. places")
+    @NotNull(message = "ce champ ne peut pas être vide")
     public Integer nbPlace;
 
-    @NotEmpty(message = "joursOuverture must have days name")
+    @NotEmpty(message = "ce champ ne peut pas être vide")
     public String openingDay;
 
 
 
-    @NotEmpty(message = "email must contains the email")
+    @NotEmpty(message = "ce champ ne peut pas être vide")
     public String email;
 
-    @NotNull(message = "telephone must have a phone number")
+    @NotNull(message = "ce champ ne peut pas être vide")
     public Integer telephone;
 
 

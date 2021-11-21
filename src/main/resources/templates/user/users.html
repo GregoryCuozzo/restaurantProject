@@ -4,7 +4,7 @@
         xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title> reservation list </title>
+    <title> liste des utilisateurs </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -16,12 +16,12 @@
 </head>
 
 
-<img id="banner" th:src="@{/chefs.png}"/>
+    <img id="banner" th:src="@{/chefs.png}"/>
 
 
 <body>
 
-<h1 style="text-align:center; color:white;"> Liste des réservations  </h1>
+<h1 style="text-align:center; color:white;"> Liste des inscrits  </h1>
 
 
 <div th:if="${message}" class="alert alert-success text-center">
@@ -33,20 +33,28 @@
         <thead class="thead-dark">
         <tr>
 
-            <th>Client</th>
-            <th>Restaurant</th>
-            <th>Date </th>
-            <th>temps</th>
+
+            <th>First Name</th>
+            <th>Last name </th>
+            <th>E-mail</th>
+            <th>Edit</th>
             <th>Delete </th>
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="Reservation: ${listReservation}">
+        <th:block th:each="User: ${Users}">
             <tr>
-                <td>[[${Reservation.client}]]</td>
-                <td>[[${Reservation.date}]]</td>
-                <td>[[${Reservation.time}]]</td>
 
+                <td>[[${User.firstname}]]</td>
+                <td>[[${User.lastname}]]</td>
+                <td>[[${User.email}]]</td>
+                <td>
+                    <a th:href="@{'/admin/user/update/' + ${User.id}}">edit</a>
+
+                </td>
+                <td>
+                    <a th:href="@{'/admin/user/delete/' + ${User.id}}">Delete</a>
+                </td>
             </tr>
         </th:block>
         </tbody>
@@ -59,9 +67,9 @@
 
 <script type="text/javascript">
     function redirectForm(){
-        window.location ="[[@{/users/new}]]";
+        window.location ="[[@{/admin/user/create}]]";
     }
 </script>
 
 </body>
-</html>l>
+</html>

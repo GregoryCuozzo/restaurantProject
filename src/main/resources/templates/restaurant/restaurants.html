@@ -17,9 +17,23 @@
 </head>
 <img id="banner" th:src="@{/chefs.png}"/>
 <body>
+<div  >
+    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;" >
+        <ul class="nav navbar-nav " style="padding-left:300px" >
+            <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="fa fa-user-plus"></i> Connexion  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/create}"><i class="fa fa-user-plus"></i>  Nouvel utilisateur </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/list}"><i class="fa fa-user-plus"></i>  Utilisateurs </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/restaurant/list}"><i class="fa fa-user-plus"></i>  Restaurants </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation/list}"><i class="fa fa-user-plus"></i> Réservations  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/pays/list}"><i class="fa fa-user-plus"></i> Pays   </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/villes/list}"><i class="fa fa-user-plus"></i>  Villes </a></li>
+        </ul>
 
+    </nav>
 
-<h1 style="text-align:center; color:white;"> Liste des inscrits  </h1>
+</div>
+
+<h1 style="text-align:center; color:white;"> Liste des restaurants  </h1>
 
 
 <div th:if="${message}" class="alert alert-success text-center">
@@ -61,6 +75,16 @@
         </th:block>
         </tbody>
     </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter un restaurant </button>
+    </div>
 </div>
+
+
+<script type="text/javascript">
+    function redirectForm(){
+        window.location ="[[@{/users/new}]]";
+    }
+</script>
 </body>
 </html>

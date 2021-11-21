@@ -36,8 +36,8 @@ public class Restaurant {
     public int nbPlace;
 
     @NotNull
-    @Column(name = "OpeningDay", nullable = false)
-    public String OpeningDay;
+    @Column(name = "openingDay", nullable = false)
+    public String openingDay;
 
     @Column(name = "email")
     public String email;
@@ -46,7 +46,7 @@ public class Restaurant {
     @Column(name = "telephone", nullable = false)
     public Integer telephone;
 
-    // il faut rajouter les innerjoin pour les villes et le restaurateur
+
 
 
 

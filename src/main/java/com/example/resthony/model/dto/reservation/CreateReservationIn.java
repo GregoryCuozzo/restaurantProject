@@ -1,38 +1,36 @@
-package com.example.resthony.model.dto.restaurant;
+package com.example.resthony.model.dto.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.sql.Time;
+
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRestoIn {
+public class CreateReservationIn {
 
     @NotEmpty(message = "ce champ ne peut pas être vide")
     @Size(min = 10, max = 200)
-    public String nom;
+    public Integer client;
 
     @NotNull(message = "ce champ ne peut pas être vide")
-    public String adress;
+    public Time time;
 
     @NotNull(message= "ce champ ne peut pas être vide")
-    public Integer nbPlace;
+    public Integer restaurant;
 
     @NotEmpty(message= "ce champ ne peut pas être vide")
-    public String openingDay;
+    public Date date ;
 
 
-
-    @NotEmpty(message = "ce champ ne peut pas être vide")
-    public String email;
-
-    @NotNull(message = "ce champ ne peut pas être vide")
-    public Integer telephone;
 
 }

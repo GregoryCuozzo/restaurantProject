@@ -2,10 +2,7 @@ package com.example.resthony.model.entities;
 
 import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.utils.BCryptManagerUtil;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -20,17 +17,19 @@ import java.util.stream.Collectors;
  * Cette classe va gérer les utilisateurs de la plateforme
  */
 
+
 @Entity
 @Table(name = "users")
 @Data
-@Getter
-@Setter
-@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
-    private int id;
+    private Long id;
 
     @NotNull
     @Column(name = "username", nullable = false, unique = true)

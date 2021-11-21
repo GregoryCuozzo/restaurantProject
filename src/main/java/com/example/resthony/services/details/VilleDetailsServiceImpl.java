@@ -10,9 +10,12 @@ import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Service
 
 public class VilleDetailsServiceImpl implements VilleService {
     @Autowired

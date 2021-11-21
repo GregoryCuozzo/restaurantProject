@@ -1,4 +1,5 @@
-package com.example.resthony.controller.restaurant;
+package com.example.resthony.controller.admin;
+
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
 import com.example.resthony.services.principal.RestoService;
@@ -18,7 +19,6 @@ import javax.validation.Valid;
         private final RestoService restoService;
 
 
-
         @Autowired
         public RestaurantsController(RestoService restoService) {
             this.restoService = restoService;
@@ -27,7 +27,7 @@ import javax.validation.Valid;
         @GetMapping("/list")
         public String all(Model model){
             model.addAttribute("restos",restoService.getAll());
-            return "restaurants.html";
+            return "restaurant/restaurants.html";
 
         }
 
@@ -56,23 +56,24 @@ import javax.validation.Valid;
         } catch (NotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "l'utilisateur a été supprimé ");
+        ra.addFlashAttribute("message", "le restaurant a été supprimé ");
         return "redirect:/admin/restaurant/list";
     }
 
         @GetMapping("/update/{id}")
         public String update(@PathVariable("id") String id, Model model) {
             model.addAttribute("resto", restoService.get(Long.valueOf(id)));
-            return "update.html";
+            return "restaurant/update.html";
         }
 
         @PostMapping("/update")
-        public String updateResto(@Valid @ModelAttribute("resto") PatchRestoIn patchRestoIn, BindingResult bindingResult) {
+        public String updateResto(@Valid @ModelAttribute("resto") PatchRestoIn patchRestoIn, BindingResult bindingResult, RedirectAttributes ra) {
             if(bindingResult.hasErrors()) {
                 return "/update";
             }
 
             restoService.patch(patchRestoIn.getId(), patchRestoIn);
+            ra.addFlashAttribute("message", "le restaurant a été modifié  ");
 
             return "redirect:/web/resto/list";
         }

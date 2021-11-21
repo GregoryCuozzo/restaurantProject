@@ -15,11 +15,11 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CreateVilleIn {
 
-    @NotEmpty(message = "Name must not be empty")
+    @NotEmpty(message = "ce champ ne peut pas être vide")
     @Size(min = 10, max = 200)
     public String nom;
 
-    @NotNull(message = "Adress must not be empty")
+    @NotNull(message = "ce champ ne peut pas être vide")
     public Integer pays;
 
 

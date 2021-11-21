@@ -11,7 +11,6 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +110,7 @@ public class RestauDetailsServiceImpl implements RestoService {
                 .nom(createRestoIn.getNom())
                 .adress(createRestoIn.getAdress())
                 .nbPlace(createRestoIn.getNbPlace())
-                .OpeningDay(createRestoIn.getOpeningDay())
+                .openingDay(createRestoIn.getOpeningDay())
                 .email(createRestoIn.getEmail())
                 .telephone(createRestoIn.getTelephone())
                 .build();

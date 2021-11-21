@@ -30,13 +30,15 @@
 
 <!-- ---------------------------------- Nav bar ----------------------------------------- -->
 <div  >
-    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:250px;" >
+    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;" >
         <ul class="nav navbar-nav " style="padding-left:300px" >
-            <li class="nav-item"><a class="nav-link" th:href="@{/users/new}"><i class="fa fa-user-plus"></i> Inscription </a></li>
             <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="fa fa-user-plus"></i> Connexion  </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/users}"><i class="fa fa-user-plus"></i> Liste des inscrits </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation}"><i class="fa fa-user-plus"></i> Liste des réservations  </a></li>
-
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/create}"><i class="fa fa-user-plus"></i>  Nouvel utilisateur </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/list}"><i class="fa fa-user-plus"></i>  Utilisateurs </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/restaurant/list}"><i class="fa fa-user-plus"></i>  Restaurants </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation/list}"><i class="fa fa-user-plus"></i> Réservations  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/pays/list}"><i class="fa fa-user-plus"></i> Pays   </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/villes/list}"><i class="fa fa-user-plus"></i>  Villes </a></li>
         </ul>
 
     </nav>
@@ -46,18 +48,18 @@
 <h2 style="text-align:center;color:white;"> Page Administrateur </h2>
 <br>
 
-<table style="margin-left:200px;background-color:black;text-align:center;">
+<table style="margin-left:350px;background-color:black;text-align:center;">
     <tr style="color:white;">
         <th><p>Restaurants </p></th>
         <th><p>Utilisateurs</p></th>
         <th><p>Inscription</p></th>
-        <th><p> listes des réservations </p></th>
+
 
     </tr>
     <tr>
         <td>
             <div class="col-sm-4" >
-                <div class="card text-white bg-primary mb-3" style="width:230px">
+                <div class="card text-white bg-primary mb-3" style="width:250px">
                     <div class="card-header">
                         <div class="row" >
                             <div class="col-sm-8"style="padding-left:30px;">
@@ -91,7 +93,7 @@
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
                             <div class="float-sm-8" >
-                                <a th:href="@{/admin/users}"><p class=""> Utilisateur </p></a>
+                                <a th:href="@{/admin/user/list}"><p class=""> Utilisateur </p></a>
                                 <hr>
                                 <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des utilisateurs </p>
                             </div>
@@ -115,7 +117,7 @@
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
                             <div class="float-sm-8">
-                                <a th:href="@{/users/new}"><p class=""> Inscription </p></a>
+                                <a th:href="@{/admin/user/create}"><p class=""> Inscription </p></a>
                                 <hr>
                                 <p style="text-align:left;color:black;"> Cliquez ici pour inscrire un nouvel utilisateur  </p>
                             </div>
@@ -126,7 +128,39 @@
             </div>
         </td>
 
-        .....
+
+    </tr>
+
+    <tr style="color:white;" >
+        <th style="padding-top:30px"><p> listes des réservations </p></th>
+        <th style="padding-top:30px"><p> Liste des villes </p></th>
+        <th style="padding-top:30px"><p> Liste des pays </p></th>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="col-sm-4" >
+                <div class="card text-white bg-primary mb-3" style="width:250px">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-8" style="padding-left:40px;">
+                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item-primary list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="float-sm-8">
+                                <a th:href="@{/admin/reservation/list}"><p class=""> Réservation </p></a>
+                                <hr>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des réservations   </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
 
         <td>
             <div class="col-sm-4" >
@@ -141,9 +175,34 @@
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
                             <div class="float-sm-8">
-                                <a th:href="@{/admin/reservation}"><p class=""> Inscription </p></a>
+                                <a th:href="@{/admin/villes/list}"><p class=""> Villes </p></a>
                                 <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des réservations   </p>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des villes   </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+
+        <td>
+            <div class="col-sm-4" >
+                <div class="card text-white bg-primary mb-3" style="width:250px">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-8" style="padding-left:40px;">
+                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item-primary list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="float-sm-8">
+                                <a th:href="@{/admin/pays/list}"><p class=""> Pays </p></a>
+                                <hr>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des Pays  </p>
                             </div>
 
                         </div>
