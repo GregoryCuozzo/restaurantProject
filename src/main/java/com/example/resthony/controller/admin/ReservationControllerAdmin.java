@@ -1,0 +1,82 @@
+package com.example.resthony.controller.admin;
+
+
+import com.example.resthony.model.dto.reservation.CreateReservationIn;
+import com.example.resthony.model.dto.reservation.PatchReservationIn;
+import com.example.resthony.model.dto.restaurant.CreateRestoIn;
+import com.example.resthony.model.dto.restaurant.PatchRestoIn;
+import com.example.resthony.services.principal.ReservationService;
+import javassist.NotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+
+@Controller
+@RequestMapping("/admin/reservation")
+public class ReservationControllerAdmin {
+    private final ReservationService Service;
+
+    public ReservationControllerAdmin(ReservationService service) {
+        Service = service;
+    }
+
+
+    @GetMapping("/list")
+    public String all(Model model){
+        model.addAttribute("reservations",Service.getAll());
+        return "reservation/reservations.html";
+
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("reservations", new CreateReservationIn());
+        return "reservation/create.html";
+    }
+
+    @PostMapping("/create")
+    public String createResto(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "/create";
+        }
+
+        Service.create(createReservationIn);
+
+        return "redirect:/admin/reservation/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteResto(@PathVariable("id") Long id, RedirectAttributes ra) {
+        try {
+            Service.delete(id);
+
+        } catch (NotFoundException e) {
+
+        }
+        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        return "redirect:/admin/reservation/list";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable("id") String id, Model model) {
+        model.addAttribute("reservations", Service.get(Long.valueOf(id)));
+        return "reservation/update.html";
+    }
+
+    @PostMapping("/update")
+    public String updateResto(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
+        if(bindingResult.hasErrors()) {
+            return "/update";
+        }
+
+        Service.patch(patchReservationIn.getId(), patchReservationIn);
+        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+
+        return "redirect:/admin/reservation/list";
+    }
+
+}
