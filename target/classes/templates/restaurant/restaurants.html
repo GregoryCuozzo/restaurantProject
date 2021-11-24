@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title> Liste des restaurants</title>
+    <!-- ---------------------------------------- Bootstrap --------------------------------- -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- ---------------------------------------- CSS --------------------------------------- -->
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+    <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/solid.min.css}">
+
+</head>
+<img id="banner" th:src="@{/chefs.png}"/>
+<body>
+<div  >
+    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;" >
+        <ul class="nav navbar-nav " style="padding-left:300px" >
+            <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="fa fa-user-plus"></i> Connexion  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/create}"><i class="fa fa-user-plus"></i>  Nouvel utilisateur </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/list}"><i class="fa fa-user-plus"></i>  Utilisateurs </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/restaurant/list}"><i class="fa fa-user-plus"></i>  Restaurants </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation/list}"><i class="fa fa-user-plus"></i> Réservations  </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/pays/list}"><i class="fa fa-user-plus"></i> Pays   </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/admin/villes/list}"><i class="fa fa-user-plus"></i>  Villes </a></li>
+        </ul>
+
+    </nav>
+
+</div>
+
+<h1 style="text-align:center; color:white;"> Liste des restaurants  </h1>
+
+
+<div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+</div>
+
+<div class="tableau">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+
+            <th>id</th>
+            <th>nom</th>
+            <th>Adresse</th>
+            <th>Nombre de place</th>
+            <th>Jour d'ouverture</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="resto: ${restos}">
+            <tr>
+                <td th:text="${resto.id}">id</td>
+                <td th:text="${resto.nom}">Nom</td>
+                <td th:text="${resto.adress}">Adresse</td>
+                <td th:text="${resto.nbPlaces}">Nombre de places</td>
+                <td th:text="${resto.openingDay}">Jour d'ouverture</td>
+                <td th:text="${resto.email}">Email</td>
+                <td>
+                    <a th:href="@{'/admin/restaurant/update/' + ${resto.id}}">edit</a>
+
+                </td>
+                <td>
+                    <a th:href="@{'/admin/restaurant/delete/' + ${resto.id}}">delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter un restaurant </button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function redirectForm(){
+        window.location ="[[@{/users/new}]]";
+    }
+</script>
+</body>
+</html>
