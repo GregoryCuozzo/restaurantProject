@@ -68,7 +68,7 @@ public class PaysController {
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("pays") PatchPaysIn patchPaysIn, BindingResult bindingResult,RedirectAttributes ra) {
+    public String updatePays(@Valid @ModelAttribute("pays") PatchPaysIn patchPaysIn, BindingResult bindingResult,RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/update";
         }

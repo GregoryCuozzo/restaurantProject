@@ -21,8 +21,8 @@ create table restaurants (
                              id_restaurants bigint auto_increment  not null,
                              name varchar(255) not null,
                              adress text not null,
-                             nbPlace int not null,
-                             OpeningDay text not null,
+                             nb_place int not null,
+                             opening_day text not null,
                              email text,
                              telephone bigint,
                              ville bigint,
@@ -60,4 +60,8 @@ alter table roles add constraint FK40d4m5dluy4a79sk18r064avh foreign key (id_use
 alter table restaurants add constraint  FK_rest foreign key(restaurateur) references users(id_user) ;
 alter table reservations add constraint FK_user foreign key(client) references users(id_user) ;
 alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) ;
-alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE
+alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE;
+
+
+
+
