@@ -32,6 +32,8 @@ public class CreateUserIn {
     @NotEmpty(message= "ce champ ne peut pas être vide")
     public String password;
 
+    public int resto;
+
 
 
 

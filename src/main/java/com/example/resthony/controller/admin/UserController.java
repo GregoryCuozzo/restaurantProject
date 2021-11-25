@@ -1,10 +1,8 @@
 package com.example.resthony.controller.admin;
 
-import com.example.resthony.model.dto.restaurant.CreateRestoIn;
-import com.example.resthony.model.dto.restaurant.PatchRestoIn;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
-import com.example.resthony.model.entities.User;
+import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * User controller
@@ -27,13 +24,16 @@ import java.util.List;
 public class UserController {
 
     private final UserService service;
+    private final RestoService ServiceResto;
 
-    public UserController(UserService service) {
+    public UserController(UserService service, RestoService serviceResto) {
         this.service = service;
+        ServiceResto = serviceResto;
     }
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("Users",service.getAll());
+        model.addAttribute("restaurants",ServiceResto.getAll());
         return "user/users.html";
 
     }
@@ -71,6 +71,7 @@ public class UserController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("users", service.get(Long.valueOf(id)));
+        model.addAttribute("restaurants",ServiceResto.getAll());
         return "user/update.html";
     }
 

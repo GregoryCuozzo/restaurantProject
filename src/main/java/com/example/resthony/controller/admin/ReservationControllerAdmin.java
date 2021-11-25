@@ -3,9 +3,9 @@ package com.example.resthony.controller.admin;
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
-import com.example.resthony.model.dto.restaurant.CreateRestoIn;
-import com.example.resthony.model.dto.restaurant.PatchRestoIn;
 import com.example.resthony.services.principal.ReservationService;
+import com.example.resthony.services.principal.RestoService;
+import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +19,21 @@ import javax.validation.Valid;
 @RequestMapping("/admin/reservation")
 public class ReservationControllerAdmin {
     private final ReservationService Service;
+    private final RestoService ServiceResto;
+    private final UserService ServiceUser;
 
-    public ReservationControllerAdmin(ReservationService service) {
+    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser) {
         Service = service;
+        ServiceResto = serviceResto;
+        ServiceUser = serviceUser;
     }
 
 
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("reservations",Service.getAll());
+        model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("user",ServiceUser.getAll());
         return "reservation/reservations.html";
 
     }

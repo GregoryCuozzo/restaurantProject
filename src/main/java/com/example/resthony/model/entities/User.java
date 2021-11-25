@@ -73,6 +73,9 @@ public class User implements UserDetails {
     @Column (name="email")
     private String email;
 
+    @Column (name = "resto")
+    private int resto;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String roles = StringUtils.collectionToCommaDelimitedString(getRoles().stream()

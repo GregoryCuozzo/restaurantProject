@@ -115,7 +115,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail())
-
+                .resto(user.getResto())
                 .build();
         return userOut;
     }
@@ -127,6 +127,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .firstname(createUserIn.getFirstname())
                 .lastname(createUserIn.getLastname())
                 .email(createUserIn.getEmail())
+                .resto(createUserIn.getResto())
                 .password(createUserIn.getPassword())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
