@@ -21,7 +21,7 @@ public class UserOut {
 
     public String email;
 
-    public int resto;
+    public Integer resto;
 
 
 }

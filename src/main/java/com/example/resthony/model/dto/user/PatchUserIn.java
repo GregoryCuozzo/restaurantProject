@@ -33,7 +33,7 @@ public class PatchUserIn {
     @NotEmpty(message = "ce champ ne peut pas être vide")
     public String email;
 
-    public int resto;
+    public Integer resto;
 
 
 

@@ -74,7 +74,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column (name = "resto")
-    private int resto;
+    private Integer resto;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

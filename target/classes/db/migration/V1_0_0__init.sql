@@ -14,6 +14,7 @@ create table users (
                        password varchar(255) not null,
                        username varchar(255) not null,
                        email text,
+                       resto bigint,
                        primary key (id_user)
 ) engine=InnoDB;
 
