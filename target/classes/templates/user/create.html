@@ -73,6 +73,14 @@
                     <input type="password" th:field="*{password}" class="form-control" required  minlength="5" maxlength="15">
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Restaurant:</label>
+                <div class="col-sm-8">
+                    <select th:field="*{resto}">
+                        <option th:each="restaurant: ${restaurants}" th:value="${restaurant.id}" th:text="${restaurant.nom}"></option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group row" style="padding-left:200px;">
                 <button type="submit"  class="btn btn-primary m-2"> Inscription</button>
                 <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()" style="color:black;"> retour</button>
