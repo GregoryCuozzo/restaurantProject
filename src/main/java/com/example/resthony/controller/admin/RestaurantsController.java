@@ -3,6 +3,7 @@ package com.example.resthony.controller.admin;
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
 import com.example.resthony.services.principal.RestoService;
+import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,16 +18,19 @@ import javax.validation.Valid;
     @RequestMapping("/admin/restaurant")
     public class RestaurantsController {
         private final RestoService restoService;
+        private final VilleService villeService;
 
 
         @Autowired
-        public RestaurantsController(RestoService restoService) {
+        public RestaurantsController(RestoService restoService, VilleService villeService) {
             this.restoService = restoService;
+            this.villeService = villeService;
         }
 
         @GetMapping("/list")
         public String all(Model model){
             model.addAttribute("restos",restoService.getAll());
+            model.addAttribute("villes",villeService.getAll());
             return "restaurant/restaurants.html";
 
         }
@@ -34,6 +38,7 @@ import javax.validation.Valid;
         @GetMapping("/create")
         public String create(Model model) {
             model.addAttribute("resto", new CreateRestoIn());
+            model.addAttribute("villes",villeService.getAll());
             return "create.html";
         }
 
@@ -63,6 +68,7 @@ import javax.validation.Valid;
         @GetMapping("/update/{id}")
         public String update(@PathVariable("id") String id, Model model) {
             model.addAttribute("resto", restoService.get(Long.valueOf(id)));
+            model.addAttribute("villes",villeService.getAll());
             return "restaurant/update.html";
         }
 

@@ -46,6 +46,10 @@ public class Restaurant {
     @Column(name = "telephone", nullable = false)
     public Integer telephone;
 
+    @NotNull
+    @Column (name = "ville")
+    public Integer ville;
+
 
 
 

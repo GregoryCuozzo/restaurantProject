@@ -42,6 +42,7 @@ public class ReservationControllerUser {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("reservations", new CreateReservationIn());
+        model.addAttribute("restaurants",ServiceResto.getAll());
         return "reservation/create.html";
     }
 
