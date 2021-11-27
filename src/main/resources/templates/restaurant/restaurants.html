@@ -77,13 +77,14 @@
     </table>
     <div class="form-group row " style="padding-left:450px;">
         <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter un restaurant </button>
+        <a th:href="@{/admin/restaurant/create}"><p class="">ajouter un restaurant </p></a>
     </div>
 </div>
 
 
 <script type="text/javascript">
     function redirectForm(){
-        window.location ="[[@{/users/new}]]";
+        window.location ="@{/restaurant/create}";
     }
 </script>
 </body>

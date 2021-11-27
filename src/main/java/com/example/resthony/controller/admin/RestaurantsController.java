@@ -39,18 +39,18 @@ import javax.validation.Valid;
         public String create(Model model) {
             model.addAttribute("resto", new CreateRestoIn());
             model.addAttribute("villes",villeService.getAll());
-            return "create.html";
+            return "restaurant/create.html";
         }
 
         @PostMapping("/create")
-        public String createResto(@Valid @ModelAttribute("resto") CreateRestoIn createRestoIn, BindingResult bindingResult) {
+        public String createResto(@Valid @ModelAttribute("resto") CreateRestoIn createRestoIn, BindingResult bindingResult, Model model) {
             if(bindingResult.hasErrors()) {
-                return "/create";
+                return "restaurant/create.html";
             }
 
             restoService.create(createRestoIn);
-
-            return "redirect:/web/resto/list";
+            model.addAttribute("restos",restoService.getAll());
+            return "restaurant/restaurants.html";
         }
 
     @GetMapping("/delete/{id}")
