@@ -41,6 +41,7 @@ public class UserController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("users", new CreateUserIn());
+        model.addAttribute("restaurants",ServiceResto.getAll());
         return "user/create.html";
     }
 
