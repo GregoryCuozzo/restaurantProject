@@ -148,7 +148,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     }
 
     @Override
-    public String getCurrentUser(){
+    public User getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = "";
 
@@ -157,7 +157,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         } else {
             username = principal.toString();
         }
-        return username;
+        return userRepository.findByUsername(username);
     }
 
 }

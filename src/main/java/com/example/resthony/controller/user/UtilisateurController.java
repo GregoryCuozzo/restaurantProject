@@ -1,5 +1,6 @@
 package com.example.resthony.controller.user;
 
+import com.example.resthony.model.dto.user.PatchUserIn;
 import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.details.UsersDetailsServiceImpl;
 import com.example.resthony.services.principal.UserService;
@@ -9,8 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 /**
  * Admin controller
@@ -26,21 +33,21 @@ public class UtilisateurController {
     }
 
     @GetMapping
-    public String adminPage(Model model) {
+    public String userPage(Model model) {
 
-        return "user/index";
+        return "user/index.html";
     }
 
 
     @GetMapping("/profil")
+    //
     public String getUser(Model model){
-
-        String username = UserService.getCurrentUser();
-
-        model.addAttribute("User", service.findByUsername(username).getUsername());
-        return "user/index.html";
+        model.addAttribute("Username", service.getCurrentUser().getUsername());
+        return "user/profil.html";
 
     }
+
+
 
 
 

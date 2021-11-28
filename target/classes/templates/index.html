@@ -3,21 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Resthony home page </title>
-
-    <!-- ---------------------------------------- Bootstrap --------------------------------- -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- ---------------------------------------- CSS --------------------------------------- -->
-    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
-    <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
-    <link rel="stylesheet" th:href="@{/solid.min.css}">
-
-</head>
+<head th:replace="fragments :: header">
 
 
 <body>

@@ -18,6 +18,6 @@ public interface UserService {
     void delete(Long id) throws NotFoundException, UserNotFoundException;
     List<UserOut> getAll();
     UserOut findByUsername(String username);
-    String getCurrentUser();
+    User getCurrentUser();
 
 }
