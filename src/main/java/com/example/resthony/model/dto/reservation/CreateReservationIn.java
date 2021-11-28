@@ -31,6 +31,7 @@ public class CreateReservationIn {
     @NotEmpty(message= "ce champ ne peut pas être vide")
     public Date date ;
 
+    public Integer user ;
 
 
 }

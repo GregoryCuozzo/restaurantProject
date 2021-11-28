@@ -22,6 +22,10 @@ public class Reservation {
     private Long id;
 
     @NotNull
+    @Column(name= "nbCouverts", nullable = false)
+    private Integer nbCouverts;
+
+    @NotNull
     @Column(name = "date", nullable = false, unique = true)
     private Date date;
 
@@ -36,4 +40,8 @@ public class Reservation {
     @NotNull
     @Column(name = "client", nullable = false, unique = true)
     private Integer client;
+
+    @NotNull
+    @Column(name= "user")
+    private Integer user;
 }

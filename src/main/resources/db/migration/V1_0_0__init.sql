@@ -62,6 +62,8 @@ alter table restaurants add constraint  FK_rest foreign key(restaurateur) refere
 alter table reservations add constraint FK_user foreign key(client) references users(id_user) ;
 alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) ;
 alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE;
+alter table reservations add constraint FK_xIDuser foreign key(user) references users(id_user);
+
 
 
 

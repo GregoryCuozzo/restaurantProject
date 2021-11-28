@@ -25,7 +25,7 @@ public class ReservationOut {
 
     public Integer restaurant;
 
-
+    public Integer user;
 
 
 }

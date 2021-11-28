@@ -10,6 +10,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +28,12 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
     public ReservationOut get(Long id) {
         Reservation reservation = reservationRepository.findById(id).orElse(null);
 
-        if(reservation == null) return null;
+        if (reservation == null) return null;
 
         ReservationOut reservationOut = convertReservationEntityToReservationOut(reservation);
 
         return reservationOut;
     }
-
-
 
 
     @Override
@@ -57,7 +56,6 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
         return convertReservationEntityToReservationOut(newReservation);
     }
-
 
 
     @Override
@@ -111,8 +109,6 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
         return reservation;
     }
-
-
 
 
 }
