@@ -35,4 +35,8 @@ public class CreateRestoIn {
     @NotNull(message = "ce champ ne peut pas être vide")
     public Integer telephone;
 
+    @NotNull(message = "ce champ ne peut pas être vide")
+    public Integer ville;
+
+
 }

@@ -25,4 +25,6 @@ public class RestoOut {
 
     public Integer telephone;
 
+    public Integer ville;
+
 }
