@@ -32,7 +32,10 @@ public class PatchReservationIn {
     public Integer restaurant;
 
     @NotEmpty(message = "joursOuverture must have days name")
-    public Integer client;
+    public Integer user;
+
+    @NotNull(message="Le nombre de couverts doit au moins valoir 1")
+    public Integer nbCouverts;
 
 
 

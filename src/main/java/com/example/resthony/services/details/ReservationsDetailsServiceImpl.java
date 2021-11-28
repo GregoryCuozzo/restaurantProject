@@ -89,7 +89,7 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
         ReservationOut reservationOut = ReservationOut.builder()
                 .id(reservation.getId())
-                .client(reservation.getClient())
+                .user(reservation.getUser())
                 .date(reservation.getDate())
                 .time(reservation.getTime())
                 .restaurant(reservation.getRestaurant())
@@ -100,7 +100,7 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
     private Reservation convertReservationInToReservationEntity(CreateReservationIn createReservationIn) {
         Reservation reservation = Reservation.builder()
-                .client(createReservationIn.getClient())
+                .user(createReservationIn.getUser())
                 .time(createReservationIn.getTime())
                 .date(createReservationIn.getDate())
                 .restaurant(createReservationIn.getRestaurant())

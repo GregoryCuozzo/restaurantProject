@@ -39,9 +39,9 @@ public class Reservation {
 
     @NotNull
     @Column(name = "client", nullable = false, unique = true)
-    private Integer client;
+    private Integer user;
 
     @NotNull
     @Column(name= "user")
-    private Integer user;
+    private Integer admin;
 }

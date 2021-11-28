@@ -17,7 +17,7 @@ public class ReservationOut {
 
     public Long id;
 
-    public Integer client;
+    public Integer user;
 
     public Date date;
 
@@ -25,7 +25,9 @@ public class ReservationOut {
 
     public Integer restaurant;
 
-    public Integer user;
+    public Integer admin;
+
+    public Integer nbCouverts;
 
 
 }

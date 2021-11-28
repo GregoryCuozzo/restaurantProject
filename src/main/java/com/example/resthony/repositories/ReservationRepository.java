@@ -19,8 +19,8 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
 
     @Modifying
     @Transactional
-    @Query("update Reservation r set r.date = ?1, r.time = ?2, r.restaurant = ?3, r.client = ?4, r.user =?5 where r.id =?6")
-    int updateReservation(Date date, Time time, Integer restaurant, Integer client, Integer user, Long id);
+    @Query("update Reservation r set r.date = ?1, r.time = ?2, r.restaurant = ?3,r.nbCouverts= ?4, r.user = ?5, r.admin =?6 where r.id =?7")
+    int updateReservation(Date date, Time time, Integer restaurant,Integer nbCouverts, Integer user, Integer admin, Long id);
 
      // public long  countById(int id);
 }
