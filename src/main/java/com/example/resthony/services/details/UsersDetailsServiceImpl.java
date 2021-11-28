@@ -13,6 +13,7 @@ import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -66,6 +67,15 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         }
 
         return userOuts;
+    }
+
+    @Override
+    public UserOut findByUsername(String username){
+       User user = userRepository.findByUsername(username);
+
+        if(user == null) return null;;
+        UserOut userOut = convertUserEntityToUserOut(user);
+        return userOut;
     }
 
 
@@ -135,6 +145,19 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .credentialsNonExpired(true)
                 .build();
         return user;
+    }
+
+    @Override
+    public String getCurrentUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return username;
     }
 
 }

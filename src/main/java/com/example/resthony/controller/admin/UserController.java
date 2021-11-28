@@ -2,10 +2,13 @@ package com.example.resthony.controller.admin;
 
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
+import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
