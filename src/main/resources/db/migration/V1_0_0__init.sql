@@ -37,7 +37,8 @@ create table reservations (
                               time time not null,
                               nbCouverts bigint not null,
                               restaurant bigint,
-                              client bigint,
+                              user bigint,
+                              admin bigint,
                               primary key (id_reservation)
 ) engine=InnoDB;
 

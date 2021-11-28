@@ -65,7 +65,9 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 patchReservationIn.getDate(),
                 patchReservationIn.getTime(),
                 patchReservationIn.getRestaurant(),
-                patchReservationIn.getClient(),
+                patchReservationIn.getNbCouverts(),
+                patchReservationIn.getUser(),
+                patchReservationIn.getAdmin(),
                 id
         );
 
@@ -93,6 +95,8 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 .date(reservation.getDate())
                 .time(reservation.getTime())
                 .restaurant(reservation.getRestaurant())
+                .nbCouverts(reservation.getNbCouverts())
+                .admin(reservation.getAdmin())
                 .build();
         return reservationOut;
     }
@@ -104,6 +108,8 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 .time(createReservationIn.getTime())
                 .date(createReservationIn.getDate())
                 .restaurant(createReservationIn.getRestaurant())
+                .nbCouverts(createReservationIn.getNbCouverts())
+                .admin(createReservationIn.getAdmin())
                 .build();
 
 
