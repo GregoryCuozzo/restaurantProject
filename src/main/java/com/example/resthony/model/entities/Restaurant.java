@@ -32,21 +32,20 @@ public class Restaurant {
     public String adress;
 
     @NotNull
-    @Column(name = "nbPlace", nullable = false)
-    public int nbPlace;
+    @Column(name = "nb_place", nullable = false)
+    public int nb_place;
 
     @NotNull
-    @Column(name = "openingDay", nullable = false)
-    public String openingDay;
+    @Column(name = "opening_day", nullable = false)
+    public String opening_day;
 
     @Column(name = "email")
     public String email;
 
     @NotNull
     @Column(name = "telephone", nullable = false)
-    public Integer telephone;
+    public String telephone;
 
-    @NotNull
     @Column (name = "ville")
     public Integer ville;
 

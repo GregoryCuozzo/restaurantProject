@@ -66,8 +66,8 @@ public class RestauDetailsServiceImpl implements RestoService {
         restauRepository.updateResto(
                 patchRestoIn.getNom(),
                 patchRestoIn.getAdress(),
-                patchRestoIn.getNbPlace(),
-                patchRestoIn.getOpeningDay(),
+                patchRestoIn.getNb_place(),
+                patchRestoIn.getOpening_day(),
                 patchRestoIn.getEmail(),
                 patchRestoIn.getTelephone(),
                 id
@@ -95,8 +95,8 @@ public class RestauDetailsServiceImpl implements RestoService {
                 .id(restaurant.getId())
                 .nom(restaurant.getNom())
                 .adress(restaurant.getAdress())
-                .nbPlaces(restaurant.getNbPlace())
-                .openingDay(restaurant.getOpeningDay())
+                .nb_place(restaurant.getNb_place())
+                .opening_day(restaurant.getOpening_day())
                 .email(restaurant.getEmail())
                 .telephone((restaurant.getTelephone()))
 
@@ -109,8 +109,8 @@ public class RestauDetailsServiceImpl implements RestoService {
         Restaurant restaurant = Restaurant.builder()
                 .nom(createRestoIn.getNom())
                 .adress(createRestoIn.getAdress())
-                .nbPlace(createRestoIn.getNbPlace())
-                .openingDay(createRestoIn.getOpeningDay())
+                .nb_place(createRestoIn.getNb_place())
+                .opening_day(createRestoIn.getOpening_day())
                 .email(createRestoIn.getEmail())
                 .telephone(createRestoIn.getTelephone())
                 .build();

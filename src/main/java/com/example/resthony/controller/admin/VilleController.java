@@ -26,13 +26,13 @@ public class VilleController {
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("villes", villeService.getAll());
-        return "villes/villes.html";
+        return "/admin/villes/villes.html";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("ville", new CreateVilleIn());
-        return "create.html";
+        return "/admin/villes/create.html";
     }
 
     @PostMapping("/create")
@@ -61,7 +61,7 @@ public class VilleController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("ville", villeService.get(Long.valueOf(id)));
-        return "ville/update.html";
+        return "admin/villes/villes/update.html";
     }
 
     @PostMapping("/update")

@@ -4,46 +4,15 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
 
-        <title>Admin Dashboard</title>
-        <!-- ---------------------------------------- Bootstrap --------------------------------- -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <!-- ---------------------------------------- CSS --------------------------------------- -->
-        <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
-        <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
-        <link rel="stylesheet" th:href="@{/solid.min.css}">
-
-    </head>
-
+<head th:replace="fragments :: header">
+</head>
 
 
 
 <body>
 
-<!-- ---------------------------------- Banner import ----------------------------------- -->
-<img id="banner" th:src="@{/chefs.png}"/>
-
-<!-- ---------------------------------- Nav bar ----------------------------------------- -->
-<div  >
-    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;" >
-        <ul class="nav navbar-nav " style="padding-left:300px" >
-            <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="fa fa-user-plus"></i> Connexion  </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/create}"><i class="fa fa-user-plus"></i>  Nouvel utilisateur </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/list}"><i class="fa fa-user-plus"></i>  Utilisateurs </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/restaurant/list}"><i class="fa fa-user-plus"></i>  Restaurants </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation/list}"><i class="fa fa-user-plus"></i> Réservations  </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/pays/list}"><i class="fa fa-user-plus"></i> Pays   </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/villes/list}"><i class="fa fa-user-plus"></i>  Villes </a></li>
-        </ul>
-
-    </nav>
-
-</div>
+<div th:replace="fragments :: navbarAdmin"/>
 
 <h2 style="text-align:center;color:white;"> Page Administrateur </h2>
 <br>
@@ -93,7 +62,7 @@
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
                             <div class="float-sm-8" >
-                                <a th:href="@{/admin/user/list}"><p class=""> Utilisateur </p></a>
+                                <a th:href="@{/admin/users/list}"><p class=""> Utilisateur </p></a>
                                 <hr>
                                 <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des utilisateurs </p>
                             </div>
@@ -117,7 +86,7 @@
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
                             <div class="float-sm-8">
-                                <a th:href="@{/admin/user/create}"><p class=""> Inscription </p></a>
+                                <a th:href="@{/admin/users/create}"><p class=""> Inscription </p></a>
                                 <hr>
                                 <p style="text-align:left;color:black;"> Cliquez ici pour inscrire un nouvel utilisateur  </p>
                             </div>

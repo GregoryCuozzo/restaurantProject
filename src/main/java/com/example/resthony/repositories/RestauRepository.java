@@ -15,8 +15,8 @@ import javax.transaction.Transactional;
 public interface RestauRepository extends JpaRepository<Restaurant, Long> {
     @Modifying
     @Transactional
-    @Query("update Restaurant r set r.nom = ?1, r.adress = ?2, r.nbPlace = ?3, r.openingDay = ?4, r.email= ?5, r.telephone = ?6 where r.id =?7")
-   int updateResto(String Nom, String Adress, Integer NbPlace, String openingDay, String Email, Integer Telephone, Long id);
+    @Query("update Restaurant r set r.nom = ?1, r.adress = ?2, r.nb_place = ?3, r.opening_day = ?4, r.email= ?5, r.telephone = ?6 where r.id =?7")
+   int updateResto(String Nom, String Adress, Integer nb_place, String opening_day, String Email, String Telephone, Long id);
 
 //    public long  countById(int id);
 

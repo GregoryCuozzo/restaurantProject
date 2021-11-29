@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -47,6 +48,7 @@ public class User implements UserDetails {
     @Column(name = "firstname", nullable = false)
     private String firstname;
 
+
     @ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
     @Cascade(value = org.hibernate.annotations.CascadeType.REMOVE)
     @JoinTable(
@@ -54,6 +56,7 @@ public class User implements UserDetails {
             name = "roles",
             joinColumns = @JoinColumn(name = "id_user")
     )
+
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Collection<RoleEnum> roles;
@@ -87,6 +90,10 @@ public class User implements UserDetails {
         if(!password.isEmpty()) {
             this.password = BCryptManagerUtil.passwordEncoder().encode(password);
         }
+    }
+
+    public String getUsername(){
+        return username;
     }
 
 

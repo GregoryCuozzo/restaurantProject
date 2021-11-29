@@ -2,10 +2,13 @@ package com.example.resthony.controller.admin;
 
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
+import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +23,7 @@ import javax.validation.Valid;
  */
 @Controller
 @Component
-@RequestMapping("/admin/user")
+@RequestMapping("/admin/users")
 public class UserController {
 
     private final UserService service;
@@ -34,7 +37,7 @@ public class UserController {
     public String all(Model model){
         model.addAttribute("Users",service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "user/users.html";
+        return "/admin/users/users.html";
 
     }
 
@@ -42,11 +45,11 @@ public class UserController {
     public String create(Model model) {
         model.addAttribute("users", new CreateUserIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "user/create.html";
+        return "/admin/users/create.html";
     }
 
     @PostMapping("/create")
-    public String createResto(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult,RedirectAttributes ra ) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult,RedirectAttributes ra ) {
         if(bindingResult.hasErrors()) {
             return "/create";
         }
@@ -54,7 +57,7 @@ public class UserController {
         service.create(createUserIn);
         ra.addFlashAttribute("message", "l'utilisateur  a été rajouté ");
 
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/users/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -66,7 +69,7 @@ public class UserController {
 
         }
         ra.addFlashAttribute("message", "l'utilisateur  a été supprimé ");
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/users/list";
     }
 
     @GetMapping("/update/{id}")
@@ -77,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/update";
         }
@@ -85,7 +88,7 @@ public class UserController {
         service.patch(patchUserIn.getId(), patchUserIn);
         ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
 
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/users/list";
     }
 
 

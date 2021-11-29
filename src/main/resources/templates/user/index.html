@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>User</title>
-</head>
-<body>
-    <h1>User page</h1>
 
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: header">
+</head>
+
+<body>
+    <div th:replace="fragments :: navbarUser"/>
+    <h2>Accueil</h2>
 </body>
 </html>

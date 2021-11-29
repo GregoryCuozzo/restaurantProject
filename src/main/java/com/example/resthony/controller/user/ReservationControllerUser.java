@@ -35,7 +35,7 @@ public class ReservationControllerUser {
         model.addAttribute("reservations",Service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("user",ServiceUser.getAll());
-        return "reservation/reservations.html";
+        return "/user/reservation/list.html";
 
     }
 
@@ -43,7 +43,7 @@ public class ReservationControllerUser {
     public String create(Model model) {
         model.addAttribute("reservations", new CreateReservationIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "reservation/create.html";
+        return "/user/reservation/create.html";
     }
 
     @PostMapping("/create")
@@ -72,7 +72,7 @@ public class ReservationControllerUser {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("reservations", Service.get(Long.valueOf(id)));
-        return "reservation/update.html";
+        return "/user/reservation/update.html";
     }
 
     @PostMapping("/update")

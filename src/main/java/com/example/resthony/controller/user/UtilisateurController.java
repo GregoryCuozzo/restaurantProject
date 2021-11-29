@@ -1,11 +1,23 @@
 package com.example.resthony.controller.user;
 
+import com.example.resthony.model.dto.user.PatchUserIn;
+import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.details.UsersDetailsServiceImpl;
+import com.example.resthony.services.principal.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 /**
  * Admin controller
@@ -14,15 +26,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UtilisateurController {
 
-    @Autowired
-    private UsersDetailsServiceImpl service;
+    private final UserService service;
 
-    @GetMapping
-    public String adminPage(Model model) {
-
-        return "user/index";
+    public UtilisateurController(UserService service) {
+        this.service = service;
     }
 
+    @GetMapping
+    public String userPage(Model model) {
+
+        return "/user/index.html";
+
+    }
+
+
+    @GetMapping("/profil")
+    //
+    public String getUser(Model model){
+        model.addAttribute("user", service.getCurrentUser());
+        return "/user/profil.html";
+
+    }
+
+    @PostMapping("/update")
+    public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+        if(bindingResult.hasErrors()) {
+            return "redirect:/user/profil";
+        }
+
+        service.patch(patchUserIn.getId(), patchUserIn);
+        ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
+
+        return "redirect:/user/profil";
+    }
 
 
 
