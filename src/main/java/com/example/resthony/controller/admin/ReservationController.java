@@ -46,18 +46,19 @@ public class ReservationController {
     }
 
     @PostMapping("/create")
-    public String createResto(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
             return "/create";
+
         }
 
         Service.create(createReservationIn);
-
         return "redirect:/admin/reservation/list";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteResto(@PathVariable("id") Long id, RedirectAttributes ra) {
+    public String deleteReservation(@PathVariable("id") Long id, RedirectAttributes ra) {
         try {
             Service.delete(id);
 
@@ -75,8 +76,9 @@ public class ReservationController {
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateReservation(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
             return "/update";
         }
 

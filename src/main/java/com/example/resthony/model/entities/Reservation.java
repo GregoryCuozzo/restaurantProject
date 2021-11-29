@@ -22,8 +22,8 @@ public class Reservation {
     private Long id;
 
     @NotNull
-    @Column(name= "nbCouverts", nullable = false)
-    private Integer nbCouverts;
+    @Column(name= "nbcouverts", nullable = false)
+    private Integer nbcouverts;
 
     @NotNull
     @Column(name = "date", nullable = false, unique = true)

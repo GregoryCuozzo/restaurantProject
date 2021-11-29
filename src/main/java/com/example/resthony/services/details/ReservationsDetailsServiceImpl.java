@@ -95,7 +95,7 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 .date(reservation.getDate())
                 .time(reservation.getTime())
                 .restaurant(reservation.getRestaurant())
-                .nbCouverts(reservation.getNbCouverts())
+                .nbcouverts(reservation.getNbcouverts())
                 .admin(reservation.getAdmin())
                 .build();
         return reservationOut;
