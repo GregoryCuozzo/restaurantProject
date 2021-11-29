@@ -38,10 +38,11 @@ public class Reservation {
     private Integer restaurant;
 
     @NotNull
-    @Column(name = "client", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user", nullable = false, unique = true)
     private Integer user;
 
     @NotNull
-    @Column(name= "user")
+    @Column(name= "admin")
     private Integer admin;
 }

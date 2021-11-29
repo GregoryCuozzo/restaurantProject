@@ -35,7 +35,7 @@ public class PatchReservationIn {
     public Integer user;
 
     @NotNull(message="Le nombre de couverts doit au moins valoir 1")
-    public Integer nbCouverts;
+    public Integer nbcouverts;
 
     public Integer admin;
 

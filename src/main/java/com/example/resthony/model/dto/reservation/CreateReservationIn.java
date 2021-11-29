@@ -32,7 +32,7 @@ public class CreateReservationIn {
     public Date date ;
 
     @NotNull(message = "il faut avoir au moins un couvert")
-    public Integer nbCouverts;
+    public Integer nbcouverts;
 
     public Integer admin ;
 

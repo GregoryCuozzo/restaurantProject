@@ -27,7 +27,7 @@ public class ReservationOut {
 
     public Integer admin;
 
-    public Integer nbCouverts;
+    public Integer nbcouverts;
 
 
 }

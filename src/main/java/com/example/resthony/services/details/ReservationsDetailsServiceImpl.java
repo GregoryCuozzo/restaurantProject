@@ -65,7 +65,7 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 patchReservationIn.getDate(),
                 patchReservationIn.getTime(),
                 patchReservationIn.getRestaurant(),
-                patchReservationIn.getNbCouverts(),
+                patchReservationIn.getNbcouverts(),
                 patchReservationIn.getUser(),
                 patchReservationIn.getAdmin(),
                 id
@@ -108,7 +108,7 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 .time(createReservationIn.getTime())
                 .date(createReservationIn.getDate())
                 .restaurant(createReservationIn.getRestaurant())
-                .nbCouverts(createReservationIn.getNbCouverts())
+                .nbcouverts(createReservationIn.getNbcouverts())
                 .admin(createReservationIn.getAdmin())
                 .build();
 
