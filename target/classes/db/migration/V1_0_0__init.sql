@@ -25,7 +25,7 @@ create table restaurants (
                              nb_place int not null,
                              opening_day text not null,
                              email text,
-                             telephone bigint,
+                             telephone text not null,
                              ville bigint,
                              primary key (id_restaurants),
                              restaurateur bigint

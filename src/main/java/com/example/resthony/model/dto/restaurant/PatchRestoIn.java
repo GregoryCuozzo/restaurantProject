@@ -26,10 +26,10 @@ public class PatchRestoIn {
     public String adress;
 
     @NotNull(message = "ce champ ne peut pas être vide")
-    public Integer nbPlace;
+    public Integer nb_place;
 
     @NotEmpty(message = "ce champ ne peut pas être vide")
-    public String openingDay;
+    public String opening_day;
 
 
 
@@ -37,7 +37,7 @@ public class PatchRestoIn {
     public String email;
 
     @NotNull(message = "ce champ ne peut pas être vide")
-    public Integer telephone;
+    public String telephone;
 
     @NotNull(message = "ce champ ne peut pas être vide")
     public Integer ville;

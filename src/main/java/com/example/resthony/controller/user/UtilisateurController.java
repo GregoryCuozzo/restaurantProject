@@ -35,7 +35,7 @@ public class UtilisateurController {
     @GetMapping
     public String userPage(Model model) {
 
-        return "user/index.html";
+        return "/user/index.html";
 
     }
 
@@ -44,7 +44,7 @@ public class UtilisateurController {
     //
     public String getUser(Model model){
         model.addAttribute("user", service.getCurrentUser());
-        return "user/profil.html";
+        return "/user/profil.html";
 
     }
 

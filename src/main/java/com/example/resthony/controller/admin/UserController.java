@@ -23,7 +23,7 @@ import javax.validation.Valid;
  */
 @Controller
 @Component
-@RequestMapping("/admin/user")
+@RequestMapping("/admin/users")
 public class UserController {
 
     private final UserService service;
@@ -37,7 +37,7 @@ public class UserController {
     public String all(Model model){
         model.addAttribute("Users",service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "user/users.html";
+        return "/admin/users/users.html";
 
     }
 
@@ -45,7 +45,7 @@ public class UserController {
     public String create(Model model) {
         model.addAttribute("users", new CreateUserIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "user/create.html";
+        return "/admin/users/create.html";
     }
 
     @PostMapping("/create")
@@ -57,7 +57,7 @@ public class UserController {
         service.create(createUserIn);
         ra.addFlashAttribute("message", "l'utilisateur  a été rajouté ");
 
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/users/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -69,7 +69,7 @@ public class UserController {
 
         }
         ra.addFlashAttribute("message", "l'utilisateur  a été supprimé ");
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/users/list";
     }
 
     @GetMapping("/update/{id}")
@@ -88,7 +88,7 @@ public class UserController {
         service.patch(patchUserIn.getId(), patchUserIn);
         ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
 
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/users/list";
     }
 
 

@@ -46,15 +46,11 @@
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter une ville </button>
+        <a th:href="@{/admin/villes/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Ajouter une ville</button>
+        </a>
     </div>
 </div>
 
 
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/users/new}]]";
-    }
-</script>
 </body>
 </html>ml>

@@ -33,8 +33,8 @@
                 <td th:text="${resto.id}">id</td>
                 <td th:text="${resto.nom}">Nom</td>
                 <td th:text="${resto.adress}">Adresse</td>
-                <td th:text="${resto.nbPlaces}">Nombre de places</td>
-                <td th:text="${resto.openingDay}">Jour d'ouverture</td>
+                <td th:text="${resto.nb_place}">Nombre de places</td>
+                <td th:text="${resto.opening_day}">Jour d'ouverture</td>
                 <td th:text="${resto.email}">Email</td>
                 <td>
                     <a th:href="@{'/admin/restaurant/update/' + ${resto.id}}">edit</a>
@@ -48,16 +48,10 @@
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter un restaurant </button>
         <a th:href="@{/admin/restaurant/create}"><p class="">ajouter un restaurant </p></a>
     </div>
 </div>
 
 
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="@{/restaurant/create}";
-    }
-</script>
 </body>
 </html>

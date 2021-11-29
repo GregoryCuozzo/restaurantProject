@@ -17,12 +17,12 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/reservation")
-public class ReservationControllerAdmin {
+public class ReservationController {
     private final ReservationService Service;
     private final RestoService ServiceResto;
     private final UserService ServiceUser;
 
-    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser) {
+    public ReservationController(ReservationService service, RestoService serviceResto, UserService serviceUser) {
         Service = service;
         ServiceResto = serviceResto;
         ServiceUser = serviceUser;
@@ -34,7 +34,7 @@ public class ReservationControllerAdmin {
         model.addAttribute("reservations",Service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("user",ServiceUser.getAll());
-        return "reservation/reservations.html";
+        return "/admin/reservation/reservations.html";
 
     }
 
@@ -42,7 +42,7 @@ public class ReservationControllerAdmin {
     public String create(Model model) {
         model.addAttribute("reservations", new CreateReservationIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "reservation/create.html";
+        return "/admin/reservation/create.html";
     }
 
     @PostMapping("/create")
@@ -71,7 +71,7 @@ public class ReservationControllerAdmin {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("reservations", Service.get(Long.valueOf(id)));
-        return "reservation/update.html";
+        return "/admin/reservation/update.html";
     }
 
     @PostMapping("/update")

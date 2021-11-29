@@ -17,13 +17,13 @@ public class RestoOut {
 
     public String adress;
 
-    public Integer nbPlaces;
+    public Integer nb_place;
 
-    public String openingDay;
+    public String opening_day;
 
     public String email;
 
-    public Integer telephone;
+    public String telephone;
 
     public Integer ville;
 

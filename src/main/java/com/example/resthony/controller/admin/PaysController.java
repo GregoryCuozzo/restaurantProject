@@ -27,14 +27,14 @@ public class PaysController {
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("pays",paysService.getAll());
-        return "pays/pays.html";
+        return "/admin/pays/pays.html";
 
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pays", new CreatePaysIn());
-        return "pays/create.html";
+        return "/admin/pays/create.html";
     }
 
     @PostMapping("/create")
@@ -64,7 +64,7 @@ public class PaysController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("pays", paysService.get(Long.valueOf(id)));
-        return "pays/update.html";
+        return "/admin/pays/update.html";
     }
 
     @PostMapping("/update")
