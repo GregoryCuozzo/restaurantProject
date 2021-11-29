@@ -5,5 +5,4 @@ public enum RoleEnum {
     USER,
     ADMIN,
     restaurateur,
-    VISITOR
 }

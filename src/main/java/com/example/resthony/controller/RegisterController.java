@@ -39,8 +39,7 @@ public class RegisterController {
         // String uncryptedPass = createUserIn.getPassword();
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
-        UserOut user = service.register(createUserIn);
-        ra.addFlashAttribute("message", "Votre compte a bien été crée");
+        service.register(createUserIn);
         // response.login(createUserIn.getUsername(), uncryptedPass);
         return "redirect:/user/index.html";
     }

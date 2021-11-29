@@ -8,6 +8,7 @@ import com.example.resthony.model.dto.user.PatchUserIn;
 import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.entities.User;
 import javassist.NotFoundException;
+import org.springframework.ui.Model;
 
 import java.util.List;
 

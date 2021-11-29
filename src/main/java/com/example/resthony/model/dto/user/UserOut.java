@@ -1,9 +1,12 @@
 package com.example.resthony.model.dto.user;
 
+import com.example.resthony.constants.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Collection;
 
 @Data
 @Builder
@@ -22,6 +25,8 @@ public class UserOut {
     public String email;
 
     public Integer resto;
+
+    public Collection<RoleEnum> roles;
 
 
 }
