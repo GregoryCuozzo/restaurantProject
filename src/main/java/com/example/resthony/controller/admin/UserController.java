@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createResto(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult,RedirectAttributes ra ) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult,RedirectAttributes ra ) {
         if(bindingResult.hasErrors()) {
             return "/create";
         }
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/update";
         }

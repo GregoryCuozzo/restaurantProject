@@ -38,7 +38,7 @@
                         <div class="list-group-item-primary list-group-item list-group-item-action">
                             <div class="row">
                                 <div class="float-sm-8" >
-                                    <a th:href="@{/users/new}"><p class="">Inscription </p></a>
+                                    <a th:href="@{/register}"><p class="">Inscription </p></a>
                                     <hr>
                                     <p style="text-align:left;color:black;">
                                         Cliquez ici pour avoir vous inscrire et bénéficier des avantages utilisateur
@@ -49,6 +49,7 @@
                     </div>
                 </div>
             </td>
+
             <td>
                 <div class="col-sm-4">
                     <div class="card text-white bg-primary mb-3" style="width:250px">
@@ -103,7 +104,7 @@
         </tr>
 
     </table>
-
+    <a th:href="@{/logout}"> <button type="submit" name="login" class="btn btn-warning"> Se déconnecter </button></a>
     <br><br>
 
 </body>

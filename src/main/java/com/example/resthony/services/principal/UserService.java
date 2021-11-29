@@ -14,6 +14,7 @@ import java.util.List;
 public interface UserService {
     UserOut get(Long id);
     UserOut create(CreateUserIn createUserIn);
+    UserOut register(CreateUserIn createUserIn);
     UserOut patch(Long id, PatchUserIn patchUserIn);
     void delete(Long id) throws NotFoundException, UserNotFoundException;
     List<UserOut> getAll();

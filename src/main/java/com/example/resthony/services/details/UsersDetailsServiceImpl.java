@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,11 +85,18 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     @Override
     public UserOut create(CreateUserIn createUserIn) {
         User user = convertUserInToUserEntity(createUserIn);
-
         User newUser = userRepository.save(user);
-
         return convertUserEntityToUserOut(newUser);
     }
+
+    @Override
+    public UserOut register(CreateUserIn createUserIn) {
+        User user = convertUserInToUserEntity(createUserIn);
+        User newUser = userRepository.save(user);
+        userRepository.createUser(newUser.getId(), "USER");
+        return convertUserEntityToUserOut(newUser);
+    }
+
 
     @Override
     public UserOut patch(Long id, PatchUserIn patchUserIn) {

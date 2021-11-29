@@ -36,18 +36,29 @@ public class UtilisateurController {
     public String userPage(Model model) {
 
         return "user/index.html";
+
     }
 
 
     @GetMapping("/profil")
     //
     public String getUser(Model model){
-        model.addAttribute("Username", service.getCurrentUser().getUsername());
+        model.addAttribute("user", service.getCurrentUser());
         return "user/profil.html";
 
     }
 
+    @PostMapping("/update")
+    public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+        if(bindingResult.hasErrors()) {
+            return "redirect:/user/profil";
+        }
 
+        service.patch(patchUserIn.getId(), patchUserIn);
+        ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
+
+        return "redirect:/user/profil";
+    }
 
 
 
