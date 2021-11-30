@@ -1,4 +1,4 @@
-package com.example.resthony.controller.admin;
+package com.example.resthony.controller.restaurateur;
 
 
 import com.example.resthony.model.dto.pays.CreatePaysIn;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/admin/pays")
+@RequestMapping("/restaurateur/pays")
 public class PaysController {
     private final PaysService paysService;
 
@@ -27,14 +27,14 @@ public class PaysController {
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("pays",paysService.getAll());
-        return "/admin/pays/pays.html";
+        return "/restaurateur/pays/pays.html";
 
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pays", new CreatePaysIn());
-        return "/admin/pays/create.html";
+        return "/restaurateur/pays/create.html";
     }
 
     @PostMapping("/create")
@@ -46,7 +46,7 @@ public class PaysController {
         paysService.create(createPaysIn);
         ra.addFlashAttribute("message", "le Pays à été rajouté ");
 
-        return "redirect:/admin/pays/list";
+        return "redirect:/restaurateur/pays/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -58,13 +58,13 @@ public class PaysController {
 
         }
         ra.addFlashAttribute("message", "Le pays a été supprimé ");
-        return "redirect:/admin/pays/list";
+        return "redirect:/restaurateur/pays/list";
     }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("pays", paysService.get(Long.valueOf(id)));
-        return "/admin/pays/update.html";
+        return "/restaurateur/pays/update.html";
     }
 
     @PostMapping("/update")
@@ -76,7 +76,7 @@ public class PaysController {
         paysService.patch(patchPaysIn.getId(), patchPaysIn);
         ra.addFlashAttribute("message", "le pays a été modifié  ");
 
-        return "redirect:/admin/pays/list";
+        return "redirect:/restaurateur/pays/list";
     }
 
 

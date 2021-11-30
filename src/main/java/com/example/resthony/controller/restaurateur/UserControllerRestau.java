@@ -1,17 +1,13 @@
-package com.example.resthony.controller.admin;
+package com.example.resthony.controller.restaurateur;
 
 import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
-import com.example.resthony.model.dto.user.UserOut;
-import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
 import com.example.resthony.utils.BCryptManagerUtil;
 import javassist.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -28,13 +22,13 @@ import javax.validation.Valid;
  */
 @Controller
 @Component
-@RequestMapping("/admin/users")
-public class UserController {
+@RequestMapping("/restaurateur/user")
+public class UserControllerRestau {
 
     private final UserService service;
     private final RestoService ServiceResto;
 
-    public UserController(UserService service, RestoService serviceResto) {
+    public UserControllerRestau(UserService service, RestoService serviceResto) {
         this.service = service;
         ServiceResto = serviceResto;
     }
@@ -42,7 +36,7 @@ public class UserController {
     public String all(Model model){
         model.addAttribute("Users",service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "/admin/users/users.html";
+        return "/restaurateur/users/users.html";
 
     }
 
@@ -51,19 +45,19 @@ public class UserController {
         model.addAttribute("users", new CreateUserIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("rolesList", RoleEnum.values());
-        return "/admin/users/create.html";
+        return "/restaurateur/user/create.html";
     }
 
     @PostMapping("/create")
     public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra, @Valid String role) {
         if (bindingResult.hasErrors()) {
             ra.addFlashAttribute("warning", "Problème avec le register");
-            return "/admin/users/create";
+            return "/restaurateur/user/create";
         }
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
         service.create(createUserIn);
-        return "redirect:/admin/users/list";
+        return "redirect:/restaurateur/user/list";
     }
 
 
@@ -76,14 +70,14 @@ public class UserController {
 
         }
         ra.addFlashAttribute("message", "l'utilisateur  a été supprimé ");
-        return "redirect:/admin/users/list";
+        return "redirect:/restaurateur/user/list";
     }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("users", service.get(Long.valueOf(id)));
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "user/update.html";
+        return "/restaurateur/users/update.html";
     }
 
     @PostMapping("/update")
@@ -95,7 +89,7 @@ public class UserController {
         service.patch(patchUserIn.getId(), patchUserIn);
         ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
 
-        return "redirect:/admin/users/list";
+        return "redirect:/restaurateur/user/list";
     }
 
 

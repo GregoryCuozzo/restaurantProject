@@ -8,14 +8,14 @@
 
 <body>
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 <h2 style="text-align:center;color:white;"> Ajouter un utilisateur </h2>
 
 
 <div >
 
-    <form th:action="@{/admin/user/create}" method="post" th:object="${users}" style="width:500px; margin: 0 auto;color:white;">
+    <form th:action="@{/restaurateur/user/create}" method="post" th:object="${users}" style="width:500px; margin: 0 auto;color:white;">
 
         <hr>
         <div class="border border-secondary rounded p-3">
@@ -71,18 +71,12 @@
 
             <div class="form-group row" style="padding-left:200px;">
                 <button type="submit"  class="btn btn-primary m-2"> Inscription</button>
-                <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()" style="color:black;"> retour</button>
             </div>
 
         </div>
     </form>
 </div>
 
-<script type="text/javascript">
-    function cancelForm(){
-        window.location ="[[@{/}]]";
-    }
-</script>
 
 </body>
 

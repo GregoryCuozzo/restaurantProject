@@ -8,11 +8,11 @@
 <body>
 
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 <h2 style="text-align:center;color:white;"> Page de modification restaurant </h2>
 
-<form th:action="@{/admin/pays/update}" method="post" th:object="${pays}" style="width:500px; margin: 0 auto;color:white;">
+<form th:action="@{/restaurateur/pays/update}" method="post" th:object="${pays}" style="width:500px; margin: 0 auto;color:white;">
   <input type="hidden" th:field="*{id}">
   <hr>
   <div class="border border-secondary rounded p-3">

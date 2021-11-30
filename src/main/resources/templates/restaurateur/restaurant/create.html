@@ -4,14 +4,14 @@
 
 <body>
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 
 <h1 style="text-align:center; color:white;"> Ajouter un restaurant  </h1>
 
 <div >
 
-    <form th:action="@{/admin/restaurant/create}" method="post" th:object="${resto}" style="width:500px; margin: 0 auto;color:white;">
+    <form th:action="@{/restaurateur/restaurant/create}" method="post" th:object="${resto}" style="width:500px; margin: 0 auto;color:white;">
 
         <hr>
         <div class="border border-secondary rounded p-3">
