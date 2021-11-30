@@ -4,6 +4,7 @@ import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.services.principal.UserService;
 import com.example.resthony.utils.BCryptManagerUtil;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

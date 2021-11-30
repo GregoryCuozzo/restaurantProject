@@ -118,6 +118,13 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     }
 
     @Override
+    public UserOut updatePass(Long id, String password){
+        userRepository.updatePass(id,password);
+        User userEntity = userRepository.getById(id);
+        return convertUserEntityToUserOut(userEntity);
+    }
+
+    @Override
     public void delete(Long id) throws NotFoundException {
 
         try{
