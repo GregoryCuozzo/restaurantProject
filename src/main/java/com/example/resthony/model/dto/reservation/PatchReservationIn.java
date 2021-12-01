@@ -32,7 +32,7 @@ public class PatchReservationIn {
     public Integer restaurant;
 
     @NotEmpty(message = "user must be written")
-    public Integer user;
+    public String user;
 
     @NotNull(message="Le nombre de couverts doit au moins valoir 1")
     public Integer nbcouverts;

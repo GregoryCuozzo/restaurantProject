@@ -66,15 +66,17 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
     @Override
     public ReservationOut patch(Long id, PatchReservationIn patchReservationIn) {
 
-        reservationRepository.updateReservation(
-                patchReservationIn.getDate(),
-                patchReservationIn.getTime(),
-                patchReservationIn.getRestaurant(),
-                patchReservationIn.getNbcouverts(),
-                patchReservationIn.getUser(),
-                patchReservationIn.getAdmin(),
-                id
-        );
+        Reservation reservationToUpdate = Reservation.builder()
+                .id(patchReservationIn.getId())
+                .admin(patchReservationIn.getAdmin())
+                .date(patchReservationIn.getDate())
+                .user(userRepository.findByUsername(patchReservationIn.getUser()))
+                .restaurant(patchReservationIn.getRestaurant())
+                .nbcouverts(patchReservationIn.getNbcouverts())
+                .time(patchReservationIn.getTime())
+                .build();
+
+        reservationRepository.save(reservationToUpdate);
 
         Reservation reservationEntity = reservationRepository.getById(id);
 

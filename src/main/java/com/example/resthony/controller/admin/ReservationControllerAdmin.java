@@ -81,7 +81,7 @@ public class ReservationControllerAdmin {
     public String updateReservation(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             System.out.println(bindingResult);
-            return "/update";
+            return "/admin/reservation/update.html";
         }
 
         Service.patch(patchReservationIn.getId(), patchReservationIn);

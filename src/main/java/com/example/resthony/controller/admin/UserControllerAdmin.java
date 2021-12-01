@@ -42,7 +42,7 @@ public class UserControllerAdmin {
     public String all(Model model){
         model.addAttribute("Users",service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "/admin/user/user.html";
+        return "/admin/users/users.html";
 
     }
 
@@ -51,14 +51,14 @@ public class UserControllerAdmin {
         model.addAttribute("users", new CreateUserIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("rolesList", RoleEnum.values());
-        return "/admin/user/create.html";
+        return "/admin/users/create.html";
     }
 
     @PostMapping("/create")
     public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra, @Valid String role) {
         if (bindingResult.hasErrors()) {
             ra.addFlashAttribute("warning", "Problème avec le register");
-            return "/admin/user/create";
+            return "/admin/users/create";
         }
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
@@ -89,7 +89,7 @@ public class UserControllerAdmin {
     @PostMapping("/update")
     public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            return "/update";
+            return "user/update.html";
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);

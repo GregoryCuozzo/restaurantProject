@@ -61,9 +61,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Collection<RoleEnum> roles;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade = CascadeType.ALL)
-    private Set<Reservation> reservations;
-
     @Column(name = "account_non_expired")
     private boolean accountNonExpired;
 

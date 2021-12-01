@@ -46,7 +46,7 @@ public class Reservation {
 
 
     @ManyToOne
-    @JoinColumn(name="user", nullable = false)
+    @JoinColumn(name="user", nullable = true)
     private User user;
 
     @NotNull
