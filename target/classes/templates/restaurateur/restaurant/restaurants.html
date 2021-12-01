@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+
+<body>
+<div th:replace="fragments :: navbarResto"/>
+
+<h1 style="text-align:center; color:white;"> Liste des restaurants  </h1>
+
+
+<div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+</div>
+
+<div class="tableau">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+
+            <th>id</th>
+            <th>nom</th>
+            <th>Adresse</th>
+            <th>Nombre de place</th>
+            <th>Jour d'ouverture</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="resto: ${restos}">
+            <tr>
+                <td th:text="${resto.id}">id</td>
+                <td th:text="${resto.nom}">Nom</td>
+                <td th:text="${resto.adress}">Adresse</td>
+                <td th:text="${resto.nb_place}">Nombre de places</td>
+                <td th:text="${resto.opening_day}">Jour d'ouverture</td>
+                <td th:text="${resto.email}">Email</td>
+                <td>
+                    <a th:href="@{'/restaurateur/restaurant/update/' + ${resto.id}}">edit</a>
+
+                </td>
+                <td>
+                    <a th:href="@{'/restaurateur/restaurant/delete/' + ${resto.id}}">delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <a th:href="@{/restaurateur/restaurant/create}"><p class="">ajouter un restaurant </p></a>
+    </div>
+</div>
+
+
+</body>
+</html>
