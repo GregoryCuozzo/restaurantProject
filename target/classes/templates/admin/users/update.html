@@ -8,7 +8,7 @@
 <div th:replace="fragments :: navbarAdmin"/>
 <h2 style="text-align:center;color:white;"> Page de modification user </h2>
 
-<form th:action="@{/admin/users/update}" method="post" th:object="${users}" style="width:500px; margin: 0 auto;color:white;">
+<form th:action="@{/admin/user/update}" method="post" th:object="${users}" style="width:500px; margin: 0 auto;color:white;">
     <input type="hidden" th:field="*{id}">
     <hr>
     <div class="border border-secondary rounded p-3">
