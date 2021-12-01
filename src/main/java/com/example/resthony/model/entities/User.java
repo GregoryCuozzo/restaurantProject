@@ -11,10 +11,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -63,6 +60,9 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Collection<RoleEnum> roles;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade = CascadeType.ALL)
+    private Set<Reservation> reservations;
 
     @Column(name = "account_non_expired")
     private boolean accountNonExpired;

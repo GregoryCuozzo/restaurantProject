@@ -17,7 +17,7 @@ public class ReservationOut {
 
     public Long id;
 
-    public Integer user;
+    public String user;
 
     public Date date;
 

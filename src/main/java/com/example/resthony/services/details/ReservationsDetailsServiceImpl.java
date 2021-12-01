@@ -4,8 +4,11 @@ import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
 import com.example.resthony.model.dto.reservation.ReservationOut;
 import com.example.resthony.model.entities.Reservation;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.ReservationRepository;
+import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.ReservationService;
+import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,11 +20,13 @@ import java.util.List;
 @Service
 public class ReservationsDetailsServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public ReservationsDetailsServiceImpl(ReservationRepository reservationRepository) {
+    public ReservationsDetailsServiceImpl(ReservationRepository reservationRepository, UserRepository userRepository) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -91,7 +96,7 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
         ReservationOut reservationOut = ReservationOut.builder()
                 .id(reservation.getId())
-                .user(reservation.getUser())
+                .user(reservation.getUser().getUsername())
                 .date(reservation.getDate())
                 .time(reservation.getTime())
                 .restaurant(reservation.getRestaurant())
@@ -103,8 +108,9 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
 
     private Reservation convertReservationInToReservationEntity(CreateReservationIn createReservationIn) {
+        User user = userRepository.findByUsername(createReservationIn.getUser());
         Reservation reservation = Reservation.builder()
-                .user(createReservationIn.getUser())
+                .user(user)
                 .time(createReservationIn.getTime())
                 .date(createReservationIn.getDate())
                 .restaurant(createReservationIn.getRestaurant())
