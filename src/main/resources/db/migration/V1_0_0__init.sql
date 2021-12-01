@@ -61,7 +61,7 @@ create table horaires (
                             ouverture varchar(50),
                             fermeture varchar(50),
                             primary key(id_horaire)
-)
+) engine = InnoDB;
 
 create index INDEX_USER_ROLE on roles (id_user);
 

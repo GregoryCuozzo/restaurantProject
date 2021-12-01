@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: header ">
+</head>
+<body>
+<div th:replace="fragments :: navbarUser"/>
+<div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+</div>
+<form th:action="@{/user/updatePass}" method="post" >
+    <hr>
+    <div class="border border-secondary rounded p-3">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Ancien mot de passe</label>
+            <div class="col-sm-8">
+                <input type="password" name ="oldPassword" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Nouveau mot de passe</label>
+        <div class="col-sm-8">
+            <input type="password" name ="newPassword" class="form-control">
+        </div>
+        </div>
+        <label class="col-sm-4 col-form-label">Confirmer mot de passe</label>
+        <div class="col-sm-8">
+            <input type="password" name ="newPassword2" class="form-control">
+        </div>
+
+        <div class="form-group row" style="padding-left:200px;">
+            <button type="submit"  class="btn btn-primary m-2"> Mettre à jour </button>
+        </div>
+        </div>
+</form>
+</body>
+</html>

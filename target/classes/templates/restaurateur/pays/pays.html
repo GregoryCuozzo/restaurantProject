@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header">
+</head>
+
+<body>
+
+<div th:replace="fragments :: navbarResto"/>
+
+
+<h1 style="text-align:center; color:white;"> Liste des Pays  </h1>
+
+
+<div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+</div>
+
+<div class="tableau">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+
+            <th>id</th>
+            <th>nom</th>
+            <th>Edit</th>
+            <th>Delete </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="pays: ${pays}">
+            <tr>
+                <td th:text="${pays.id}">id</td>
+                <td th:text="${pays.nom}">Nom</td>
+
+                <td>
+                    <a th:href="@{'/restaurateur/pays/update/' + ${pays.id}}">edit</a>
+
+                </td>
+                <td>
+                    <a th:href="@{'/restaurateur/pays/delete/' + ${pays.id}}">delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <a th:href="@{/restaurateur/pays/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Rejouter un pays</button></a>
+    </div>
+</div>
+</body>
+</html>
+
+

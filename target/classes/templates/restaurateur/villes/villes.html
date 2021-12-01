@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: header">
+
+
+<body>
+
+<div th:replace="fragments :: navbarResto"/>
+
+<h1 style="text-align:center; color:white;"> Liste des villes  </h1>
+
+
+<div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+</div>
+
+<div class="tableau">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+
+            <th>id</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Mise à jour </th>
+            <th>Delete </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="ville: ${villes}">
+            <tr>
+                <td th:text="${ville.id}">id</td>
+                <td th:text="${ville.nom}">Nom</td>
+                <td th:text="${ville.pays}">pays</td>
+
+                <td>
+                    <a th:href="@{'/restaurateur/villes/update/' + ${ville.id}}">mise à jour</a>
+
+                </td>
+                <td>
+                    <a th:href="@{'/restaurateur/villes/delete/' + ${ville.id}}">delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div class="form-group row " style="padding-left:450px;">
+        <a th:href="@{/restaurateur/villes/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Ajouter une ville</button>
+        </a>
+    </div>
+</div>
+
+
+</body>
+</html>ml>

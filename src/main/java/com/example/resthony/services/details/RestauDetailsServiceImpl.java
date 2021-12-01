@@ -11,6 +11,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,21 +21,21 @@ public class RestauDetailsServiceImpl implements RestoService {
     private final ReservationRepository reservationRepository;
 
     @Autowired
-    public RestauDetailsServiceImpl(RestauRepository restauRepository, ReservationRepository reservationRepository){
+    public RestauDetailsServiceImpl(RestauRepository restauRepository, ReservationRepository reservationRepository) {
         this.restauRepository = restauRepository;
-    this.reservationRepository = reservationRepository;}
+        this.reservationRepository = reservationRepository;
+    }
 
     @Override
     public RestoOut get(Long id) {
         Restaurant restaurant = restauRepository.findById(id).orElse(null);
 
-        if(restaurant == null) return null;
+        if (restaurant == null) return null;
 
         RestoOut restoOut = convertRestoEntityToRestoOut(restaurant);
 
         return restoOut;
     }
-
 
 
     @Override
@@ -57,7 +58,6 @@ public class RestauDetailsServiceImpl implements RestoService {
 
         return convertRestoEntityToRestoOut(newRestaurant);
     }
-
 
 
     @Override
