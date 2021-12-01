@@ -18,6 +18,18 @@ create table users (
                        primary key (id_user)
 ) engine=InnoDB;
 
+create table visitors(
+                         id_visitor bigint auto_increment not null,
+                         firstName varchar(255) not null,
+                         lastname varchar(255) not null,
+                         email text not null,
+                         phone text not null,
+                         resto bigint,
+                         primary key (id_visitor)
+
+)engine=InnoDB;
+
+
 create table restaurants (
                              id_restaurants bigint auto_increment  not null,
                              name varchar(255) not null,
@@ -65,6 +77,7 @@ alter table reservations add constraint FK_user foreign key(user) references use
 alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) ;
 alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE;
 alter table reservations add constraint FK_admin foreign key(admin) references users(id_user);
+alter table visitors add constraint FK_rest2 foreign key (resto) references restaurants(id_restaurants) ;
 
 
 
