@@ -45,7 +45,7 @@ public class UserControllerRestau {
         model.addAttribute("users", new CreateUserIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("rolesList", RoleEnum.values());
-        return "/restaurateur/user/create.html";
+        return "/restaurateur/users/create.html";
     }
 
     @PostMapping("/create")

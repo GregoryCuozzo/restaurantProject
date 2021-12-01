@@ -25,17 +25,19 @@
             <th> Restaurant</th>
             <th> Date </th>
             <th> Heure </th>
-            <th>Mise à jour </th>
-            <th>Supprimer</th>
+            <th> Nombre de couverts </th>
+            <th> Mise à jour </th>
+            <th> Supprimer</th>
         </tr>
         </thead>
         <tbody>
         <th:block th:each="Reservation: ${reservations}">
             <tr>
-                <td>[[${Reservation.client}]]</td>
+                <td>[[${Reservation.user}]]</td>
                 <td>[[${Reservation.restaurant}]]</td>
                 <td>[[${Reservation.date}]]</td>
                 <td>[[${Reservation.time}]]</td>
+                <td>[[${Reservation.nbcouverts}]]</td>
                 <td>
                     <a th:href="@{'/admin/reservation/update/' + ${Reservation.id}}">edit</a>
 
@@ -49,14 +51,14 @@
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter une réservation </button>
+        <a th:href="@{/admin/reservation/create}"><button type="button" class="btn btn-secondary m-2" style="color:black;">  Rajouter une réservation </button></a>
     </div>
 </div>
 
 
 <script type="text/javascript">
     function redirectForm(){
-        window.location ="[[@{/users/new}]]";
+        window.location ="[[@{/admin/reservation/create}]]";
     }
 </script>
 

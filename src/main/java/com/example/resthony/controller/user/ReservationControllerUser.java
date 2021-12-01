@@ -3,6 +3,7 @@ package com.example.resthony.controller.user;
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
+import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.ReservationService;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserService;
@@ -30,13 +31,14 @@ public class ReservationControllerUser {
 
 
 
-    @GetMapping("/list")
-    public String all(Model model){
+    @GetMapping("/list/{id}")
+    public String all( Model model){
+
+        model.addAttribute("user", ServiceUser.getCurrentUser());
         model.addAttribute("reservations",Service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        model.addAttribute("user",ServiceUser.getAll());
+//        model.addAttribute("user",ServiceUser.getAll());
         return "/user/reservation/list.html";
-
     }
 
     @GetMapping("/create")

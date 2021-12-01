@@ -22,6 +22,10 @@ public class Reservation {
     private Long id;
 
     @NotNull
+    @Column(name= "nbcouverts", nullable = false)
+    private Integer nbcouverts;
+
+    @NotNull
     @Column(name = "date", nullable = false, unique = true)
     private Date date;
 
@@ -34,6 +38,11 @@ public class Reservation {
     private Integer restaurant;
 
     @NotNull
-    @Column(name = "client", nullable = false, unique = true)
-    private Integer client;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user", nullable = false, unique = true)
+    private Integer user;
+
+    @NotNull
+    @Column(name= "admin")
+    private Integer admin;
 }
