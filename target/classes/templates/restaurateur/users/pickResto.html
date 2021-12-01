@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: header">
+
+<body>
+
+<div th:replace="fragments :: navbarResto"/>
+
+<h2 style="text-align:center;color:white;"> Choisir un resto </h2>
+
+
+<div >
+
+    <form th:action="@{/restaurateur/user/updateUserResto}" method="post" th:object="${users}" style="width:500px; margin: 0 auto;color:white;">
+        <hr>
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row">
+
+                <label class="col-sm-4 col-form-label">Restaurant:</label>
+                <
+                <div class="col-sm-8">
+                    <select th:field="*{resto}">
+                        <option th:each="restaurant: ${restaurants}" th:value="${restaurant.id}" th:text="${restaurant.nom}"></option>
+                    </select>
+                </div>
+                <div><input name ="userResto" th:value="${userResto}"></div>
+            </div>
+            <div class="form-group row" style="padding-left:200px;">
+                <button type="submit"  class="btn btn-primary m-2"> Inscription</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</html>
+
