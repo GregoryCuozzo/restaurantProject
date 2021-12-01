@@ -53,6 +53,16 @@ create table pays (
                             primary key(id_pays)
 ) engine = InnoDB;
 
+
+create table horaires (
+                            id_horaire bigint auto_increment not null,
+                            restaurant bigint not null,
+                            jour varchar(15) not null,
+                            ouverture varchar(50),
+                            fermeture varchar(50),
+                            primary key(id_horaire)
+)
+
 create index INDEX_USER_ROLE on roles (id_user);
 
 alter table villes add constraint FK_pays foreign key (pays) references pays(id_pays) on delete CASCADE ;
