@@ -5,7 +5,7 @@
 
 <body>
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 
 <h1 style="text-align:center; color:white;"> Liste des Pays  </h1>
@@ -33,24 +33,21 @@
                 <td th:text="${pays.nom}">Nom</td>
 
                 <td>
-                    <a th:href="@{'/admin/pays/update/' + ${pays.id}}">edit</a>
+                    <a th:href="@{'/restaurateur/pays/update/' + ${pays.id}}">edit</a>
 
                 </td>
                 <td>
-                    <a th:href="@{'/admin/pays/delete/' + ${pays.id}}">delete</a>
+                    <a th:href="@{'/restaurateur/pays/delete/' + ${pays.id}}">delete</a>
                 </td>
             </tr>
         </th:block>
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  Rajouter un pays </button>
+        <a th:href="@{/restaurateur/pays/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Rejouter un pays</button></a>
     </div>
 </div>
+</body>
+</html>
 
 
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/admin/pays/create}]]";
-    }
-</script>

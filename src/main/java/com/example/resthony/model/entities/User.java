@@ -11,7 +11,10 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 /**
@@ -106,6 +109,14 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getRole(){
+        return roles.iterator().next().name();
+    }
+
+    public void setUserRole(){
+        roles = new ArrayList<>();
+        roles.add(RoleEnum.USER);
+    }
 
     }
 

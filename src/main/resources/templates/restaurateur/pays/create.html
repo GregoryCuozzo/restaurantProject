@@ -5,14 +5,14 @@
 
 <body>
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 
 <h1 style="text-align:center; color:white;"> Rajout d'un nouveau pays  </h1>
 
 <div >
 
-    <form th:action="@{/admin/pays/create}" method="post" th:object="${pays}" style="width:500px; margin: 0 auto;color:white;">
+    <form th:action="@{/restaurateur/pays/create}" method="post" th:object="${pays}" style="width:500px; margin: 0 auto;color:white;">
 
         <hr>
         <div class="border border-secondary rounded p-3">

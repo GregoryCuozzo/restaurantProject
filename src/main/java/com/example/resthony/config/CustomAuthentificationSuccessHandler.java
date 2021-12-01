@@ -25,7 +25,11 @@ public class CustomAuthentificationSuccessHandler implements AuthenticationSucce
 
         if(roles.contains(RoleEnum.ADMIN.name())) {
             httpServletResponse.sendRedirect("/admin");
-        } else {
+        }
+        else if(roles.contains(RoleEnum.restaurateur.name())) {
+            httpServletResponse.sendRedirect("/restaurateur");
+        }
+        else {
             httpServletResponse.sendRedirect("/user");
         }
     }

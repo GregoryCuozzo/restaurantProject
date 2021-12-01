@@ -6,7 +6,7 @@
 <head th:replace="fragments :: header">
 
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 
 <body>
@@ -39,27 +39,21 @@
                 <td>[[${User.lastname}]]</td>
                 <td>[[${User.email}]]</td>
                 <td>
-                    <a th:href="@{'/admin/user/update/' + ${User.id}}">edit</a>
+                    <a th:href="@{'/restaurateur/user/update/' + ${User.id}}">edit</a>
 
                 </td>
                 <td>
-                    <a th:href="@{'/admin/user/delete/' + ${User.id}}">Delete</a>
+                    <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
                 </td>
             </tr>
         </th:block>
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <a th:href="@{/admin/user/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouvel utilisateur</button>
-         </a>
+        <a th:href="@{/restaurateur/user/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouvel utilisateur</button></a>
     </div>
+</div>
 
-
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/admin/user/create}]]";
-    }
-</script>
 
 </body>
 </html>

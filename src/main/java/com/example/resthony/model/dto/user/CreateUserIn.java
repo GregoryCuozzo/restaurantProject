@@ -1,5 +1,6 @@
 package com.example.resthony.model.dto.user;
 
+import com.example.resthony.constants.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -31,6 +33,8 @@ public class CreateUserIn {
 
     @NotEmpty(message= "ce champ ne peut pas être vide")
     public String password;
+
+    public Collection<RoleEnum> roles;
 
     public Integer resto;
 

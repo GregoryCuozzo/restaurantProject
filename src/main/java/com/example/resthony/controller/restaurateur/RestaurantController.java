@@ -1,4 +1,4 @@
-package com.example.resthony.controller.admin;
+package com.example.resthony.controller.restaurateur;
 
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-    @RequestMapping("/admin/restaurant")
+    @RequestMapping("/restaurateur/restaurant")
     public class RestaurantController {
         private final RestoService restoService;
         private final VilleService villeService;
@@ -31,7 +31,7 @@ import javax.validation.Valid;
         public String all(Model model){
             model.addAttribute("restos",restoService.getAll());
             model.addAttribute("villes",villeService.getAll());
-            return "/admin/restaurant/restaurants.html";
+            return "/restaurateur/restaurant/restaurants.html";
 
         }
 
@@ -39,18 +39,18 @@ import javax.validation.Valid;
         public String create(Model model) {
             model.addAttribute("resto", new CreateRestoIn());
             model.addAttribute("villes",villeService.getAll());
-            return "/admin/restaurant/create.html";
+            return "/restaurateur/restaurant/create.html";
         }
 
         @PostMapping("/create")
         public String createResto(@Valid @ModelAttribute("resto") CreateRestoIn createRestoIn, BindingResult bindingResult, Model model) {
             if(bindingResult.hasErrors()) {
-                return "/admin/restaurant/create.html";
+                return "/restaurateur/restaurant/create.html";
             }
 
             restoService.create(createRestoIn);
             model.addAttribute("restos",restoService.getAll());
-            return "/admin/restaurant/restaurants.html";
+            return "redirect:/restaurateur/restaurant/list";
         }
 
     @GetMapping("/delete/{id}")
@@ -62,26 +62,26 @@ import javax.validation.Valid;
 
         }
         ra.addFlashAttribute("message", "le restaurant a été supprimé ");
-        return "redirect:/admin/restaurant/list";
+        return "redirect:/restaurateur/restaurant/list";
     }
 
         @GetMapping("/update/{id}")
         public String update(@PathVariable("id") String id, Model model) {
             model.addAttribute("resto", restoService.get(Long.valueOf(id)));
             model.addAttribute("villes",villeService.getAll());
-            return "/admin/restaurant/update.html";
+            return "/restaurateur/restaurant/update.html";
         }
 
         @PostMapping("/update")
         public String updateResto(@Valid @ModelAttribute("resto") PatchRestoIn patchRestoIn, BindingResult bindingResult, RedirectAttributes ra) {
             if(bindingResult.hasErrors()) {
-                return "/admin/restaurant/update";
+                return "/restaurateur/restaurant/update";
             }
 
             restoService.patch(patchRestoIn.getId(), patchRestoIn);
             ra.addFlashAttribute("message", "le restaurant a été modifié  ");
 
-            return "redirect:/admin/restaurant/list";
+            return "redirect:/restaurateur/restaurant/list";
         }
 
 

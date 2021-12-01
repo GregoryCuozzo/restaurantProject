@@ -1,5 +1,6 @@
 package com.example.resthony.services.details;
 
+import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.RestoOut;
 import com.example.resthony.model.dto.user.CreateUserIn;
@@ -18,9 +19,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,15 +88,17 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     @Override
     public UserOut create(CreateUserIn createUserIn) {
         User user = convertUserInToUserEntity(createUserIn);
+        System.out.println(user);
         User newUser = userRepository.save(user);
-        return convertUserEntityToUserOut(newUser);
+       return convertUserEntityToUserOut(newUser);
     }
+
 
     @Override
     public UserOut register(CreateUserIn createUserIn) {
         User user = convertUserInToUserEntity(createUserIn);
+        user.setUserRole();
         User newUser = userRepository.save(user);
-        userRepository.createUser(newUser.getId(), "USER");
         return convertUserEntityToUserOut(newUser);
     }
 
@@ -108,6 +113,13 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 id
 
         );
+        User userEntity = userRepository.getById(id);
+        return convertUserEntityToUserOut(userEntity);
+    }
+
+    @Override
+    public UserOut updatePass(Long id, String password){
+        userRepository.updatePass(id,password);
         User userEntity = userRepository.getById(id);
         return convertUserEntityToUserOut(userEntity);
     }
@@ -134,6 +146,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .lastname(user.getLastname())
                 .email(user.getEmail())
                 .resto(user.getResto())
+                .roles(user.getRoles())
                 .build();
         return userOut;
     }
@@ -147,6 +160,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .email(createUserIn.getEmail())
                 .resto(createUserIn.getResto())
                 .password(createUserIn.getPassword())
+                .roles(createUserIn.getRoles())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .enabled(true)

@@ -6,7 +6,7 @@
 
 <body>
 
-<div th:replace="fragments :: navbarAdmin"/>
+<div th:replace="fragments :: navbarResto"/>
 
 <h1 style="text-align:center; color:white;"> Liste des villes  </h1>
 
@@ -35,18 +35,18 @@
                 <td th:text="${ville.pays}">pays</td>
 
                 <td>
-                    <a th:href="@{'/admin/villes/update/' + ${ville.id}}">mise à jour</a>
+                    <a th:href="@{'/restaurateur/villes/update/' + ${ville.id}}">mise à jour</a>
 
                 </td>
                 <td>
-                    <a th:href="@{'/admin/villes/delete/' + ${ville.id}}">delete</a>
+                    <a th:href="@{'/restaurateur/villes/delete/' + ${ville.id}}">delete</a>
                 </td>
             </tr>
         </th:block>
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <a th:href="@{/admin/villes/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Ajouter une ville</button>
+        <a th:href="@{/restaurateur/villes/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Ajouter une ville</button>
         </a>
     </div>
 </div>

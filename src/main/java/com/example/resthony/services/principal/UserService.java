@@ -8,6 +8,7 @@ import com.example.resthony.model.dto.user.PatchUserIn;
 import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.entities.User;
 import javassist.NotFoundException;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public interface UserService {
     List<UserOut> getAll();
     UserOut findByUsername(String username);
     User getCurrentUser();
+    UserOut updatePass(Long id,String password);
 
 }

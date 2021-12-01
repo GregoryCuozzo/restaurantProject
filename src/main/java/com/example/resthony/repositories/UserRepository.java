@@ -23,8 +23,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Modifying
     @Transactional
-    @Query(value="insert into roles (id_user,role) VALUES (:id_user,:role)", nativeQuery = true)
-    void createUser(Long id_user, String role);
+    @Query("update User r set r.password=?2 where r.id=?1")
+    int updatePass(Long id, String password);
 
     public User findByUsername(String username);
 

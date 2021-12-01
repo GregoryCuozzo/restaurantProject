@@ -1,4 +1,4 @@
-package com.example.resthony.controller.admin;
+package com.example.resthony.controller.restaurateur;
 
 import com.example.resthony.model.dto.villes.CreateVilleIn;
 import com.example.resthony.model.dto.villes.PatchVilleIn;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/admin/villes")
+@RequestMapping("/restaurateur/villes")
 public class VilleController {
     private final VilleService villeService;
 
@@ -26,13 +26,13 @@ public class VilleController {
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("villes", villeService.getAll());
-        return "/admin/villes/villes.html";
+        return "/restaurateur/villes/villes.html";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("ville", new CreateVilleIn());
-        return "/admin/villes/create.html";
+        return "/restaurateur/villes/create.html";
     }
 
     @PostMapping("/create")
@@ -43,7 +43,7 @@ public class VilleController {
 
         villeService.create(createVilleIn);
 
-        return "redirect:/admin/villes/list";
+        return "redirect:/restaurateur/villes/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -55,13 +55,13 @@ public class VilleController {
 
         }
         ra.addFlashAttribute("message", "La ville a été supprimée ");
-        return "redirect:/admin/villes/list";
+        return "redirect:/restaurateur/villes/list";
     }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("ville", villeService.get(Long.valueOf(id)));
-        return "admin/villes/villes/update.html";
+        return "restaurateur/villes/update.html";
     }
 
     @PostMapping("/update")
@@ -72,7 +72,7 @@ public class VilleController {
 
         villeService.patch(patchVilleIn.getId(), patchVilleIn);
 
-        return "redirect:/admin/villes/list";
+        return "redirect:/restaurateur/villes/list";
     }
 
 
