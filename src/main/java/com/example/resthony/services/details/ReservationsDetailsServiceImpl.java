@@ -10,6 +10,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +28,12 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
     public ReservationOut get(Long id) {
         Reservation reservation = reservationRepository.findById(id).orElse(null);
 
-        if(reservation == null) return null;
+        if (reservation == null) return null;
 
         ReservationOut reservationOut = convertReservationEntityToReservationOut(reservation);
 
         return reservationOut;
     }
-
-
 
 
     @Override
@@ -59,7 +58,6 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
     }
 
 
-
     @Override
     public ReservationOut patch(Long id, PatchReservationIn patchReservationIn) {
 
@@ -67,7 +65,9 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
                 patchReservationIn.getDate(),
                 patchReservationIn.getTime(),
                 patchReservationIn.getRestaurant(),
-                patchReservationIn.getClient(),
+                patchReservationIn.getNbcouverts(),
+                patchReservationIn.getUser(),
+                patchReservationIn.getAdmin(),
                 id
         );
 
@@ -91,10 +91,12 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
         ReservationOut reservationOut = ReservationOut.builder()
                 .id(reservation.getId())
-                .client(reservation.getClient())
+                .user(reservation.getUser())
                 .date(reservation.getDate())
                 .time(reservation.getTime())
                 .restaurant(reservation.getRestaurant())
+                .nbcouverts(reservation.getNbcouverts())
+                .admin(reservation.getAdmin())
                 .build();
         return reservationOut;
     }
@@ -102,17 +104,17 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
     private Reservation convertReservationInToReservationEntity(CreateReservationIn createReservationIn) {
         Reservation reservation = Reservation.builder()
-                .client(createReservationIn.getClient())
+                .user(createReservationIn.getUser())
                 .time(createReservationIn.getTime())
                 .date(createReservationIn.getDate())
                 .restaurant(createReservationIn.getRestaurant())
+                .nbcouverts(createReservationIn.getNbcouverts())
+                .admin(createReservationIn.getAdmin())
                 .build();
 
 
         return reservation;
     }
-
-
 
 
 }

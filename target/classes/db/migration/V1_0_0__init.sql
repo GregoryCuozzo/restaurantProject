@@ -35,8 +35,10 @@ create table reservations (
                               id_reservation bigint auto_increment  not null,
                               date date not null,
                               time time not null,
-                              restaurant bigint,
-                              client bigint,
+                              nbcouverts int not null,
+                              restaurant bigint not null,
+                              user bigint not null,
+                              admin bigint,
                               primary key (id_reservation)
 ) engine=InnoDB;
 
@@ -69,9 +71,11 @@ alter table villes add constraint FK_pays foreign key (pays) references pays(id_
 alter table users add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username) ;
 alter table roles add constraint FK40d4m5dluy4a79sk18r064avh foreign key (id_user) references users (id_user) on delete CASCADE;
 alter table restaurants add constraint  FK_rest foreign key(restaurateur) references users(id_user) ;
-alter table reservations add constraint FK_user foreign key(client) references users(id_user) ;
+alter table reservations add constraint FK_user foreign key(user) references users(id_user) ;
 alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) ;
 alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE;
+alter table reservations add constraint FK_admin foreign key(admin) references users(id_user);
+
 
 
 

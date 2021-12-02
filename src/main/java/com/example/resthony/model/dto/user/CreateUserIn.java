@@ -38,6 +38,9 @@ public class CreateUserIn {
 
     public Integer resto;
 
+    public void addRole(RoleEnum role){
+        roles.add(role);
+    }
 
 
 

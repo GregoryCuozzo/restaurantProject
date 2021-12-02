@@ -22,5 +22,6 @@ public interface UserService {
     UserOut findByUsername(String username);
     User getCurrentUser();
     UserOut updatePass(Long id,String password);
+    void updateUserResto(Long id, String username);
 
 }
