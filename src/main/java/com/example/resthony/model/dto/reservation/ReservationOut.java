@@ -23,7 +23,7 @@ public class ReservationOut {
 
     public Time time;
 
-    public Integer restaurant;
+    public String restaurant;
 
     public Integer admin;
 

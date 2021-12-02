@@ -49,6 +49,11 @@ public class Reservation {
     @JoinColumn(name="user", nullable = true)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name="restaurant", nullable = true)
+    private Restaurant restaurant;
+
+
     @NotNull
     @Column(name= "admin")
     private Integer admin;

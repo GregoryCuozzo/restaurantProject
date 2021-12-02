@@ -3,7 +3,9 @@ package com.example.resthony.services.details;
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
 import com.example.resthony.model.dto.restaurant.RestoOut;
+import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.entities.Restaurant;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.ReservationRepository;
 import com.example.resthony.repositories.RestauRepository;
 import com.example.resthony.services.principal.RestoService;
@@ -50,6 +52,15 @@ public class RestauDetailsServiceImpl implements RestoService {
     }
 
     @Override
+    public RestoOut findByName(String name){
+        Restaurant restaurant = restauRepository.findByName(name);
+
+        if(restaurant == null) return null;;
+        RestoOut restoOut = convertRestoEntityToRestoOut(restaurant);
+        return restoOut;
+    }
+
+    @Override
     public RestoOut create(CreateRestoIn createRestoIn) {
         Restaurant restaurant = convertRestoInToRestoEntity(createRestoIn);
 
@@ -93,7 +104,7 @@ public class RestauDetailsServiceImpl implements RestoService {
 
         RestoOut restoOut = RestoOut.builder()
                 .id(restaurant.getId())
-                .nom(restaurant.getNom())
+                .name(restaurant.getName())
                 .adress(restaurant.getAdress())
                 .nb_place(restaurant.getNb_place())
                 .opening_day(restaurant.getOpening_day())

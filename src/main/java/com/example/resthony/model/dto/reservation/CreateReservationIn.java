@@ -26,7 +26,7 @@ public class CreateReservationIn {
     public Time time;
 
     @NotNull(message= "ce champ ne peut pas être vide")
-    public Integer restaurant;
+    public String restaurant;
 
     @NotEmpty(message= "ce champ ne peut pas être vide")
     public Date date ;
