@@ -77,6 +77,8 @@ public class ReservationControllerAdmin {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("reservations", Service.get(Long.valueOf(id)));
+        model.addAttribute("restaurants",ServiceResto.getAll());
+
         return "/admin/reservation/update.html";
     }
 

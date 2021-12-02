@@ -35,9 +35,9 @@ public class Reservation {
     @Column(name = "time", nullable = false, unique = true)
     private Time time;
 
-    @NotNull
+   /* @NotNull
     @Column(name = "restaurant", nullable = false, unique = true)
-    private Integer restaurant;
+    private Integer restaurant;*/
 
    /* @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)

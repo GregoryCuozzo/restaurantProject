@@ -75,7 +75,7 @@ public class RestauDetailsServiceImpl implements RestoService {
     public RestoOut patch(Long id, PatchRestoIn patchRestoIn) {
 
         restauRepository.updateResto(
-                patchRestoIn.getNom(),
+                patchRestoIn.getName(),
                 patchRestoIn.getAdress(),
                 patchRestoIn.getNb_place(),
                 patchRestoIn.getOpening_day(),
@@ -118,7 +118,7 @@ public class RestauDetailsServiceImpl implements RestoService {
 
     private Restaurant convertRestoInToRestoEntity(CreateRestoIn createRestoIn) {
         Restaurant restaurant = Restaurant.builder()
-                .nom(createRestoIn.getNom())
+                .name(createRestoIn.getName())
                 .adress(createRestoIn.getAdress())
                 .nb_place(createRestoIn.getNb_place())
                 .opening_day(createRestoIn.getOpening_day())
