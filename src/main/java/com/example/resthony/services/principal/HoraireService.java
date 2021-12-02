@@ -17,4 +17,6 @@ public interface HoraireService {
     HoraireOut patch(Long id, PatchHoraireIn patchHoraireIn);
 
     void delete(Long id) throws NotFoundException;
+
+    List<HoraireOut> findByRestaurant(Long restaurant);
 }

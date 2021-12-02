@@ -74,9 +74,20 @@ public class HoraireDetailsServiceImpl implements HoraireService {
         try {
             horaireRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException("No resto found", e);
+            throw new NotFoundException("No horaire found", e);
         }
 
+    }
+
+    @Override
+    public List<HoraireOut> findByRestaurant(Long restaurant) {
+        List<Horaire> horaireEntities = horaireRepository.findHoraireByRestaurant(restaurant);
+
+        List<HoraireOut> horaireOuts = new ArrayList<>();
+        for (Horaire horaire : horaireEntities) {
+            horaireOuts.add(convertHoraireEntityToHoraireOut(horaire));
+        }
+        return horaireOuts;
     }
 
     private HoraireOut convertHoraireEntityToHoraireOut(Horaire horaire) {
