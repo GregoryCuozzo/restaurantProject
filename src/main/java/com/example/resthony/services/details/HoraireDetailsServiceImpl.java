@@ -1,12 +1,17 @@
 package com.example.resthony.services.details;
 
-import com.example.resthony.model.dto.horaire.PatchHoraireIn;
 import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.horaire.CreateHoraireIn;
+import com.example.resthony.model.dto.horaire.PatchHoraireIn;
 import com.example.resthony.model.entities.Horaire;
 import com.example.resthony.repositories.HoraireRepository;
 import com.example.resthony.services.principal.HoraireService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HoraireDetailsServiceImpl implements HoraireService {
     private final HoraireRepository horaireRepository;
@@ -14,6 +19,64 @@ public class HoraireDetailsServiceImpl implements HoraireService {
     @Autowired
     public HoraireDetailsServiceImpl(HoraireRepository horairerepository) {
         this.horaireRepository = horairerepository;
+    }
+
+
+    @Override
+    public HoraireOut get(Long id) {
+        Horaire horaire = horaireRepository.findById(id).orElse(null);
+
+        if (horaire == null) return null;
+
+        HoraireOut horaireOut = convertHoraireEntityToHoraireOut(horaire);
+
+        return horaireOut;
+    }
+
+
+    @Override
+    public List<HoraireOut> getAll() {
+        List<Horaire> horaireEntities = horaireRepository.findAll();
+
+        List<HoraireOut> horaireOuts = new ArrayList<>();
+        for (Horaire horaire : horaireEntities) {
+            horaireOuts.add(convertHoraireEntityToHoraireOut(horaire));
+        }
+        return horaireOuts;
+    }
+
+
+    @Override
+    public HoraireOut create(CreateHoraireIn createHoraireIn) {
+        Horaire horaire = convertHoraireInToHoraireEntity(createHoraireIn);
+
+        Horaire newHoraire = horaireRepository.save(horaire);
+
+        return convertHoraireEntityToHoraireOut(newHoraire);
+    }
+
+    @Override
+    public HoraireOut patch(Long id, PatchHoraireIn patchHoraireIn) {
+        horaireRepository.updateHoraire(
+                patchHoraireIn.getOuverture(),
+                patchHoraireIn.getFermeture(),
+                id
+        );
+
+        Horaire horaireEntity = horaireRepository.getById(id);
+        return convertHoraireEntityToHoraireOut(horaireEntity);
+    }
+
+
+    @Override
+    public void delete(Long id) throws NotFoundException {
+
+        try {
+            horaireRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundException("No resto found", e);
+        }
+
     }
 
     private HoraireOut convertHoraireEntityToHoraireOut(Horaire horaire) {
@@ -27,7 +90,7 @@ public class HoraireDetailsServiceImpl implements HoraireService {
     }
 
 
-    private Horaire convertHorairInToHoraireEntity(CreateHoraireIn createHoraireIn) {
+    private Horaire convertHoraireInToHoraireEntity(CreateHoraireIn createHoraireIn) {
         Horaire horaire = Horaire.builder()
                 .jour(createHoraireIn.getJour())
                 .ouverture(createHoraireIn.getOuverture())
