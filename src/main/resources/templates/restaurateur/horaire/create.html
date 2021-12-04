@@ -13,16 +13,19 @@
 
         <hr>
         <div class="border border-secondary rounded p-3">
+            <input readonly type="number" th:field="*{restaurant}" th:value="${resto}" class="form-control">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Jour :</label>
                 <div class="col-sm-8">
-                    <input hidden readonly type="number" th:field="*{restaurant}" value="*{resto}" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Jour :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{jour}" class="form-control">
+                    <select type="text" th:field="*{jour}" class="form-control">
+                        <option value="Lundi">Lundi</option>
+                        <option value="Mardi">Mardi</option>
+                        <option value="Mercredi">Mercredi</option>
+                        <option value="Jeudi">Jeudi</option>
+                        <option value="Vendredi">Vendredi</option>
+                        <option value="Samedi">Samedi</option>
+                        <option value="Dimanche">Dimanche</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -226,6 +229,7 @@
                         <option value="23:00">11:00 PM</option>
                         <option value="23:15">11:15 PM</option>
                         <option value="23:30">11:30 PM</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row" style="padding-left:200px;">

@@ -22,7 +22,7 @@
             <th>Adresse</th>
             <th>Nombre de place</th>
             <th>Jour d'ouverture</th>
-            <th>Email</th>
+            <th>Horaire</th>
             <th>Edit</th>
             <th>Delete </th>
         </tr>
@@ -31,7 +31,7 @@
         <th:block th:each="resto: ${restos}">
             <tr>
                 <td th:text="${resto.id}">id</td>
-                <td th:text="${resto.nom}">Nom</td>
+                <td th:text="${resto.name}">Nom</td>
                 <td th:text="${resto.adress}">Adresse</td>
                 <td th:text="${resto.nb_place}">Nombre de places</td>
                 <td th:text="${resto.opening_day}">Jour d'ouverture</td>

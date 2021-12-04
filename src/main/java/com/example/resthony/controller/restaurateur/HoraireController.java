@@ -60,7 +60,7 @@ public class HoraireController {
         } catch (NotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "le restaurant a été supprimé ");
+        ra.addFlashAttribute("message", "l'horaire' a été supprimé ");
         return "redirect:/restaurateur/restaurant/list";
     }
 
