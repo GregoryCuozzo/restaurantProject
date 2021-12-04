@@ -4,7 +4,7 @@
 </head>
 <body>
 <div th:replace="fragments :: navbarUser"/>
-<div th:if="${message}" class="alert alert-success text-center">
+<div th:if="${message}" class="alert alert-danger text-center">
     [[${message}]]
 </div>
 <form th:action="@{/user/updatePass}" method="post" >

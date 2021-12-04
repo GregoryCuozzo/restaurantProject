@@ -70,7 +70,6 @@ public class UserControllerRestau {
         }else{
             return "/restaurateur/user/create";
         }
-        System.out.println(role);
         service.create(createUserIn);
         return "redirect:/restaurateur/user/list";
     }

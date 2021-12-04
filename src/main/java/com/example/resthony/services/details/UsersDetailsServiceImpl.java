@@ -88,7 +88,6 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     @Override
     public UserOut create(CreateUserIn createUserIn) {
         User user = convertUserInToUserEntity(createUserIn);
-        System.out.println(user);
         User newUser = userRepository.save(user);
        return convertUserEntityToUserOut(newUser);
     }

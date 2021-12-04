@@ -48,7 +48,6 @@ public class ReservationControllerAdmin {
     @PostMapping("/create")
     public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             return "/create";
 
         }
@@ -78,7 +77,6 @@ public class ReservationControllerAdmin {
     @PostMapping("/update")
     public String updateReservation(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             return "/update";
         }
 
