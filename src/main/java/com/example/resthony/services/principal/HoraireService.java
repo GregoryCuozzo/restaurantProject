@@ -5,6 +5,7 @@ import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.horaire.PatchHoraireIn;
 import javassist.NotFoundException;
 
+
 import java.util.List;
 
 public interface HoraireService {

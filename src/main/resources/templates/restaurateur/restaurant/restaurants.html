@@ -37,6 +37,10 @@
                 <td th:text="${resto.opening_day}">Jour d'ouverture</td>
                 <td th:text="${resto.email}">Email</td>
                 <td>
+                    <a th:href="@{'/restaurateur/horaire/list/' + ${resto.id}}">horaire</a>
+
+                </td>
+                <td>
                     <a th:href="@{'/restaurateur/restaurant/update/' + ${resto.id}}">edit</a>
 
                 </td>

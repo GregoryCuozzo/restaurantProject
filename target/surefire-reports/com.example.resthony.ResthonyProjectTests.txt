@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: com.example.resthony.ResthonyProjectTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.836 s <<< FAILURE! - in com.example.resthony.ResthonyProjectTests
+contextLoads  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'horaireController' defined in file [C:\Users\Thibaut\IdeaProjects\resthony\target\classes\com\example\resthony\controller\restaurateur\HoraireController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.example.resthony.services.principal.HoraireService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.example.resthony.services.principal.HoraireService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+
