@@ -51,9 +51,7 @@ public class HoraireDetailsServiceImpl implements HoraireService {
     @Override
     public HoraireOut create(CreateHoraireIn createHoraireIn) {
         Horaire horaire = convertHoraireInToHoraireEntity(createHoraireIn);
-
         Horaire newHoraire = horaireRepository.save(horaire);
-
         return convertHoraireEntityToHoraireOut(newHoraire);
     }
 
@@ -106,6 +104,7 @@ public class HoraireDetailsServiceImpl implements HoraireService {
     private Horaire convertHoraireInToHoraireEntity(CreateHoraireIn createHoraireIn) {
         Horaire horaire = Horaire.builder()
                 .jour(createHoraireIn.getJour())
+                .restaurant(createHoraireIn.getRestaurant())
                 .ouverture(createHoraireIn.getOuverture())
                 .fermeture(createHoraireIn.getFermeture())
                 .build();
