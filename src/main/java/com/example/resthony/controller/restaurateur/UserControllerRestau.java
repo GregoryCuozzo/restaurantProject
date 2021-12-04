@@ -53,10 +53,9 @@ public class UserControllerRestau {
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, @RequestParam(name = "role") String role, RedirectAttributes ra) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, @RequestParam(name = "role") String role) {
         if (bindingResult.hasErrors()) {
-            ra.addFlashAttribute("warning", "Problème avec le register");
-            return "/restaurateur/user/create";
+            return "/restaurateur/users/create.html";
         }
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
@@ -68,7 +67,7 @@ public class UserControllerRestau {
         }else if(RoleEnum.USER.name().equals(role)){
             createUserIn.addRole(RoleEnum.USER);
         }else{
-            return "/restaurateur/user/create";
+            return "/restaurateur/users/create.html";
         }
         service.create(createUserIn);
         return "redirect:/restaurateur/user/list";
@@ -86,7 +85,7 @@ public class UserControllerRestau {
         } catch (NotFoundException | UserNotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "l'utilisateur  a été supprimé ");
+        ra.addFlashAttribute("message", "L'utilisateur  a été supprimé");
         return "redirect:/restaurateur/user/list";
     }
 
@@ -104,7 +103,7 @@ public class UserControllerRestau {
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);
-        ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
+        ra.addFlashAttribute("message", "L'utilisateur a été modifié");
 
         return "redirect:/restaurateur/user/list";
     }

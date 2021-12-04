@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/restaurateur/**").hasAnyAuthority(RESTO_ROLE)
                 .antMatchers("/*").permitAll()
             .and()
-                .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler).failureUrl("/login")
+                .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler).failureUrl("/login/error")
                 .usernameParameter("username").passwordParameter("password")
             .and()
                 .logout().invalidateHttpSession(true)

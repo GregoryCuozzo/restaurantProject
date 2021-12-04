@@ -38,23 +38,19 @@ public class User implements UserDetails {
     private Long id;
 
     @NotNull(message = "Pseudo obligatoire")
-    @Pattern(regexp = "[A-Za-z0-9]+", message = "Veuillez n'utiliser que des lettres ou des chiffres dans le pseudo")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotNull(message = "Mot de passe obligatoire")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{10,}$", message = "Le mot de passe doit contenir au moins 10 caratères, une lettre, un chiffre et un caratères spécial" )
     @Column(name = "password", nullable = false)
     private String password;
 
     @NotNull(message = "Nom obligatoire")
-    @Pattern(regexp = "[a-zA-Z]", message = "Veuillez n'utiliser que des lettres dans votre nom")
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
 
     @NotNull(message = "Prénom obligatoire")
-    @Pattern(regexp = "[a-zA-Z]", message = "Veuillez n'utiliser que des lettres dans votre prénom")
     @Column(name = "firstname", nullable = false)
     private String firstname;
 
@@ -85,7 +81,6 @@ public class User implements UserDetails {
 
 
     @NotNull(message = "Email obligatoire")
-    @Email(message = "Veuillez entrer un email valide")
     @Column (name="email")
     private String email;
 

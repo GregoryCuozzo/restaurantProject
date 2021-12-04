@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -18,23 +16,23 @@ import java.sql.Time;
 @AllArgsConstructor
 public class PatchReservationIn {
 
-    @NotNull
+    @NotBlank
     public Long id;
 
-    @NotEmpty(message = "ce champ ne peut pas être vide")
-    @Size(min = 10, max = 200)
+    @NotBlank(message = "Date obligatoire")
     public Date date;
 
-    @NotNull(message = "ce champ ne peut pas être vide")
+    @NotBlank(message = "Heure obligatoire")
     public Time time;
 
-    @NotNull(message = "Restaurant must have a min. places")
+    @NotBlank(message = "Restaurant obligatoire")
     public String restaurant;
 
-    @NotEmpty(message = "user must be written")
+    @NotBlank(message = "Utilisateur obligatoire")
     public String user;
 
-    @NotNull(message="Le nombre de couverts doit au moins valoir 1")
+    @NotBlank(message="Nombre de couvert obligatoire")
+    @Min(value = 1, message = "Il doit y avoir au moins un couvert" )
     public Integer nbcouverts;
 
     public Integer admin;

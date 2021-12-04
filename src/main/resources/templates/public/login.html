@@ -14,7 +14,8 @@
 
 <h2 style="text-align:center;color:white;"> Page de connexion   </h2>
 
-<div >
+<div>
+    <div th:if="${loginError}" class="alert alert-danger text-center">Mauvais nom d'utilisateur ou mot de passe</div>
     <form th:action="@{/login}" method="post" style="width:500px; margin: 0 auto;color:white;">
         <hr>
         <div class="border border-secondary rounded p-3">

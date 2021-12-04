@@ -48,14 +48,20 @@ public class UtilisateurController {
 
     }
 
+    @GetMapping("/update")
+    public String update(Model model) {
+        model.addAttribute("user", service.getCurrentUser());
+        return "user/profil.html";
+    }
+
     @PostMapping("/update")
     public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            return "redirect:/user/profil";
+            return "/user/profil.html";
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);
-        ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
+        ra.addFlashAttribute("message", "Votre profil a bien été modifié");
 
         return "redirect:/user/profil";
     }
@@ -74,13 +80,16 @@ public class UtilisateurController {
             ra.addFlashAttribute("message", "Tous les champs doivent être remplis");
             return "redirect:/user/updatePass";
         }else if(!encoder.matches(oldPassword, service.getCurrentUser().getPassword()) ){
-            ra.addFlashAttribute("message", "L'ancien password est mauvais");
+            ra.addFlashAttribute("message", "L'ancien mot de passe est mauvais");
             return "redirect:/user/updatePass";
         }else if(false){
             ra.addFlashAttribute("message", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial");
             return "redirect:/user/updatePass";
         }else if(!newPassword.equals(newPassword2)){
             ra.addFlashAttribute("message", "Les mots de passe ne correspondent pas");
+            return "redirect:/user/updatePass";
+        }else if(oldPassword.equals(newPassword2)) {
+            ra.addFlashAttribute("message", "Le nouveau mot de passe doit être différent de l'ancien");
             return "redirect:/user/updatePass";
         }else{
             String passwordEncrypt = BCryptManagerUtil.passwordEncoder().encode(newPassword);
