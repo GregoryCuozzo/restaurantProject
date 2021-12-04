@@ -17,13 +17,13 @@ public class ReservationOut {
 
     public Long id;
 
-    public Integer user;
+    public String user;
 
     public Date date;
 
     public Time time;
 
-    public Integer restaurant;
+    public String restaurant;
 
     public Integer admin;
 

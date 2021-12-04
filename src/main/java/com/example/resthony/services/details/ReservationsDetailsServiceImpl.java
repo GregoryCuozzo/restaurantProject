@@ -4,10 +4,16 @@ import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
 import com.example.resthony.model.dto.reservation.ReservationOut;
 import com.example.resthony.model.entities.Reservation;
+import com.example.resthony.model.entities.Restaurant;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.ReservationRepository;
+import com.example.resthony.repositories.RestauRepository;
+import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.ReservationService;
+import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +23,15 @@ import java.util.List;
 @Service
 public class ReservationsDetailsServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
+    private final RestauRepository restauRepository;
 
 
     @Autowired
-    public ReservationsDetailsServiceImpl(ReservationRepository reservationRepository) {
+    public ReservationsDetailsServiceImpl(ReservationRepository reservationRepository, UserRepository userRepository, RestauRepository restauRepository) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
+        this.restauRepository = restauRepository;
     }
 
     @Override
@@ -61,15 +71,17 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
     @Override
     public ReservationOut patch(Long id, PatchReservationIn patchReservationIn) {
 
-        reservationRepository.updateReservation(
-                patchReservationIn.getDate(),
-                patchReservationIn.getTime(),
-                patchReservationIn.getRestaurant(),
-                patchReservationIn.getNbcouverts(),
-                patchReservationIn.getUser(),
-                patchReservationIn.getAdmin(),
-                id
-        );
+        Reservation reservationToUpdate = Reservation.builder()
+                .id(patchReservationIn.getId())
+                .admin(patchReservationIn.getAdmin())
+                .date(patchReservationIn.getDate())
+                .user(userRepository.findByUsername(patchReservationIn.getUser()))
+                .restaurant(restauRepository.findByName(patchReservationIn.getRestaurant()))
+                .nbcouverts(patchReservationIn.getNbcouverts())
+                .time(patchReservationIn.getTime())
+                .build();
+
+        reservationRepository.save(reservationToUpdate);
 
         Reservation reservationEntity = reservationRepository.getById(id);
 
@@ -91,10 +103,10 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
         ReservationOut reservationOut = ReservationOut.builder()
                 .id(reservation.getId())
-                .user(reservation.getUser())
+                .user(reservation.getUser().getUsername())
                 .date(reservation.getDate())
                 .time(reservation.getTime())
-                .restaurant(reservation.getRestaurant())
+                .restaurant(reservation.getRestaurant().getName())
                 .nbcouverts(reservation.getNbcouverts())
                 .admin(reservation.getAdmin())
                 .build();
@@ -103,16 +115,17 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
 
 
     private Reservation convertReservationInToReservationEntity(CreateReservationIn createReservationIn) {
+        User user = userRepository.findByUsername(createReservationIn.getUser());
+        Restaurant restaurant = restauRepository.findByName(createReservationIn.getRestaurant());
+        System.out.println(createReservationIn.getRestaurant());
         Reservation reservation = Reservation.builder()
-                .user(createReservationIn.getUser())
+                .user(user)
                 .time(createReservationIn.getTime())
                 .date(createReservationIn.getDate())
-                .restaurant(createReservationIn.getRestaurant())
+                .restaurant(restaurant)
                 .nbcouverts(createReservationIn.getNbcouverts())
                 .admin(createReservationIn.getAdmin())
                 .build();
-
-
         return reservation;
     }
 

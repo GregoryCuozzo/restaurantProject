@@ -1,7 +1,7 @@
 package com.example.resthony.controller.admin;
 
 import com.example.resthony.model.entities.User;
-import com.example.resthony.services.principal.UserNotFoundException;
+
 import com.example.resthony.services.details.UsersDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

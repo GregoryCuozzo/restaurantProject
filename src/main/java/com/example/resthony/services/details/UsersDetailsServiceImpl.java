@@ -1,15 +1,10 @@
 package com.example.resthony.services.details;
 
-import com.example.resthony.constants.RoleEnum;
-import com.example.resthony.model.dto.restaurant.CreateRestoIn;
-import com.example.resthony.model.dto.restaurant.RestoOut;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
 import com.example.resthony.model.dto.user.UserOut;
-import com.example.resthony.model.entities.Restaurant;
 import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.UserRepository;
-import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
-import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
