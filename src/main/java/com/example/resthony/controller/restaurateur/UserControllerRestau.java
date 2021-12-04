@@ -15,7 +15,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * User controller
@@ -40,25 +44,39 @@ public class UserControllerRestau {
 
     }
 
-    @GetMapping("/create")
-    public String create(Model model) {
+    @GetMapping("/create/{role}")
+    public String create(@PathVariable("role") String role, Model model) {
         model.addAttribute("users", new CreateUserIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
-        model.addAttribute("rolesList", RoleEnum.values());
+        model.addAttribute("role", role);
         return "/restaurateur/users/create.html";
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra, @Valid String role) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, @RequestParam(name = "role") String role, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             ra.addFlashAttribute("warning", "Problème avec le register");
             return "/restaurateur/user/create";
         }
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
+        createUserIn.roles = new ArrayList<>();
+        if(RoleEnum.ADMIN.name().equals(role)){
+            createUserIn.addRole(RoleEnum.ADMIN);
+        }else if(RoleEnum.restaurateur.name().equals(role)){
+            createUserIn.addRole(RoleEnum.restaurateur);
+        }else if(RoleEnum.USER.name().equals(role)){
+            createUserIn.addRole(RoleEnum.USER);
+        }else{
+            return "/restaurateur/user/create";
+        }
+        System.out.println(role);
         service.create(createUserIn);
         return "redirect:/restaurateur/user/list";
     }
+
+
+
 
 
     @GetMapping("/delete/{id}")

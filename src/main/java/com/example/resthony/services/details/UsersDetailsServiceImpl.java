@@ -125,6 +125,11 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
 
     }
 
+    @Override
+    public void updateUserResto(Long idResto, String username){
+        userRepository.updateResto(idResto,username);
+    }
+
 
 
     private UserOut convertUserEntityToUserOut(User user) {
