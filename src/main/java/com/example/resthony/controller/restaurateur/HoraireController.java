@@ -49,7 +49,7 @@ public class HoraireController {
 
         horaireService.create(createHoraireIn);
         model.addAttribute("horaires", horaireService.findByRestaurant(createHoraireIn.restaurant));
-        return "redirect:/restaurateur/horaire/list";
+        return "redirect:/restaurateur/horaire/list/" + createHoraireIn.restaurant;
     }
 
 
