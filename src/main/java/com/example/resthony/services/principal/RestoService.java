@@ -13,4 +13,5 @@ public interface RestoService {
     RestoOut patch(Long id, PatchRestoIn patchRestoIn);
     void delete(Long id) throws NotFoundException;
     List<RestoOut> getAll();
+    RestoOut findByName(String name);
 }

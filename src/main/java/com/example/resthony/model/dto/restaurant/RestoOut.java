@@ -13,7 +13,7 @@ public class RestoOut {
 
     public Long id;
 
-    public String nom;
+    public String name;
 
     public String adress;
 

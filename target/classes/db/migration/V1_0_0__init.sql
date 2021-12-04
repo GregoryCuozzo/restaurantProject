@@ -18,6 +18,18 @@ create table users (
                        primary key (id_user)
 ) engine=InnoDB;
 
+create table visitors(
+                         id_visitor bigint auto_increment not null,
+                         firstName varchar(255) not null,
+                         lastname varchar(255) not null,
+                         email text not null,
+                         phone text not null,
+                         resto bigint,
+                         primary key (id_visitor)
+
+)engine=InnoDB;
+
+
 create table restaurants (
                              id_restaurants bigint auto_increment  not null,
                              name varchar(255) not null,

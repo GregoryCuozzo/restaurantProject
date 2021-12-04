@@ -25,7 +25,7 @@ public class Restaurant {
 
     @NotNull
     @Column(name = "name", nullable = false)
-    public String nom;
+    public String name;
 
     @NotNull
     @Column(name = "adress", nullable = false)

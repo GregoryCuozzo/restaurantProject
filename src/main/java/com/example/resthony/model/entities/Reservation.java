@@ -2,10 +2,12 @@ package com.example.resthony.model.entities;
 
 import lombok.*;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Set;
 
 
 @Entity
@@ -33,14 +35,24 @@ public class Reservation {
     @Column(name = "time", nullable = false, unique = true)
     private Time time;
 
-    @NotNull
+   /* @NotNull
     @Column(name = "restaurant", nullable = false, unique = true)
-    private Integer restaurant;
+    private Integer restaurant;*/
 
-    @NotNull
+   /* @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user", nullable = false, unique = true)
-    private Integer user;
+    private Integer user;*/
+
+
+    @ManyToOne
+    @JoinColumn(name="user", nullable = true)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="restaurant", nullable = true)
+    private Restaurant restaurant;
+
 
     @NotNull
     @Column(name= "admin")

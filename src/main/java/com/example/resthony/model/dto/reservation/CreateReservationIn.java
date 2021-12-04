@@ -20,13 +20,13 @@ public class CreateReservationIn {
 
     @NotEmpty(message = "ce champ ne peut pas être vide")
     @Size(min = 10, max = 200)
-    public Integer user;
+    public String user;
 
     @NotNull(message = "ce champ ne peut pas être vide")
     public Time time;
 
     @NotNull(message= "ce champ ne peut pas être vide")
-    public Integer restaurant;
+    public String restaurant;
 
     @NotEmpty(message= "ce champ ne peut pas être vide")
     public Date date ;
