@@ -8,7 +8,7 @@
 <body>
 <div th:replace="fragments :: navbarUser"/>
 
-<h1 style="text-align:center; color:white;"> Liste des réservations  </h1>
+<h1 style="text-align:center; color:white;"> Liste des réservations </h1>
 
 
 <div th:if="${message}" class="alert alert-success text-center">
@@ -22,10 +22,10 @@
 
             <th> Client</th>
             <th> Restaurant</th>
-            <th> Date </th>
-            <th> Heure </th>
-            <th> Nombre de couverts </th>
-            <th> Mise à jour </th>
+            <th> Date</th>
+            <th> Heure</th>
+            <th> Nombre de couverts</th>
+            <th> Mise à jour</th>
             <th> Supprimer</th>
         </tr>
         </thead>
@@ -40,10 +40,10 @@
                 <td>
                     <a th:href="@{'/user/reservation/update/' + ${Reservation.id}}">edit</a>
 
-                </td>
-                <td>
-                    <a th:href="@{'/user/reservation/delete/' + ${Reservation.id}}">delete</a>
-                </td>
+            </td>
+            <td>
+                <a th:href="@{'/user/reservation/delete/' + ${Reservation.id}}">delete</a>
+            </td>
             </tr>
             <div th:unless="Reservation.user != User.id">
                 <p>Pas de réservations</p>
@@ -54,14 +54,16 @@
         </tbody>
     </table>
     <div class="form-group row " style="padding-left:450px;">
-        <a th:href="@{/user/reservation/create}"><button type="button" class="btn btn-secondary m-2" style="color:black;">  Rajouter une réservation </button></a>
+        <a th:href="@{/user/reservation/create}">
+            <button type="button" class="btn btn-secondary m-2" style="color:black;"> Rajouter une réservation</button>
+        </a>
     </div>
 </div>
 
 
 <script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/user/reservation/create}]]";
+    function redirectForm() {
+        window.location = "[[@{/user/reservation/create}]]";
     }
 </script>
 
