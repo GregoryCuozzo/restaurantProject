@@ -19,15 +19,24 @@ public class CreateVisitorIn {
     @NotBlank(message = "Prénom obligatoire")
     public String firstname;
 
-    @NotBlank(message= "Nom obligatoire")
+    @NotBlank(message = "Nom obligatoire")
     public String lastname;
 
-    @NotBlank(message= "Email obligatoire")
+    @NotBlank(message = "Email obligatoire")
     public String email;
 
-    @NotBlank(message= "Téléphone obligatoire")
+    @NotBlank(message = "Téléphone obligatoire")
     public String phone;
 
-    public Integer resto;
+    public Integer nbcouverts;
+
+
+    public Date date;
+
+
+    public Time time;
+
+    public String resto;
+
 
 }

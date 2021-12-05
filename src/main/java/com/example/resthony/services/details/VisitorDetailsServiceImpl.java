@@ -3,7 +3,9 @@ package com.example.resthony.services.details;
 import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.model.dto.visitor.PatchVisitorIn;
 import com.example.resthony.model.dto.visitor.VisitorOut;
+import com.example.resthony.model.entities.Restaurant;
 import com.example.resthony.model.entities.Visitor;
+import com.example.resthony.repositories.RestauRepository;
 import com.example.resthony.repositories.VisitorRepository;
 
 
@@ -16,16 +18,20 @@ import java.util.List;
 
 @Service
 public class VisitorDetailsServiceImpl implements VisitorService {
-    @Autowired
-    private VisitorRepository visitorRepository;
+    private final VisitorRepository visitorRepository;
+    private final RestauRepository restauRepository;
 
-    public VisitorDetailsServiceImpl(VisitorRepository visitorRepository) {this.visitorRepository = visitorRepository;}
+    @Autowired
+    public VisitorDetailsServiceImpl(VisitorRepository visitorRepository, RestauRepository restauRepository) {
+        this.visitorRepository = visitorRepository;
+        this.restauRepository = restauRepository;
+    }
 
     @Override
     public VisitorOut get(Long id) {
         Visitor visitor = visitorRepository.findById(id).orElse(null);
 
-        if(visitor == null) return null;
+        if (visitor == null) return null;
 
         VisitorOut visitorOut = convertVisitorEntityToVisitorOut(visitor);
 
@@ -54,14 +60,19 @@ public class VisitorDetailsServiceImpl implements VisitorService {
 
     @Override
     public VisitorOut patch(Long id, PatchVisitorIn patchVisitorIn) {
-        visitorRepository.updateVisitor(
-                patchVisitorIn.getLastname(),
-                patchVisitorIn.getFirstname(),
-                patchVisitorIn.getEmail(),
-                patchVisitorIn.getPhone(),
-                id
 
-        );
+        Visitor visitorToUpdate = Visitor.builder()
+                .id(patchVisitorIn.getId())
+                .firstname(patchVisitorIn.getFirstname())
+                .lastname(patchVisitorIn.getLastname())
+                .email(patchVisitorIn.getEmail())
+                .phone(patchVisitorIn.getPhone())
+                .date(patchVisitorIn.getDate())
+                .time(patchVisitorIn.getTime())
+                .nbcouverts(patchVisitorIn.getNbcouverts())
+                .resto(restauRepository.findByName(patchVisitorIn.getResto()))
+                .build();
+        visitorRepository.save(visitorToUpdate);
         Visitor visitorEntity = visitorRepository.getById(id);
         return convertVisitorEntityToVisitorOut(visitorEntity);
     }
@@ -73,7 +84,7 @@ public class VisitorDetailsServiceImpl implements VisitorService {
                 .firstname(visitor.getFirstname())
                 .lastname(visitor.getLastname())
                 .email(visitor.getEmail())
-                .resto(visitor.getResto())
+                .resto(visitor.getResto().getName())
                 .phone(visitor.getPhone())
                 .build();
         return visitorOut;

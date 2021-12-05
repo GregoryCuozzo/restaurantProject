@@ -2,6 +2,7 @@ package com.example.resthony.controller;
 
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
+import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.services.principal.ReservationService;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.VisitorService;
@@ -33,7 +34,7 @@ public class VisitorsController {
 
     @GetMapping("/create")
     public String create(Model model){
-        model.addAttribute("reservations", new CreateReservationIn());
+        model.addAttribute("visitor",new CreateVisitorIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
 
         return "/public/visitor.html";
@@ -48,7 +49,7 @@ public class VisitorsController {
 
         Service.create(createReservationIn);
 
-        return "redirect:/public/login";
+        return "redirect:/";
     }
 
 }
