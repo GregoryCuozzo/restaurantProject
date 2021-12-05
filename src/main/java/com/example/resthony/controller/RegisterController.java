@@ -2,18 +2,28 @@ package com.example.resthony.controller;
 
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.UserOut;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.services.principal.UserService;
 import com.example.resthony.utils.BCryptManagerUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/register")
@@ -27,16 +37,22 @@ public class RegisterController {
     }
 
     @GetMapping
-    public String registerPage() {
+
+    public String registerPage(CreateUserIn createUserIn) {
         return "/public/register";
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra, HttpServletRequest response) throws ServletException {
+    public String createUser(@ModelAttribute @Valid CreateUserIn createUserIn, BindingResult bindingResult,Model model
+    ) {
+        System.out.println(bindingResult);
         if (bindingResult.hasErrors()) {
-            ra.addFlashAttribute("warning", "Problème avec le register");
-            return "/public/login";
+
+            return "/public/register.html";
         }
+
+        // ---------------- AUTO LOGIN APRES REGISTER A FAIRE --------------------------------
+
         // String uncryptedPass = createUserIn.getPassword();
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
@@ -44,5 +60,6 @@ public class RegisterController {
         // response.login(createUserIn.getUsername(), uncryptedPass);
         return "redirect:/user/index.html";
     }
+
 
 }

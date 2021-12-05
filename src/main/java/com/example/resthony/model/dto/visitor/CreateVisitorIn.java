@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -15,16 +16,16 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CreateVisitorIn {
 
-    @NotNull(message = "ce champ ne peut pas être vide")
+    @NotBlank(message = "Prénom obligatoire")
     public String firstname;
 
-    @NotNull(message= "ce champ ne peut pas être vide")
+    @NotBlank(message= "Nom obligatoire")
     public String lastname;
 
-    @NotEmpty(message= "ce champ ne peut pas être vide")
+    @NotBlank(message= "Email obligatoire")
     public String email;
 
-    @NotEmpty(message= "ce champ ne peut pas être vide")
+    @NotBlank(message= "Téléphone obligatoire")
     public String phone;
 
     public Integer resto;

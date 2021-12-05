@@ -55,9 +55,10 @@ public class UserControllerAdmin {
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra, @Valid String role) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             ra.addFlashAttribute("warning", "Problème avec le register");
+            System.out.println(bindingResult);
             return "/admin/users/create";
         }
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
@@ -75,7 +76,7 @@ public class UserControllerAdmin {
         } catch (NotFoundException | UserNotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "l'utilisateur  a été supprimé ");
+        ra.addFlashAttribute("message", "L'utilisateur  a été supprimé");
         return "redirect:/admin/user/list";
     }
 
@@ -83,17 +84,17 @@ public class UserControllerAdmin {
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("users", service.get(Long.valueOf(id)));
         model.addAttribute("restaurants",ServiceResto.getAll());
-        return "user/update.html";
+        return "/admin/users/update.html";
     }
 
     @PostMapping("/update")
     public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            return "user/update.html";
+            return "/admin/users/update.html";
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);
-        ra.addFlashAttribute("message", "l'utilisateur a été modifié  ");
+        ra.addFlashAttribute("message", "L'utilisateur a été modifié");
 
         return "redirect:/admin/user/list";
     }

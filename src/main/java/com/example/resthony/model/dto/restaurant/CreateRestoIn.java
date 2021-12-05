@@ -14,28 +14,28 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class CreateRestoIn {
 
-    @NotEmpty(message = "ce champ ne peut pas être vide")
-    @Size(min = 10, max = 200)
+    @NotBlank(message = "Nom obligatoire")
     public String name;
 
-    @NotNull(message = "ce champ ne peut pas être vide")
+    @NotBlank(message = "Adresse obligatoire")
     public String adress;
 
-    @NotNull(message= "ce champ ne peut pas être vide")
+    @NotBlank(message = "Nombre de place obligatoire")
+    @Pattern(regexp = "^[0-9]+",message ="Veuillez entrer un nombre")
     public Integer nb_place;
 
-    @NotEmpty(message= "ce champ ne peut pas être vide")
+    @NotBlank(message = "Horaires obligatoires")
     public String opening_day;
 
 
 
-    @NotEmpty(message = "ce champ ne peut pas être vide")
+    @NotBlank(message = "Email obligatoire")
     public String email;
 
-    @NotNull(message = "ce champ ne peut pas être vide")
+    @NotBlank(message = "Téléphone obligatoire")
     public String telephone;
 
-    @NotNull(message = "ce champ ne peut pas être vide")
+    @NotBlank(message = "Ville obligatoire")
     public Integer ville;
 
 

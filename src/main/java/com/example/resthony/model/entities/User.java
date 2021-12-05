@@ -10,8 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 /**
@@ -32,19 +37,20 @@ public class User implements UserDetails {
     @Column(name = "id_user")
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Pseudo obligatoire")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @NotNull
+    @NotNull(message = "Mot de passe obligatoire")
     @Column(name = "password", nullable = false)
     private String password;
 
-    @NotNull
+    @NotNull(message = "Nom obligatoire")
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
-    @NotNull
+
+    @NotNull(message = "Prénom obligatoire")
     @Column(name = "firstname", nullable = false)
     private String firstname;
 
@@ -73,6 +79,8 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private boolean enabled;
 
+
+    @NotNull(message = "Email obligatoire")
     @Column (name="email")
     private String email;
 
