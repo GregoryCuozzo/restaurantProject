@@ -42,7 +42,7 @@ public class HoraireController {
     }
 
     @PostMapping("/create")
-    public String createHoraire(@Valid @ModelAttribute("horaire") CreateHoraireIn createHoraireIn,@RequestParam(name = "restaurant") Long id, BindingResult bindingResult, Model model) {
+    public String createHoraire(@Valid @ModelAttribute("horaire") CreateHoraireIn createHoraireIn, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/create.html";
         }
