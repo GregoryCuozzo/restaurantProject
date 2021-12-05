@@ -1,8 +1,10 @@
 package com.example.resthony.controller.restaurateur;
 
 import com.example.resthony.model.dto.horaire.CreateHoraireIn;
+import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.horaire.PatchHoraireIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
+import com.example.resthony.model.entities.Horaire;
 import com.example.resthony.services.principal.HoraireService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +57,19 @@ public class HoraireController {
 
     @GetMapping("/delete/{id}")
     public String deleteHoraire(@PathVariable("id") Long id, RedirectAttributes ra) {
+        HoraireOut horaire = horaireService.get(id);
+        Long resto = horaire.id;
+        System.out.printf("horaire");
         try {
             horaireService.delete(id);
+            System.out.println("deleted");
 
         } catch (NotFoundException e) {
 
         }
+        System.out.println(horaire);
         ra.addFlashAttribute("message", "l'horaire' a été supprimé ");
-        return "redirect:/restaurateur/restaurant/list";
+        return "redirect:/restaurateur/horaire/list/" + Long.toString(horaire.restaurant);
     }
 
 

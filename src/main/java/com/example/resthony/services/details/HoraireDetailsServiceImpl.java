@@ -93,6 +93,7 @@ public class HoraireDetailsServiceImpl implements HoraireService {
     private HoraireOut convertHoraireEntityToHoraireOut(Horaire horaire) {
         HoraireOut horaireOut = HoraireOut.builder()
                 .id(horaire.getId())
+                .restaurant(horaire.getRestaurant())
                 .jour(horaire.getJour())
                 .ouverture(horaire.getOuverture())
                 .fermeture(horaire.getFermeture())
