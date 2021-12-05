@@ -10,7 +10,9 @@ import com.example.resthony.repositories.VisitorRepository;
 
 
 import com.example.resthony.services.principal.VisitorService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,6 +50,17 @@ public class VisitorDetailsServiceImpl implements VisitorService {
         }
 
         return visitorOuts;
+    }
+
+    @Override
+    public void deleteVisitor(Long id) throws NotFoundException {
+
+        try{
+            visitorRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new NotFoundException("utilisateur non existant",e);
+        }
+
     }
 
     @Override

@@ -25,12 +25,14 @@ public class ReservationControllerAdmin {
     private final ReservationService Service;
     private final RestoService ServiceResto;
     private final UserService ServiceUser;
+    private final VisitorService ServiceVisitor;
 
 
-    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser) {
+    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor) {
         Service = service;
         ServiceResto = serviceResto;
         ServiceUser = serviceUser;
+        ServiceVisitor = serviceVisitor;
     }
 
 
@@ -39,6 +41,7 @@ public class ReservationControllerAdmin {
         model.addAttribute("reservations",Service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("user",ServiceUser.getAll());
+        model.addAttribute("Visitors",ServiceVisitor.getAll());
         return "/admin/reservation/reservations.html";
 
     }
@@ -61,6 +64,27 @@ public class ReservationControllerAdmin {
         Service.create(createReservationIn);
         return "redirect:/admin/reservation/list";
     }
+
+    @GetMapping("/createVisitor")
+    public String createVisitor(Model model){
+        model.addAttribute("visitor",new CreateVisitorIn());
+        model.addAttribute("restaurants",ServiceResto.getAll());
+        return "/admin/reservation/createVisitor.html";
+    }
+
+
+    @PostMapping("/createVisitor")
+    public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "/createVisitor";
+        }
+
+        ServiceVisitor.create(createVisitorIn);
+
+        return "redirect:/admin/reservation/list";
+    }
+
+
 
     @GetMapping("/delete/{id}")
     public String deleteReservation(@PathVariable("id") Long id, RedirectAttributes ra) {
@@ -102,6 +126,27 @@ public class ReservationControllerAdmin {
         }
 
         Service.patch(patchReservationIn.getId(), patchReservationIn);
+        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+
+        return "redirect:/admin/reservation/list";
+    }
+
+    @GetMapping("/updateVisitor/{id}")
+    public String updateVisitor(@PathVariable("id") String id, Model model) {
+        model.addAttribute("visitors", ServiceVisitor.get(Long.valueOf(id)));
+        model.addAttribute("restaurants",ServiceResto.getAll());
+
+        return "/admin/reservation/updateVisitor.html";
+
+    }
+    @PostMapping("/updateVisitor")
+    public String updateVisitor(@Valid @ModelAttribute("visitors") PatchVisitorIn patchVisitorIn, BindingResult bindingResult, RedirectAttributes ra) {
+        if(bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
+            return "/admin/reservation/updateVisitor.html";
+        }
+
+        ServiceVisitor.patch(patchVisitorIn.getId(), patchVisitorIn);
         ra.addFlashAttribute("message", "la réservation a été modifiée  ");
 
         return "redirect:/admin/reservation/list";
