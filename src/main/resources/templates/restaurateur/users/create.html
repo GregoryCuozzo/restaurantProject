@@ -10,8 +10,12 @@
 
 <div th:replace="fragments :: navbarResto"/>
 
+
 <h2 style="text-align:center;color:white;"> Ajouter un utilisateur </h2>
 
+<div th:if="${messageErreur}" class="alert alert-danger text-center">
+    [[${messageErreur}]]
+</div>
 
 <div>
 
@@ -62,8 +66,9 @@
                 <div class="col-sm-8">
                     <select th:field="*{resto}">
                         <option th:each="restaurant: ${restaurants}" th:value="${restaurant.id}"
-                                th:text="${restaurant.nom}"></option>
+                                th:text="${restaurant.name}"></option>
                     </select>
+                    <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}" class="alert alert-danger text-center"></div>
                 </div>
 
 

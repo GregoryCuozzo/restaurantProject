@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * User controller
@@ -55,14 +56,22 @@ public class UserControllerAdmin {
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult,RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
-            ra.addFlashAttribute("warning", "Problème avec le register");
-            System.out.println(bindingResult);
             return "/admin/users/create";
         }
+        String message = service.checkDuplicateCreate(createUserIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/admin/user/create";
+        }
+
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
+        createUserIn.roles = new ArrayList<>();
+
+        createUserIn.addRole(RoleEnum.USER);
         service.create(createUserIn);
         return "redirect:/admin/user/list";
     }
@@ -91,6 +100,13 @@ public class UserControllerAdmin {
     public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/admin/users/update.html";
+        }
+
+        String message = service.checkDuplicateUpdate(patchUserIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/admin/user/update/"+patchUserIn.getId();
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);

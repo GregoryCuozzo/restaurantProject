@@ -12,8 +12,10 @@
 <h2 style="text-align:center;color:white;"> Page d'inscription </h2>
 
 
-<div >
-
+<div>
+    <div th:if="${messageErreur}" class="alert alert-danger text-center">
+        [[${messageErreur}]]
+    </div>
     <form th:action="@{/register/create}" th:object="${createUserIn}" method="post"  style="width:500px; margin: 0 auto;color:white;">
 
         <hr>

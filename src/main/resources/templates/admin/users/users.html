@@ -18,12 +18,18 @@
     [[${message}]]
 </div>
 
+<div class="form-group row " style="padding-left:450px;">
+    <a th:href="@{/admin/user/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouvel utilisateur</button>
+    </a>
+</div>
+
+
+<h2>Liste des utilisateurs</h2>
+
 <div class="tableau">
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
-
-
             <th>First Name</th>
             <th>Last name </th>
             <th>E-mail</th>
@@ -33,33 +39,25 @@
         </thead>
         <tbody>
         <th:block th:each="User: ${Users}">
-            <tr>
+            <div th:switch="${User.roles[0].toString()}">
+                <tr th:case="'USER'">
+                    <td>[[${User.firstname}]]</td>
+                    <td>[[${User.lastname}]]</td>
+                    <td>[[${User.email}]]</td>
+                    <td>
+                        <a th:href="@{'/admin/user/update/' + ${User.id}}">edit</a>
 
-                <td>[[${User.firstname}]]</td>
-                <td>[[${User.lastname}]]</td>
-                <td>[[${User.email}]]</td>
-                <td>
-                    <a th:href="@{'/admin/user/update/' + ${User.id}}">edit</a>
-
-                </td>
-                <td>
-                    <a th:href="@{'/admin/user/delete/' + ${User.id}}">Delete</a>
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <a th:href="@{'/admin/user/delete/' + ${User.id}}">Delete</a>
+                    </td>
+                </tr>
+            </div>
         </th:block>
         </tbody>
     </table>
-    <div class="form-group row " style="padding-left:450px;">
-        <a th:href="@{/admin/user/create}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouvel utilisateur</button>
-         </a>
-    </div>
+</div>
 
-
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/admin/user/create}]]";
-    }
-</script>
 
 </body>
 </html>
