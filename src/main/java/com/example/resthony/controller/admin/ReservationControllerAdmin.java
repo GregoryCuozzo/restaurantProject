@@ -3,10 +3,10 @@ package com.example.resthony.controller.admin;
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
+import com.example.resthony.model.dto.visitor.CreateVisitorIn;
+import com.example.resthony.model.dto.visitor.PatchVisitorIn;
 import com.example.resthony.model.entities.User;
-import com.example.resthony.services.principal.ReservationService;
-import com.example.resthony.services.principal.RestoService;
-import com.example.resthony.services.principal.UserService;
+import com.example.resthony.services.principal.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,6 +68,18 @@ public class ReservationControllerAdmin {
             Service.delete(id);
 
         } catch (NotFoundException e) {
+
+        }
+        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        return "redirect:/admin/reservation/list";
+    }
+
+    @GetMapping("/deleteVisitor/{id}")
+    public String deleteVisitor(@PathVariable("id") Long id, RedirectAttributes ra) {
+        try {
+            ServiceVisitor.deleteVisitor(id);
+
+        } catch (NotFoundException | UserNotFoundException e) {
 
         }
         ra.addFlashAttribute("message", "la réservation  a été supprimée ");
