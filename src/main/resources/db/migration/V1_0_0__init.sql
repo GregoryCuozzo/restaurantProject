@@ -20,40 +20,46 @@ create table users
     primary key (id_user)
 ) engine=InnoDB;
 
-create table visitors(
-                         id_visitor bigint auto_increment not null,
-                         firstName varchar(255) not null,
-                         lastname varchar(255) not null,
-                         email text not null,
-                         phone text not null,
-                         resto bigint,
-                         primary key (id_visitor)
+create table visitors
+(
+    id_visitor bigint auto_increment not null,
+    firstName  varchar(255) not null,
+    lastname   varchar(255) not null,
+    email      text         not null,
+    phone      text         not null,
+    nbcouverts  Integer      not null,
+    date       date         not null,
+    time       time         not null,
+    resto      bigint,
+    primary key (id_visitor)
 
 )engine=InnoDB;
 
 
-create table restaurants (
-                             id_restaurants bigint auto_increment  not null,
-                             name varchar(255) not null,
-                             adress text not null,
-                             nb_place int not null,
-                             opening_day text not null,
-                             email text,
-                             telephone text not null,
-                             ville bigint,
-                             primary key (id_restaurants),
-                             restaurateur bigint
+create table restaurants
+(
+    id_restaurants bigint auto_increment not null,
+    name           varchar(255) not null,
+    adress         text         not null,
+    nb_place       int          not null,
+    opening_day    text         not null,
+    email          text,
+    telephone      text         not null,
+    ville          bigint,
+    primary key (id_restaurants),
+    restaurateur   bigint
 ) engine=InnoDB;
 
-create table reservations (
-                              id_reservation bigint auto_increment  not null,
-                              date date not null,
-                              time time not null,
-                              nbcouverts int not null,
-                              restaurant bigint not null,
-                              user bigint not null,
-                              admin bigint,
-                              primary key (id_reservation)
+create table reservations
+(
+    id_reservation bigint auto_increment not null,
+    date           date   not null,
+    time           time   not null,
+    nbcouverts     int    not null,
+    restaurant     bigint not null,
+    user           bigint not null,
+    admin          bigint,
+    primary key (id_reservation)
 ) engine=InnoDB;
 
 create table villes

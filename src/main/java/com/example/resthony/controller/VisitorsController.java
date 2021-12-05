@@ -21,33 +21,28 @@ import javax.validation.Valid;
 @RequestMapping("/visitor")
 public class VisitorsController {
     private final VisitorService ServiceVisitor;
-    private final ReservationService Service;
     private final RestoService ServiceResto;
 
-    public VisitorsController(ReservationService service, RestoService serviceResto,VisitorService serviceVisitor){
+    public VisitorsController(RestoService serviceResto,VisitorService serviceVisitor){
         ServiceVisitor = serviceVisitor;
         ServiceResto = serviceResto;
-        Service = service;
-
-
     }
 
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("visitor",new CreateVisitorIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
-
         return "/public/visitor.html";
     }
 
 
     @PostMapping("/create")
-    public String createResto(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+    public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return "/create";
         }
 
-        Service.create(createReservationIn);
+        ServiceVisitor.create(createVisitorIn);
 
         return "redirect:/";
     }

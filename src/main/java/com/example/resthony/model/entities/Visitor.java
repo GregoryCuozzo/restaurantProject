@@ -17,6 +17,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.sql.Time;
+import java.sql.Date;
+
 @Entity
 @Table(name = "visitors")
 @Data
@@ -24,37 +27,50 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Visitor{
+public class Visitor {
 
     /**
      * Cette classe va gérer les utilisateurs de la plateforme
      */
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id_visitor")
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_visitor")
+    private Long id;
 
-        @NotNull
-        @Column(name = "lastname", nullable = false)
-        private String lastname;
+    @NotNull
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
 
-        @NotNull
-        @Column(name = "firstname", nullable = false)
-        private String firstname;
+    @NotNull
+    @Column(name = "firstname", nullable = false)
+    private String firstname;
 
 
         /*@Column(name = "enabled")
         private boolean enabled;*/
 
-        @Column (name="email")
-        private String email;
+    @Column(name = "email")
+    private String email;
 
-        @Column (name = "resto")
-        private Integer resto;
+    @ManyToOne
+    @JoinColumn(name = "resto", nullable = true)
+    private Restaurant resto;
 
-        @Column (name= "phone", nullable = false)
-        private String phone;
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @NotNull
+    @Column(name = "nbcouverts", nullable = false)
+    private Integer nbcouverts;
+
+    @NotNull
+    @Column(name = "date", nullable = false)
+    private Date date;
+
+    @NotNull
+    @Column(name = "time", nullable = false)
+    private Time time;
 
 }
 

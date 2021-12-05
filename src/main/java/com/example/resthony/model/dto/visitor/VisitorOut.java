@@ -24,7 +24,12 @@ public class VisitorOut {
 
     public String phone;
 
-    public Integer resto;
+    public String resto;
 
+    public Integer nbcouverts;
+
+    public Date date;
+
+    public Time time;
 
 }

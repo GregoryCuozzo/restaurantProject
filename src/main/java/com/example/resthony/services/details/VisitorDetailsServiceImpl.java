@@ -86,18 +86,25 @@ public class VisitorDetailsServiceImpl implements VisitorService {
                 .email(visitor.getEmail())
                 .resto(visitor.getResto().getName())
                 .phone(visitor.getPhone())
+                .date(visitor.getDate())
+                .time(visitor.getTime())
+                .nbcouverts(visitor.getNbcouverts())
                 .build();
         return visitorOut;
     }
 
 
     private Visitor convertVisitorInToVisitorEntity(CreateVisitorIn createVisitorIn) {
+        Restaurant restaurant = restauRepository.findByName(createVisitorIn.getResto());
         Visitor visitor = Visitor.builder()
                 .firstname(createVisitorIn.getFirstname())
                 .lastname(createVisitorIn.getLastname())
                 .email(createVisitorIn.getEmail())
-                .resto(createVisitorIn.getResto())
+                .resto(restaurant)
                 .phone(createVisitorIn.getPhone())
+                .date(createVisitorIn.getDate())
+                .time(createVisitorIn.getTime())
+                .nbcouverts(createVisitorIn.getNbcouverts())
                 .build();
         return visitor;
     }
