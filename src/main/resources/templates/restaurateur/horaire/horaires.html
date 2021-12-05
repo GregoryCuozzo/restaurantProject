@@ -17,6 +17,8 @@
             <th>jour</th>
             <th>Ouverture</th>
             <th>Fermeture</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +28,7 @@
                 <td th:text="${horaire.jour}">Nom</td>
                 <td th:text="${horaire.ouverture}">Adresse</td>
                 <td th:text="${horaire.fermeture}">Nombre de places</td>
+                <td>
                     <a th:href="@{'/restaurateur/horaire/update/' + ${horaire.id}}">edit</a>
 
                 </td>

@@ -75,20 +75,21 @@ public class HoraireController {
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("resto", horaireService.get(id));
-        return "/restaurateur/restaurant/update.html";
+        model.addAttribute("horaire", horaireService.get(id));
+        return "/restaurateur/horaire/update.html";
     }
 
 
     @PostMapping("/update")
-    public String updateHoraire(@Valid @ModelAttribute("resto") PatchHoraireIn patchHoraireIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateHoraire(@Valid @ModelAttribute("horaire") PatchHoraireIn patchHoraireIn, BindingResult bindingResult, RedirectAttributes ra, Model model) {
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/update";
         }
 
         horaireService.patch(patchHoraireIn.getId(), patchHoraireIn);
         ra.addFlashAttribute("message", "l'horaire' a été modifié  ");
-
-        return "redirect:/restaurateur/horaire/list";
+        HoraireOut horaire = horaireService.get(patchHoraireIn.id);
+        model.addAttribute("resto", horaire.restaurant);
+        return "redirect:/restaurateur/horaire/list/" + horaire.restaurant;
     }
 }
