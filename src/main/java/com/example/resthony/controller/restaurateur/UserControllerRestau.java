@@ -120,6 +120,7 @@ public class UserControllerRestau {
             return "/restaurateur/users/update.html";
         }
 
+        System.out.println(patchUserIn);
         String message = service.checkDuplicateUpdate(patchUserIn);
 
         if (!message.equals("")) {
