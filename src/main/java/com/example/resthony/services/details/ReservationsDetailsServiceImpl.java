@@ -58,6 +58,17 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
         return reservationOuts;
     }
 
+/*    @Override
+    public List<ReservationOut> findReservationByUser(Long user) {
+        List<Reservation> reservationEntities = reservationRepository.findReservationByUser(user);
+        List<ReservationOut> reservationOuts = new ArrayList<>();
+        for (Reservation reservation : reservationEntities) {
+            reservationOuts.add(convertReservationEntityToReservationOut(reservation));
+        }
+        return reservationOuts;
+    }*/
+
+
     @Override
     public ReservationOut create(CreateReservationIn createReservationIn) {
         Reservation reservation = convertReservationInToReservationEntity(createReservationIn);

@@ -31,10 +31,10 @@ public class ReservationControllerUser {
 
 
 
-    @GetMapping("/list/{id}")
-    public String all( Model model){
+    @GetMapping("/list")
+    public String all(Model model){
 
-        model.addAttribute("user", ServiceUser.getCurrentUser());
+        model.addAttribute("user", ServiceUser.getAll());
         model.addAttribute("reservations",Service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
 //        model.addAttribute("user",ServiceUser.getAll());

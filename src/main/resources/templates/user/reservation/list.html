@@ -31,24 +31,19 @@
         </thead>
         <tbody>
         <th:block th:each="Reservation: ${reservations}">
-            <tr th:if="Reservation.user == User.id">
-                <td>[[${Reservation.user}]]</td>
-                <td>[[${Reservation.restaurant}]]</td>
-                <td>[[${Reservation.date}]]</td>
-                <td>[[${Reservation.time}]]</td>
-                <td>[[${Reservation.nbcouverts}]]</td>
-                <td>
-                    <a th:href="@{'/user/reservation/update/' + ${Reservation.id}}">edit</a>
+            <td>[[${Reservation.user}]]</td>
+            <td>[[${Reservation.restaurant}]]</td>
+            <td>[[${Reservation.date}]]</td>
+            <td>[[${Reservation.time}]]</td>
+            <td>[[${Reservation.nbcouverts}]]</td>
+            <td>
+                <a th:href="@{'/user/reservation/update/' + ${Reservation.id}}">edit</a>
 
             </td>
             <td>
                 <a th:href="@{'/user/reservation/delete/' + ${Reservation.id}}">delete</a>
             </td>
             </tr>
-            <div th:unless="Reservation.user != User.id">
-                <p>Pas de réservations</p>
-            </div>
-
         </th:block>
 
         </tbody>
@@ -68,4 +63,4 @@
 </script>
 
 </body>
-</html>l>
+</html>
