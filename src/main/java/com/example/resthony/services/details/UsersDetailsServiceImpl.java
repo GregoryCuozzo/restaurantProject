@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -176,4 +177,46 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         return userRepository.findByUsername(username);
     }
 
+    public String checkDuplicateCreate(CreateUserIn createUserIn) {
+        // Check duplicate
+        String message = "" ;
+        for (User user : userRepository.findAll()) {
+            if (user.getEmail().equals(createUserIn.getEmail())) {
+                message = "Cette adresse email existe déjà, veuillez en choisir une autre.";
+            }
+            if (user.getUsername().equals(createUserIn.getUsername())) {
+                message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
+            }
+        }
+        return message;
+    }
+
+
+    public String checkDuplicateUpdate(PatchUserIn patchUserIn) {
+        // Check duplicate
+        String message = "" ;
+        long idUserPatch = patchUserIn.getId();
+        UserOut userPatch = this.get(idUserPatch);
+
+        String usernameUserPatch = userPatch.getUsername();
+        String emailUserPatch = userPatch.getEmail();
+
+        for (User user : userRepository.findAll()) {
+            if (!emailUserPatch.equals(patchUserIn.getEmail()))
+            {
+                if (user.getEmail().equals(patchUserIn.getEmail()))
+                {
+                    message = "Cette adresse email existe déjà, veuillez en choisir une autre.";
+                }
+            }
+            if (!usernameUserPatch.equals(patchUserIn.getUsername()))
+            {
+                if (user.getUsername().equals(patchUserIn.getUsername()))
+                {
+                    message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
+                }
+            }
+        }
+        return message;
+    }
 }

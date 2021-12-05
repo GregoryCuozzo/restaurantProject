@@ -1,6 +1,7 @@
 package com.example.resthony.controller.user;
 
 import com.example.resthony.model.dto.user.PatchUserIn;
+import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.details.UsersDetailsServiceImpl;
 import com.example.resthony.services.principal.UserService;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Admin controller
@@ -60,6 +63,29 @@ public class UtilisateurController {
             return "/user/profil.html";
         }
 
+        // Check duplicate
+        List<UserOut> users = new ArrayList<UserOut>(service.getAll());
+        boolean checkDuplicate = true;
+        for (UserOut user: users) {
+            if (service.getCurrentUser().getUsername() != user.getUsername())
+            {
+                if (user.getUsername().equals(patchUserIn.getUsername()))
+                {
+                    checkDuplicate = false;
+                    ra.addFlashAttribute("messageErreur", "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.");
+                }
+            }
+            if (service.getCurrentUser().getEmail() != user.getEmail()) {
+                if (user.getEmail().equals(patchUserIn.getEmail())) {
+                    checkDuplicate = false;
+                    ra.addFlashAttribute("messageErreur", "Cette adresse email existe déjà, veuillez en choisir une autre.");
+                }
+            }
+        }
+        if (checkDuplicate == false) {
+            ra.addFlashAttribute("messageErreur");
+            return "redirect:/user/update";
+        }
         service.patch(patchUserIn.getId(), patchUserIn);
         ra.addFlashAttribute("message", "Votre profil a bien été modifié");
 

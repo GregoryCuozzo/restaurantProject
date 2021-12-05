@@ -23,5 +23,7 @@ public interface UserService {
     User getCurrentUser();
     UserOut updatePass(Long id,String password);
     void updateUserResto(Long id, String username);
+    String checkDuplicateCreate(CreateUserIn createUserIn);
+   String checkDuplicateUpdate(PatchUserIn patchUserIn);
 
 }
