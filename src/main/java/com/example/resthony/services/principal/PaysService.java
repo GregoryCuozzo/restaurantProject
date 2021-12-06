@@ -1,7 +1,6 @@
 package com.example.resthony.services.principal;
 
-import com.example.resthony.model.dto.pays.CreatePaysIn;
-import com.example.resthony.model.dto.pays.PatchPaysIn;
+
 import com.example.resthony.model.dto.pays.PaysOut;
 import javassist.NotFoundException;
 
