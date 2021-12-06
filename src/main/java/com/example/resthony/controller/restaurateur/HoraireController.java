@@ -92,6 +92,13 @@ public class HoraireController {
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/update";
         }
+        HoraireOut horairePatch = horaireService.get(patchHoraireIn.id);
+        String message = horaireService.checkDuplicateUpdate(patchHoraireIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/restaurateur/user/create/"+horairePatch.restaurant;
+        }
 
         horaireService.patch(patchHoraireIn.getId(), patchHoraireIn);
         ra.addFlashAttribute("message", "l'horaire' a été modifié  ");
