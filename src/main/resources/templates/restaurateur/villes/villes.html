@@ -23,7 +23,7 @@
             <th>id</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Mise à jour </th>
+            <th>Edit</th>
             <th>Delete </th>
         </tr>
         </thead>
@@ -31,11 +31,11 @@
         <th:block th:each="ville: ${villes}">
             <tr>
                 <td th:text="${ville.id}">id</td>
-                <td th:text="${ville.nom}">Nom</td>
+                <td th:text="${ville.name}">Nom</td>
                 <td th:text="${ville.pays}">pays</td>
 
                 <td>
-                    <a th:href="@{'/restaurateur/villes/update/' + ${ville.id}}">mise à jour</a>
+                    <a th:href="@{'/restaurateur/villes/update/' + ${ville.id}}">Edit</a>
 
                 </td>
                 <td>

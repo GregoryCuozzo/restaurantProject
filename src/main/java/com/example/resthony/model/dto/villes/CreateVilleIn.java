@@ -17,7 +17,7 @@ public class CreateVilleIn {
 
     @NotEmpty(message = "ce champ ne peut pas être vide")
     @Size(min = 10, max = 200)
-    public String nom;
+    public String name;
 
     @NotNull(message = "ce champ ne peut pas être vide")
     public Integer pays;

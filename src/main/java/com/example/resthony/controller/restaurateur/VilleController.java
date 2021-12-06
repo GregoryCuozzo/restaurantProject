@@ -32,6 +32,7 @@ public class VilleController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("ville", new CreateVilleIn());
+
         return "/restaurateur/villes/create.html";
     }
 

@@ -66,7 +66,7 @@ public class VilleDetailsServiceImpl implements VilleService {
     public VilleOut patch(Long id, PatchVilleIn patchVilleIn) {
 
         villeRepositary.updateVille(
-                patchVilleIn.getNom(),
+                patchVilleIn.getName(),
                 patchVilleIn.getPays(),
                 id
         );
@@ -91,7 +91,7 @@ public class VilleDetailsServiceImpl implements VilleService {
 
         VilleOut villeOut = VilleOut.builder()
                 .id(ville.getId())
-                .nom(ville.getNom())
+                .name(ville.getNom())
                 .pays(ville.getPays())
                 .build();
         return villeOut;
@@ -100,7 +100,7 @@ public class VilleDetailsServiceImpl implements VilleService {
 
     private Ville convertVilleInToVilleEntity(CreateVilleIn createVilleIn) {
         Ville ville = Ville.builder()
-                .nom(createVilleIn.getNom())
+                .nom(createVilleIn.getName())
                 .build();
         return ville;
     }

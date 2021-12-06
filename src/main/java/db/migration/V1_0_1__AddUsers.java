@@ -27,6 +27,23 @@ public class V1_0_1__AddUsers extends BaseJavaMigration {
                         "(id_user, account_non_expired, account_non_locked, credentials_non_expired, enabled, firstname, lastname, password, username, email) values " +
                         "(3, 1, 1, 1, 1, 'Resto FirstName', 'Resto Lastname', 'resto', 'resto','resto@resto.com')");
 
+        statement.execute(
+                "INSERT INTO pays" +
+                        "(name) values" +
+                        "('Belgique')");
+        statement.execute(
+                "INSERT INTO pays" +
+                        "(name) values" +
+                        "('France')");
+        statement.execute(
+                "INSERT INTO pays" +
+                        "(name) values" +
+                        "('Allemagne')");
+        statement.execute(
+                "INSERT INTO pays" +
+                        "(name) values" +
+                        "('Luxembourg')");
+
         statement.execute("UPDATE users SET password='" + adminPasswordValue + "' WHERE username='admin'");
         statement.execute("INSERT INTO roles (id_user, `role`) values (1, 'ADMIN')");
         statement.execute("UPDATE users SET password='" + userPasswordValue + "' WHERE username='user'");
