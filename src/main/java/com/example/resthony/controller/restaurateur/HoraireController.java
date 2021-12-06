@@ -44,9 +44,16 @@ public class HoraireController {
     }
 
     @PostMapping("/create")
-    public String createHoraire(@Valid @ModelAttribute("horaire") CreateHoraireIn createHoraireIn, BindingResult bindingResult, Model model) {
+    public String createHoraire(@Valid @ModelAttribute("horaire") CreateHoraireIn createHoraireIn, BindingResult bindingResult, Model model, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/create.html";
+        }
+
+        String message = horaireService.checkDuplicateCreate(createHoraireIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/restaurateur/user/create/"+createHoraireIn.restaurant;
         }
 
         horaireService.create(createHoraireIn);
