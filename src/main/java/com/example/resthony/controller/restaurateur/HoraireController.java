@@ -45,6 +45,7 @@ public class HoraireController {
 
     @PostMapping("/create")
     public String createHoraire(@Valid @ModelAttribute("horaire") CreateHoraireIn createHoraireIn, BindingResult bindingResult, Model model, RedirectAttributes ra) {
+        System.out.print("HELOOOOOOOOO");
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/create.html";
         }
@@ -52,8 +53,8 @@ public class HoraireController {
         String message = horaireService.checkDuplicateCreate(createHoraireIn);
 
         if (!message.equals("")) {
-            ra.addFlashAttribute("messageErreur",message);
-            return "redirect:/restaurateur/user/create/"+createHoraireIn.restaurant;
+            ra.addFlashAttribute("messageErreur", message);
+            return "redirect:/restaurateur/horaire/create/" + createHoraireIn.restaurant;
         }
 
         horaireService.create(createHoraireIn);
@@ -89,15 +90,17 @@ public class HoraireController {
 
     @PostMapping("/update")
     public String updateHoraire(@Valid @ModelAttribute("horaire") PatchHoraireIn patchHoraireIn, BindingResult bindingResult, RedirectAttributes ra, Model model) {
+        System.out.println(patchHoraireIn);
         if (bindingResult.hasErrors()) {
-            return "/restaurateur/horaire/update";
+            return "/restaurateur/horaire/update/" + patchHoraireIn.id;
         }
-        HoraireOut horairePatch = horaireService.get(patchHoraireIn.id);
+        //HoraireOut horairePatch = horaireService.get(patchHoraireIn.id);
         String message = horaireService.checkDuplicateUpdate(patchHoraireIn);
 
         if (!message.equals("")) {
-            ra.addFlashAttribute("messageErreur",message);
-            return "redirect:/restaurateur/user/create/"+horairePatch.restaurant;
+            System.out.println(message);
+            ra.addFlashAttribute("messageErreur", message);
+            return "redirect:/restaurateur/user/update/" + patchHoraireIn.id;
         }
 
         horaireService.patch(patchHoraireIn.getId(), patchHoraireIn);
