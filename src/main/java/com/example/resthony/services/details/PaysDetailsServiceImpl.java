@@ -47,28 +47,9 @@ public class PaysDetailsServiceImpl implements PaysService {
         return paysOuts;
     }
 
-    @Override
-    public PaysOut create(CreatePaysIn createPaysIn) {
-        Pays pays = convertPaysInToPaysEntity(createPaysIn);
-
-        Pays newPays = paysRepository.save(pays);
-
-        return convertPaysEntityToPaysOut(newPays);
-    }
 
 
-    @Override
-    public PaysOut patch(Long id, PatchPaysIn patchPaysIn) {
 
-        paysRepository.updatePays(
-                patchPaysIn.getNom(),
-                id
-        );
-
-        Pays paysEntity = paysRepository.getById(id);
-
-        return convertPaysEntityToPaysOut(paysEntity);
-    }
 
     @Override
     public void delete(Long id) throws NotFoundException {
