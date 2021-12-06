@@ -102,6 +102,7 @@ public class VilleDetailsServiceImpl implements VilleService {
     private Ville convertVilleInToVilleEntity(CreateVilleIn createVilleIn) {
         Ville ville = Ville.builder()
                 .name(createVilleIn.getName())
+                .pays(createVilleIn.getPays())
                 .build();
         return ville;
     }

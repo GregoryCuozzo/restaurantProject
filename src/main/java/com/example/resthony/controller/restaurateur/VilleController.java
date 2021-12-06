@@ -29,6 +29,7 @@ public class VilleController {
     @GetMapping("/list")
     public String all(Model model){
         model.addAttribute("villes", villeService.getAll());
+        model.addAttribute("pays", paysService.getAll());
         return "/restaurateur/villes/villes.html";
     }
 
@@ -67,13 +68,15 @@ public class VilleController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("ville", villeService.get(Long.valueOf(id)));
+        model.addAttribute("pays", paysService.getAll());
         return "restaurateur/villes/update.html";
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("ville") PatchVilleIn patchVilleIn, BindingResult bindingResult) {
+    public String updateResto(@Valid @ModelAttribute("ville") PatchVilleIn patchVilleIn, BindingResult bindingResult,Model model) {
         if(bindingResult.hasErrors()) {
-            return "/update";
+            model.addAttribute("pays", paysService.getAll());
+            return "restaurateur/villes/update/" + patchVilleIn.getId();
         }
 
         villeService.patch(patchVilleIn.getId(), patchVilleIn);
