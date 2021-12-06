@@ -13,7 +13,7 @@ public class PaysOut {
 
     public Long id;
 
-    public String nom;
+    public String name;
 
 
 

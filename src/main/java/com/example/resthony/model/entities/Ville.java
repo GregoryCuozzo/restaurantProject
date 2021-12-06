@@ -25,7 +25,7 @@ public class Ville {
 
     @NotNull
     @Column(name = "name", nullable = false)
-    private String nom;
+    private String name;
 
     @NotNull
     @Column(name = "pays", nullable = false)

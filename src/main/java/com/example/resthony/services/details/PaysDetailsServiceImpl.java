@@ -1,7 +1,4 @@
 package com.example.resthony.services.details;
-
-import com.example.resthony.model.dto.pays.CreatePaysIn;
-import com.example.resthony.model.dto.pays.PatchPaysIn;
 import com.example.resthony.model.dto.pays.PaysOut;
 import com.example.resthony.model.entities.Pays;
 import com.example.resthony.repositories.PaysRepository;
@@ -49,36 +46,17 @@ public class PaysDetailsServiceImpl implements PaysService {
 
 
 
-
-
-    @Override
-    public void delete(Long id) throws NotFoundException {
-
-        try {
-            paysRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException("No resto found", e);
-        }
-
-    }
-
     private PaysOut convertPaysEntityToPaysOut(Pays pays) {
 
         PaysOut paysOut = PaysOut.builder()
                 .id(pays.getId())
-                .nom(pays.getNom())
+                .name(pays.getName())
 
                 .build();
         return paysOut;
     }
 
 
-    private Pays convertPaysInToPaysEntity(CreatePaysIn createPaysIn) {
-        Pays pays = Pays.builder()
-                .nom(createPaysIn.getNom())
-                .build();
-        return pays;
-    }
 
 
 }

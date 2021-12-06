@@ -5,7 +5,8 @@ import com.example.resthony.model.dto.villes.CreateVilleIn;
 import com.example.resthony.model.dto.villes.PatchVilleIn;
 import com.example.resthony.model.dto.villes.VilleOut;
 import com.example.resthony.model.entities.Ville;
-import com.example.resthony.repositories.VilleRepositary;
+import com.example.resthony.repositories.VilleRepository;
+import com.example.resthony.repositories.VilleRepository;
 import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,16 @@ import java.util.List;
 
 public class VilleDetailsServiceImpl implements VilleService {
     @Autowired
-    private final VilleRepositary villeRepositary;
+    private final VilleRepository villeRepository;
 
-    public VilleDetailsServiceImpl( VilleRepositary villerepositary) {
-        this.villeRepositary = villerepositary;
+    public VilleDetailsServiceImpl( VilleRepository villerepository) {
+        this.villeRepository = villerepository;
 
     }
 
     @Override
     public VilleOut get(Long id) {
-        Ville ville = villeRepositary.findById(id).orElse(null);
+        Ville ville = villeRepository.findById(id).orElse(null);
 
         if(ville == null) return null;
 
@@ -40,7 +41,7 @@ public class VilleDetailsServiceImpl implements VilleService {
 
     @Override
     public List<VilleOut> getAll() {
-        List<Ville> villeEntities = villeRepositary.findAll();
+        List<Ville> villeEntities = villeRepository.findAll();
 
         List<VilleOut> villeOuts = new ArrayList<>();
         for (Ville ville : villeEntities) {
@@ -54,7 +55,7 @@ public class VilleDetailsServiceImpl implements VilleService {
     public VilleOut create(CreateVilleIn createVilleIn) {
         Ville ville = convertVilleInToVilleEntity(createVilleIn);
 
-        Ville newVille = villeRepositary.save(ville);
+        Ville newVille = villeRepository.save(ville);
 
         return convertVilleEntityToVilleOut(newVille);
     }
@@ -65,13 +66,13 @@ public class VilleDetailsServiceImpl implements VilleService {
     @Override
     public VilleOut patch(Long id, PatchVilleIn patchVilleIn) {
 
-        villeRepositary.updateVille(
+        villeRepository.updateVille(
                 patchVilleIn.getName(),
                 patchVilleIn.getPays(),
                 id
         );
 
-        Ville villeEntity = villeRepositary.getById(id);
+        Ville villeEntity = villeRepository.getById(id);
 
         return convertVilleEntityToVilleOut(villeEntity);
     }
@@ -80,7 +81,7 @@ public class VilleDetailsServiceImpl implements VilleService {
     public void delete(Long id) throws NotFoundException {
 
         try {
-            villeRepositary.deleteById(id);
+            villeRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new NotFoundException("No resto found", e);
         }
@@ -91,7 +92,7 @@ public class VilleDetailsServiceImpl implements VilleService {
 
         VilleOut villeOut = VilleOut.builder()
                 .id(ville.getId())
-                .name(ville.getNom())
+                .name(ville.getName())
                 .pays(ville.getPays())
                 .build();
         return villeOut;
@@ -100,7 +101,7 @@ public class VilleDetailsServiceImpl implements VilleService {
 
     private Ville convertVilleInToVilleEntity(CreateVilleIn createVilleIn) {
         Ville ville = Ville.builder()
-                .nom(createVilleIn.getName())
+                .name(createVilleIn.getName())
                 .build();
         return ville;
     }

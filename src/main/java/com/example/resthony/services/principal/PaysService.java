@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface PaysService {
     PaysOut get(Long id);
-    void delete(Long id) throws NotFoundException;
     List<PaysOut> getAll();
 }

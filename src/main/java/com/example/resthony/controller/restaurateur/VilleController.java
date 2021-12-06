@@ -2,6 +2,7 @@ package com.example.resthony.controller.restaurateur;
 
 import com.example.resthony.model.dto.villes.CreateVilleIn;
 import com.example.resthony.model.dto.villes.PatchVilleIn;
+import com.example.resthony.services.principal.PaysService;
 import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import javax.validation.Valid;
 @RequestMapping("/restaurateur/villes")
 public class VilleController {
     private final VilleService villeService;
+    private final PaysService paysService;
 
     @Autowired
-    public VilleController(VilleService villeService) {
+    public VilleController(VilleService villeService, PaysService paysService) {
         this.villeService = villeService;
+        this.paysService = paysService;
     }
 
     @GetMapping("/list")
@@ -32,14 +35,16 @@ public class VilleController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("ville", new CreateVilleIn());
-
+        model.addAttribute("pays", paysService.getAll());
         return "/restaurateur/villes/create.html";
     }
 
     @PostMapping("/create")
-    public String createVille(@Valid @ModelAttribute("ville") CreateVilleIn createVilleIn, BindingResult bindingResult) {
+    public String createVille(@Valid @ModelAttribute("ville") CreateVilleIn createVilleIn, BindingResult bindingResult, Model model) {
+        System.out.println(createVilleIn);
         if(bindingResult.hasErrors()) {
-            return "/create";
+            model.addAttribute("pays", paysService.getAll());
+            return "/restaurateur/villes/create.html";
         }
 
         villeService.create(createVilleIn);

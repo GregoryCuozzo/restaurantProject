@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 @Repository
 
-public interface VilleRepositary extends JpaRepository<Ville, Long> {
+public interface VilleRepository extends JpaRepository<Ville, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Ville v set v.nom = ?1, v.pays = ?2 where v.id =?3")
-    int updateVille(String Nom,Integer pays,Long id);
+    @Query("update Ville v set v.name = ?1, v.pays = ?2 where v.id =?3")
+    int updateVille(String Name,Integer pays,Long id);
 
 //    public long  countById(int id);
 }

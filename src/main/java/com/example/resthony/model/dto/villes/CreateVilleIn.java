@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
@@ -15,11 +16,11 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CreateVilleIn {
 
-    @NotEmpty(message = "ce champ ne peut pas être vide")
-    @Size(min = 10, max = 200)
+    @NotEmpty(message = "Veuillez entrer un nom de ville")
+    @Pattern(regexp = "^[a-zA-Z]+", message = "Utilisez seulement des lettres dans le nom")
     public String name;
 
-    @NotNull(message = "ce champ ne peut pas être vide")
+    @NotNull(message = "Veuillez sélectionner un pays")
     public Integer pays;
 
 
