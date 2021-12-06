@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class HoraireDetailsServiceImpl implements HoraireService {
@@ -110,6 +111,36 @@ public class HoraireDetailsServiceImpl implements HoraireService {
                 .fermeture(createHoraireIn.getFermeture())
                 .build();
         return horaire;
+    }
+
+
+    public String checkDuplicateCreate(CreateHoraireIn createHoraireIn) {
+        // Check duplicate
+        String message = "";
+        for (HoraireOut horaire : findByRestaurant(createHoraireIn.getRestaurant())) {
+            if (Objects.equals(horaire.getJour(), createHoraireIn.getJour())) {
+                message = "Il y a deja un horaire au jour sélectionné";
+                break;
+            }
+        }
+        return message;
+    }
+
+
+    public String checkDuplicateUpdate(PatchHoraireIn patchHoraireIn) {
+        // Check duplicate
+        String message = "";
+        HoraireOut horairePatch = get(patchHoraireIn.id);
+
+        for (HoraireOut horaire : findByRestaurant(horairePatch.restaurant)) {
+            if (!Objects.equals(horaire.id, horairePatch.id)) {
+                if (Objects.equals(horaire.jour, horairePatch.jour)) {
+                    message = "Il y a deja un horaire au jour sélectionné";
+                    break;
+                }
+            }
+        }
+        return message;
     }
 
 }

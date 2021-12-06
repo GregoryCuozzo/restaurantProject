@@ -3,6 +3,8 @@ package com.example.resthony.services.principal;
 import com.example.resthony.model.dto.horaire.CreateHoraireIn;
 import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.horaire.PatchHoraireIn;
+import com.example.resthony.model.dto.user.CreateUserIn;
+import com.example.resthony.model.dto.user.PatchUserIn;
 import javassist.NotFoundException;
 
 
@@ -20,4 +22,8 @@ public interface HoraireService {
     void delete(Long id) throws NotFoundException;
 
     List<HoraireOut> findByRestaurant(Long restaurant);
+
+    String checkDuplicateCreate(CreateHoraireIn createHoraireIn);
+
+    String checkDuplicateUpdate(PatchHoraireIn patchHoraireIn);
 }
