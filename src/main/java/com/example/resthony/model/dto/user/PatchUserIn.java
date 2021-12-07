@@ -37,9 +37,13 @@ public class PatchUserIn {
     @Email(message = "Veuillez rentrer un email valide")
     public String email;
 
+    public String phone;
+
     public Collection<RoleEnum> roles;
 
     public Integer resto;
+
+    public String contact;
 
 
 

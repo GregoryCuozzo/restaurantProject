@@ -14,8 +14,10 @@ create table users (
                        lastname varchar(255) not null,
                        password varchar(255) not null,
                        username varchar(255) not null,
-                       email text,
+                       email text not null,
+                       phone text,
                        resto bigint,
+                       contact varchar(15),
                        primary key (id_user)
 ) engine=InnoDB;
 
@@ -23,6 +25,9 @@ create table visitors(
                          id_visitor bigint auto_increment not null,
                          firstName varchar(255) not null,
                          lastname varchar(255) not null,
+                         date date not null,
+                         time time not null,
+                         nbcouverts Integer not null,
                          email text not null,
                          phone text not null,
                          resto bigint,

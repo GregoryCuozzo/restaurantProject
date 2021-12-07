@@ -3,6 +3,7 @@ package com.example.resthony.controller.user;
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.ReservationService;
 import com.example.resthony.services.principal.RestoService;
@@ -30,13 +31,14 @@ public class ReservationControllerUser {
     }
 
 
+    @GetMapping("/list")
+    public String all(Model model) {
 
-    @GetMapping("/list/{id}")
-    public String all( Model model){
+        User user = ServiceUser.getCurrentUser();
+        Long id = user.getId();
+        model.addAttribute("reservations", Service.findByUser(user));
 
-        model.addAttribute("user", ServiceUser.getCurrentUser());
-        model.addAttribute("reservations",Service.getAll());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("restaurants", ServiceResto.getAll());
 //        model.addAttribute("user",ServiceUser.getAll());
         return "/user/reservation/list.html";
     }
@@ -44,18 +46,20 @@ public class ReservationControllerUser {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("reservations", new CreateReservationIn());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("restaurants", ServiceResto.getAll());
+
+        User user = ServiceUser.getCurrentUser();
+        model.addAttribute("user", user.getUsername());
+
         return "/user/reservation/create.html";
     }
 
     @PostMapping("/create")
-    public String createResto(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "/create";
         }
-
         Service.create(createReservationIn);
-
         return "redirect:/user/reservation/list";
     }
 
@@ -74,12 +78,16 @@ public class ReservationControllerUser {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("reservations", Service.get(Long.valueOf(id)));
+        model.addAttribute("restaurants", ServiceResto.getAll());
+        User user = ServiceUser.getCurrentUser();
+        model.addAttribute("user", user.getUsername());
+
         return "/user/reservation/update.html";
     }
 
     @PostMapping("/update")
     public String updateResto(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "/update";
         }
 

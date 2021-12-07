@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class CreateHoraireIn {
 
-    @NotEmpty(message = "ce champ ne peut pas être vide")
+    @NotNull(message = "ce champ ne peut pas être vide")
     public Long restaurant;
 
     @NotEmpty(message = "ce champ ne peut pas être vide")

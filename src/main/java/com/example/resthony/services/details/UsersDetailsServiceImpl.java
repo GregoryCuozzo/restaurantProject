@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.security.enterprise.credential.Password;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,7 @@ import java.util.Optional;
 @Service
 public class UsersDetailsServiceImpl implements UserDetailsService, UserService {
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     public UsersDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -36,7 +37,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("No user found with username : " + username);
         } else {
             return user;
@@ -50,7 +51,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     public UserOut get(Long id) {
         User user = userRepository.findById(id).orElse(null);
 
-        if(user == null) return null;
+        if (user == null) return null;
 
         UserOut userOut = convertUserEntityToUserOut(user);
 
@@ -106,6 +107,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 patchUserIn.getFirstname(),
                 patchUserIn.getEmail(),
                 patchUserIn.getResto(),
+                patchUserIn.getPhone(),
+                patchUserIn.getContact(),
                 id
 
         );
@@ -129,17 +132,17 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     @Override
     public void delete(Long id) throws NotFoundException {
 
-        try{
+        try {
             userRepository.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
-            throw new NotFoundException("utilisateur non existant",e);
+        } catch (EmptyResultDataAccessException e) {
+            throw new NotFoundException("utilisateur non existant", e);
         }
 
     }
 
     @Override
-    public void updateUserResto(Long idResto, String username){
-        userRepository.updateResto(idResto,username);
+    public void updateUserResto(Long idResto, String username) {
+        userRepository.updateResto(idResto, username);
     }
 
 
@@ -152,6 +155,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail())
+                .phone(user.getPhone())
+                .contact(user.getContact())
                 .resto(user.getResto())
                 .roles(user.getRoles())
                 .build();
@@ -165,6 +170,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .firstname(createUserIn.getFirstname())
                 .lastname(createUserIn.getLastname())
                 .email(createUserIn.getEmail())
+                .phone(createUserIn.getPhone())
+                .contact(createUserIn.getContact())
                 .resto(createUserIn.getResto())
                 .password(createUserIn.getPassword())
                 .roles(createUserIn.getRoles())
@@ -199,6 +206,9 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
             if (user.getUsername().equals(createUserIn.getUsername())) {
                 message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
             }
+            if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
+                message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+            }
         }
         return message;
     }
@@ -214,19 +224,18 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         String emailUserPatch = userPatch.getEmail();
 
         for (User user : userRepository.findAll()) {
-            if (!emailUserPatch.equals(patchUserIn.getEmail()))
-            {
-                if (user.getEmail().equals(patchUserIn.getEmail()))
-                {
+            if (!emailUserPatch.equals(patchUserIn.getEmail())) {
+                if (user.getEmail().equals(patchUserIn.getEmail())) {
                     message = "Cette adresse email existe déjà, veuillez en choisir une autre.";
                 }
             }
-            if (!usernameUserPatch.equals(patchUserIn.getUsername()))
-            {
-                if (user.getUsername().equals(patchUserIn.getUsername()))
-                {
+            if (!usernameUserPatch.equals(patchUserIn.getUsername())) {
+                if (user.getUsername().equals(patchUserIn.getUsername())) {
                     message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 }
+            }
+            if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
+                message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
             }
         }
         return message;
