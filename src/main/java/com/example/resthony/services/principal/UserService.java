@@ -26,5 +26,6 @@ public interface UserService {
     public void updateResetPassword(String token, String email) throws UserNotFoundException;
     String checkDuplicateCreate(CreateUserIn createUserIn);
    String checkDuplicateUpdate(PatchUserIn patchUserIn);
+    public User findByToken(String resetPasswordToken);
 
 }

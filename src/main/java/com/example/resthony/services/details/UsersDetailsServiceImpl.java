@@ -7,6 +7,7 @@ import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
+import com.example.resthony.utils.BCryptManagerUtil;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -114,8 +115,14 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
 
     @Override
     public UserOut updatePass(Long id, String password){
-        userRepository.updatePass(id,password);
+        String passwordEncrypt = BCryptManagerUtil.passwordEncoder().encode(password);
+        userRepository.updatePass(id,passwordEncrypt);
         User userEntity = userRepository.getById(id);
+        String token = userEntity.getResetPasswordToken();
+        // On supprime le token du user s'il en a un
+        if(!token.isEmpty()){
+            userRepository.updateToken(null, id);
+        }
         return convertUserEntityToUserOut(userEntity);
     }
 
@@ -242,7 +249,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     }
 
     //Get by token reset password
-    public User get(String resetPasswordToken) {
+    @Override
+    public User findByToken(String resetPasswordToken) {
         return userRepository.findByResetPasswordToken(resetPasswordToken);
     }
 

@@ -102,8 +102,7 @@ public class UtilisateurController {
             ra.addFlashAttribute("message", "Le nouveau mot de passe doit être différent de l'ancien");
             return "redirect:/user/updatePass";
         }else{
-            String passwordEncrypt = BCryptManagerUtil.passwordEncoder().encode(newPassword);
-            service.updatePass(service.getCurrentUser().getId(),passwordEncrypt);
+            service.updatePass(service.getCurrentUser().getId(),newPassword);
         }
         return "redirect:/user/profil";
     }
