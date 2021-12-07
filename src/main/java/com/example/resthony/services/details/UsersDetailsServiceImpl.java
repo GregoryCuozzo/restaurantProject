@@ -100,7 +100,9 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 patchUserIn.getLastname(),
                 patchUserIn.getFirstname(),
                 patchUserIn.getEmail(),
+                patchUserIn.getPhone(),
                 patchUserIn.getResto(),
+                patchUserIn.getContact(),
                 id
 
         );
@@ -141,6 +143,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail())
+                .phone(user.getPhone())
+                .contact(user.getContact())
                 .resto(user.getResto())
                 .roles(user.getRoles())
                 .build();
@@ -154,6 +158,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 .firstname(createUserIn.getFirstname())
                 .lastname(createUserIn.getLastname())
                 .email(createUserIn.getEmail())
+                .phone(createUserIn.getPhone())
+                .contact(createUserIn.getContact())
                 .resto(createUserIn.getResto())
                 .password(createUserIn.getPassword())
                 .roles(createUserIn.getRoles())
