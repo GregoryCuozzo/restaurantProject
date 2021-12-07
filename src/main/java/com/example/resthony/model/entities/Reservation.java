@@ -54,7 +54,6 @@ public class Reservation {
     private Restaurant restaurant;
 
 
-    @NotNull
     @Column(name= "admin")
     private Integer admin;
 }

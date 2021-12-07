@@ -10,10 +10,8 @@ import com.example.resthony.repositories.ReservationRepository;
 import com.example.resthony.repositories.RestauRepository;
 import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.ReservationService;
-import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -58,15 +56,17 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
         return reservationOuts;
     }
 
-/*    @Override
-    public List<ReservationOut> findReservationByUser(Long user) {
-        List<Reservation> reservationEntities = reservationRepository.findReservationByUser(user);
+    @Override
+    public List<ReservationOut> findByUser(User user) {
+        List<Reservation> reservationEntities = reservationRepository.findByUser(user);
+
         List<ReservationOut> reservationOuts = new ArrayList<>();
         for (Reservation reservation : reservationEntities) {
             reservationOuts.add(convertReservationEntityToReservationOut(reservation));
         }
         return reservationOuts;
-    }*/
+    }
+
 
 
     @Override

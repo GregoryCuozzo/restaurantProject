@@ -22,16 +22,16 @@ public class CreateReservationIn {
     @NotBlank(message = "Nom d'utilisateur obligatoire")
     public String user;
 
-    @NotBlank(message = "Heure obligatoire")
+    @NotNull(message = "Heure obligatoire")
     public Time time;
 
     @NotBlank(message = "Restaurant obligatoire")
     public String restaurant;
 
-    @NotBlank(message = "Date obligatoire")
+    @NotNull(message = "Date obligatoire")
     public Date date ;
 
-    @NotBlank(message = "Nombre de couverts obligatoire")
+    @NotNull(message = "Nombre de couverts obligatoire")
     public Integer nbcouverts;
 
     public Integer admin ;

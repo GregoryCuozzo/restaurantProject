@@ -3,6 +3,7 @@ package com.example.resthony.controller.user;
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.UserRepository;
 import com.example.resthony.services.principal.ReservationService;
 import com.example.resthony.services.principal.RestoService;
@@ -30,13 +31,14 @@ public class ReservationControllerUser {
     }
 
 
-
     @GetMapping("/list")
-    public String all(Model model){
+    public String all(Model model) {
 
-        model.addAttribute("user", ServiceUser.getAll());
-        model.addAttribute("reservations",Service.getAll());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+        User user = ServiceUser.getCurrentUser();
+        Long id = user.getId();
+        model.addAttribute("reservations", Service.findByUser(user));
+
+        model.addAttribute("restaurants", ServiceResto.getAll());
 //        model.addAttribute("user",ServiceUser.getAll());
         return "/user/reservation/list.html";
     }
@@ -44,13 +46,16 @@ public class ReservationControllerUser {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("reservations", new CreateReservationIn());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("restaurants", ServiceResto.getAll());
+        User user = ServiceUser.getCurrentUser();
+        String username = user.getUsername();
+        model.addAttribute("user",username);
         return "/user/reservation/create.html";
     }
 
     @PostMapping("/create")
     public String createResto(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "/create";
         }
 
@@ -79,7 +84,7 @@ public class ReservationControllerUser {
 
     @PostMapping("/update")
     public String updateResto(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "/update";
         }
 

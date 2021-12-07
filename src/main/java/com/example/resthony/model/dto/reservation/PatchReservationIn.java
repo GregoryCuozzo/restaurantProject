@@ -16,22 +16,22 @@ import java.sql.Time;
 @AllArgsConstructor
 public class PatchReservationIn {
 
-    @NotBlank
+    @NotNull
     public Long id;
 
-    @NotBlank(message = "Date obligatoire")
+    @NotNull(message = "Date obligatoire")
     public Date date;
 
-    @NotBlank(message = "Heure obligatoire")
+    @NotNull(message = "Heure obligatoire")
     public Time time;
 
-    @NotBlank(message = "Restaurant obligatoire")
+    @NotNull(message = "Restaurant obligatoire")
     public String restaurant;
 
-    @NotBlank(message = "Utilisateur obligatoire")
+    @NotNull(message = "Utilisateur obligatoire")
     public String user;
 
-    @NotBlank(message="Nombre de couvert obligatoire")
+    @NotNull(message="Nombre de couvert obligatoire")
     @Min(value = 1, message = "Il doit y avoir au moins un couvert" )
     public Integer nbcouverts;
 
