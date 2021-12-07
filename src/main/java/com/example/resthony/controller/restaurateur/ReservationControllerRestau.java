@@ -36,7 +36,7 @@ public class ReservationControllerRestau {
         model.addAttribute("reservations",Service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("user",ServiceUser.getAll());
-        model.addAttribute("user",ServiceVisitor.getAll());
+        model.addAttribute("Visitors",ServiceVisitor.getAll());
         return "/restaurateur/reservation/reservations.html";
 
     }

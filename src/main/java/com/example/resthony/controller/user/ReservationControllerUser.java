@@ -48,17 +48,25 @@ public class ReservationControllerUser {
         model.addAttribute("reservations", new CreateReservationIn());
         model.addAttribute("restaurants", ServiceResto.getAll());
         User user = ServiceUser.getCurrentUser();
-        String username = user.getUsername();
-        model.addAttribute("user",username);
+        model.addAttribute("user",user.getUsername());
+        System.out.println("************************************");
+        System.out.println(user.getUsername());
         return "/user/reservation/create.html";
     }
 
     @PostMapping("/create")
-    public String createResto(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            System.out.println("********************************");
+            System.out.println(bindingResult);
+            System.out.println(createReservationIn);
+            System.out.println("********************************");
             return "/create";
         }
 
+        User user = ServiceUser.getCurrentUser();
+        model.addAttribute("restaurants", ServiceResto.getAll());
+        model.addAttribute("reservations", Service.findByUser(user));
         Service.create(createReservationIn);
 
         return "redirect:/user/reservation/list";
