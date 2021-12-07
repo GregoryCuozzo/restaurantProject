@@ -12,6 +12,9 @@
 
 <h2 style="text-align:center;color:white;"> Ajouter un utilisateur </h2>
 
+<div th:if="${messageErreur}" class="alert alert-danger text-center">
+    [[${messageErreur}]]
+</div>
 
 <div >
 
@@ -46,6 +49,23 @@
                 <div class="col-sm-8">
                     <input type="email" th:field="*{email}" class="form-control" >
                     <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Telephone :</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{phone}" class="form-control" >
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Preference de contact :</label>
+                <div class="col-sm-8">
+                    <select th:field="*{contact}" class="form-control" >
+                        <option type="text" value="sms">SMS</option>
+                        <option type="text" value="email">Email</option>
+                        <option type="text" value="aucun">Aucun</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

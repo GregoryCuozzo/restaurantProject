@@ -1,8 +1,6 @@
 package com.example.resthony.services.principal;
 
-import com.example.resthony.model.dto.pays.CreatePaysIn;
-import com.example.resthony.model.dto.pays.PatchPaysIn;
-import com.example.resthony.model.dto.pays.PaysOut;
+
 import com.example.resthony.model.dto.villes.CreateVilleIn;
 import com.example.resthony.model.dto.villes.PatchVilleIn;
 import com.example.resthony.model.dto.villes.VilleOut;

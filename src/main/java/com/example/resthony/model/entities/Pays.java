@@ -25,7 +25,7 @@ public class Pays {
 
     @NotNull
     @Column(name = "name", nullable = false)
-    private String nom;
+    private String name;
 
 
 

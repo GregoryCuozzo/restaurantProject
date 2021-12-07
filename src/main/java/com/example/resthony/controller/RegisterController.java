@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -43,12 +45,17 @@ public class RegisterController {
     }
 
     @PostMapping("/create")
-    public String createUser(@ModelAttribute @Valid CreateUserIn createUserIn, BindingResult bindingResult,Model model
+    public String createUser(@ModelAttribute @Valid CreateUserIn createUserIn, BindingResult bindingResult,Model model, RedirectAttributes ra
     ) {
-        System.out.println(bindingResult);
         if (bindingResult.hasErrors()) {
-
             return "/public/register.html";
+        }
+
+        String message = service.checkDuplicateCreate(createUserIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/register";
         }
 
         // ---------------- AUTO LOGIN APRES REGISTER A FAIRE --------------------------------
@@ -59,6 +66,7 @@ public class RegisterController {
         service.register(createUserIn);
         // response.login(createUserIn.getUsername(), uncryptedPass);
         return "redirect:/user/index.html";
+
     }
 
 

@@ -19,23 +19,21 @@
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
-
-            <th>id</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Mise à jour </th>
+            <th>Edit</th>
             <th>Delete </th>
         </tr>
         </thead>
         <tbody>
         <th:block th:each="ville: ${villes}">
             <tr>
-                <td th:text="${ville.id}">id</td>
-                <td th:text="${ville.nom}">Nom</td>
-                <td th:text="${ville.pays}">pays</td>
-
+                <td th:text="${ville.name}">Nom</td>
+                <span th:each="payss: ${pays}">
+                        <td th:if="${payss.id} == ${ville.pays}">[[${payss.name}]]</td>
+                </span>
                 <td>
-                    <a th:href="@{'/restaurateur/villes/update/' + ${ville.id}}">mise à jour</a>
+                    <a th:href="@{'/restaurateur/villes/update/' + ${ville.id}}">Edit</a>
 
                 </td>
                 <td>
@@ -53,4 +51,4 @@
 
 
 </body>
-</html>ml>
+</html>

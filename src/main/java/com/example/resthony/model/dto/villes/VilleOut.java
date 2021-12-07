@@ -13,7 +13,7 @@ public class VilleOut {
 
     public Long id;
 
-    public String nom;
+    public String name;
 
     public Integer pays;
 

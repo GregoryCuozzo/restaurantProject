@@ -3,6 +3,7 @@ package com.example.resthony.controller.restaurateur;
 import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
+import com.example.resthony.model.entities.User;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,6 +42,7 @@ public class UserControllerRestau {
     public String all(Model model){
         model.addAttribute("Users",service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
+
         return "/restaurateur/users/users.html";
 
     }
@@ -50,13 +53,24 @@ public class UserControllerRestau {
         model.addAttribute("restaurants",ServiceResto.getAll());
         model.addAttribute("role", role);
         return "/restaurateur/users/create.html";
+
+
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, @RequestParam(name = "role") String role) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, @RequestParam(name = "role") String role,Model model,RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("restaurants",ServiceResto.getAll());
+            model.addAttribute("role", role);
             return "/restaurateur/users/create.html";
         }
+        String message = service.checkDuplicateCreate(createUserIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/restaurateur/user/create/"+role;
+        }
+
         String restPasswordValue = BCryptManagerUtil.passwordEncoder().encode(createUserIn.getPassword());
         createUserIn.setPassword(restPasswordValue);
         createUserIn.roles = new ArrayList<>();
@@ -89,17 +103,31 @@ public class UserControllerRestau {
         return "redirect:/restaurateur/user/list";
     }
 
-    @GetMapping("/update/{id}")
-    public String update(@PathVariable("id") String id, Model model) {
+    @GetMapping("/update/{id}/{role}")
+    public String update(@PathVariable("id") String id,@PathVariable("role") String role, Model model) {
         model.addAttribute("users", service.get(Long.valueOf(id)));
         model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("role", role);
         return "/restaurateur/users/update.html";
     }
 
     @PostMapping("/update")
-    public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult,@RequestParam(name = "role") String role, Model model, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            return "/update";
+            model.addAttribute("restaurants",ServiceResto.getAll());
+            model.addAttribute("role", role);
+            System.out.println(patchUserIn.getRoles());
+            return "/restaurateur/users/update.html";
+        }
+
+        System.out.println(patchUserIn);
+        String message = service.checkDuplicateUpdate(patchUserIn);
+
+        if (!message.equals("")) {
+            model.addAttribute("restaurants",ServiceResto.getAll());
+            model.addAttribute("role", role);
+            ra.addFlashAttribute("messageErreur",message);
+            return "redirect:/restaurateur/user/update/"+patchUserIn.getId()+"/"+role;
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);

@@ -24,7 +24,11 @@ public class UserOut {
 
     public String email;
 
+    public String phone;
+
     public Integer resto;
+
+    public String contact;
 
     public Collection<RoleEnum> roles;
 

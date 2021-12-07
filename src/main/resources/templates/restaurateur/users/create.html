@@ -10,8 +10,12 @@
 
 <div th:replace="fragments :: navbarResto"/>
 
+
 <h2 style="text-align:center;color:white;"> Ajouter un utilisateur </h2>
 
+<div th:if="${messageErreur}" class="alert alert-danger text-center">
+    [[${messageErreur}]]
+</div>
 
 <div>
 
@@ -20,35 +24,52 @@
         <hr>
         <div class="border border-secondary rounded p-3">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Pseudo :</label>
+                <label class="col-sm-4 col-form-label">Pseudo :*</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{username}" class="form-control">
                     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Prénom :</label>
+                <label class="col-sm-4 col-form-label">Prénom :*</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{firstname}" class="form-control">
                     <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nom:</label>
+                <label class="col-sm-4 col-form-label">Nom :*</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{lastname}" class="form-control">
                     <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Email :</label>
+                <label class="col-sm-4 col-form-label">Email :*</label>
                 <div class="col-sm-8">
                     <input type="email" th:field="*{email}" class="form-control">
                     <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Mots de passe:</label>
+                <label class="col-sm-4 col-form-label">Telephone :</label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{phone}" class="form-control" >
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
+                </div>
+            </div>
+            <div class="form-group row" th:if="${role == 'USER'}">
+                <label class="col-sm-4 col-form-label">Preference de contact :</label>
+                <div class="col-sm-8">
+                    <select th:field="*{contact}" class="form-control" >
+                        <option type="text" th:value="sms">SMS</option>
+                        <option type="text" th:value="email">Email</option>
+                        <option type="text" th:value="aucun">Aucun</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Mots de passe:*</label>
                 <div class="col-sm-8">
                     <input type="password" th:field="*{password}" class="form-control">
                     <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger text-center"></div>
@@ -57,13 +78,14 @@
             <input type ="hidden" name="role" th:value="${role}">
             <div class="form-group row" th:if="${role == 'ADMIN'}">
 
-                <label class="col-sm-4 col-form-label">Restaurant:</label>
+                <label class="col-sm-4 col-form-label">Restaurant:*</label>
 
                 <div class="col-sm-8">
                     <select th:field="*{resto}">
                         <option th:each="restaurant: ${restaurants}" th:value="${restaurant.id}"
-                                th:text="${restaurant.nom}"></option>
+                                th:text="${restaurant.name}"></option>
                     </select>
+                    <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}" class="alert alert-danger text-center"></div>
                 </div>
 
 

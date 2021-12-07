@@ -17,13 +17,17 @@
 <div th:if="${message}" class="alert alert-success text-center">
     [[${message}]]
 </div>
+<div class="form-group row " style="padding-left:250px;">
+    <a th:href="@{/restaurateur/user/create/USER}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau user</button></a>
+    <a th:href="@{/restaurateur/user/create/restaurateur}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau restaurateur</button></a>
+    <a th:href="@{/restaurateur/user/create/ADMIN}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau admin</button></a>
+</div>
+<h2>Liste des restaurateurs</h2>
 
 <div class="tableau">
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
-
-
             <th>First Name</th>
             <th>Last name </th>
             <th>E-mail</th>
@@ -33,27 +37,94 @@
         </thead>
         <tbody>
         <th:block th:each="User: ${Users}">
-            <tr>
+            <div th:switch="${User.roles[0].toString()}">
+                <tr th:case="'restaurateur'">
+                    <td>[[${User.firstname}]]</td>
+                    <td>[[${User.lastname}]]</td>
+                    <td>[[${User.email}]]</td>
+                    <td>
+                        <a th:href="@{'/restaurateur/user/update/' + ${User.id} + '/' + ${User.roles[0].toString()}}">edit</a>
 
+                    </td>
+                    <td>
+                        <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                    </td>
+                </tr>
+            </div>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+    <h2>Liste des admins</h2>
+
+    <div class="tableau">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last name </th>
+                <th>E-mail</th>
+                <th>Restaurant</th>
+                <th>Edit</th>
+                <th>Delete </th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="User: ${Users}">
+                <div th:switch="${User.roles[0].toString()}">
+                    <tr th:case="'ADMIN'">
+                        <td>[[${User.firstname}]]</td>
+                        <td>[[${User.lastname}]]</td>
+                        <td>[[${User.email}]]</td>
+                        <span th:each="Resto: ${restaurants}">
+                        <td th:if="${Resto.id} == ${User.resto}">[[${Resto.name}]]</td>
+                        </span>
+                        <td>
+                            <a th:href="@{'/restaurateur/user/update/' + ${User.id} + '/' + ${User.roles[0].toString()}}">edit</a>
+
+                        </td>
+                        <td>
+                            <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </div>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+<h2>Liste des utilisateurs</h2>
+
+<div class="tableau">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last name </th>
+            <th>E-mail</th>
+            <th>Edit</th>
+            <th>Delete </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="User: ${Users}">
+            <div th:switch="${User.roles[0].toString()}">
+            <tr th:case="'USER'">
                 <td>[[${User.firstname}]]</td>
                 <td>[[${User.lastname}]]</td>
                 <td>[[${User.email}]]</td>
                 <td>
-                    <a th:href="@{'/restaurateur/user/update/' + ${User.id}}">edit</a>
+                    <a th:href="@{'/restaurateur/user/update/' + ${User.id} + '/' + ${User.roles[0].toString()} }">edit</a>
 
                 </td>
                 <td>
                     <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
                 </td>
             </tr>
+            </div>
         </th:block>
         </tbody>
     </table>
-    <div class="form-group row " style="padding-left:450px;">
-        <a th:href="@{/restaurateur/user/create/USER}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau user</button></a>
-        <a th:href="@{/restaurateur/user/create/restaurateur}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau restaurateur</button></a>
-        <a th:href="@{/restaurateur/user/create/ADMIN}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau admin</button></a>
-    </div>
 </div>
 
 
