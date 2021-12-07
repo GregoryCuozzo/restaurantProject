@@ -100,8 +100,8 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 patchUserIn.getLastname(),
                 patchUserIn.getFirstname(),
                 patchUserIn.getEmail(),
-                patchUserIn.getPhone(),
                 patchUserIn.getResto(),
+                patchUserIn.getPhone(),
                 patchUserIn.getContact(),
                 id
 
