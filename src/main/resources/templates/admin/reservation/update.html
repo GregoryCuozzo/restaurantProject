@@ -29,7 +29,8 @@
             <label for="restaurant" class="col-sm-4 col-form-label">Restaurant :</label>
             <div class="col-sm-8">
                 <select th:field="*{restaurant}" id="restaurant" class="form-control">
-                    <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}">
+                    <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}"
+                            th:text="${Restaurant.name}">
                     </option>
                 </select>
 
