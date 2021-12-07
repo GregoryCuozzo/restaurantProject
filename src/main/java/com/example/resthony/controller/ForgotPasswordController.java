@@ -43,8 +43,8 @@ public class ForgotPasswordController {
 
     @PostMapping("/reset")
     public String processForgotPasswordForm(HttpServletRequest request, RedirectAttributes ra) throws UserNotFoundException, MailSendException, MessagingException, UnsupportedEncodingException {
-        if(request.getParameter("email").isEmpty()) {
-            ra.addFlashAttribute("messageErreur","Veuillez remplir tous les champs");
+        if (request.getParameter("email").isEmpty()) {
+            ra.addFlashAttribute("messageErreur", "Veuillez remplir tous les champs");
             return "redirect:/forgotPassword/reset";
         }
 
@@ -57,16 +57,15 @@ public class ForgotPasswordController {
             userService.updateResetPassword(token, email);
 
             //Gérérer lien reset password
-            String resetPasswordLink = Utility.getSiteURL(request) + "/forgotPassword/reset_password?token=" +token ;
-
+            String resetPasswordLink = Utility.getSiteURL(request) + "/forgotPassword/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
-            System.out.println(resetPasswordLink);
+
             //Envoyer email
-            ra.addFlashAttribute("message", "Un message a été envoyé à l'adresse email : " +email);
+            ra.addFlashAttribute("message", "Un message a été envoyé à l'adresse email : " + email);
 
         } catch (UserNotFoundException e) {
-           ra.addFlashAttribute("messageErreur", e.getMessage());
-        } catch(MessagingException | UnsupportedEncodingException | MailSendException e){
+            ra.addFlashAttribute("messageErreur", e.getMessage());
+        } catch (MessagingException | UnsupportedEncodingException | MailSendException e) {
             ra.addFlashAttribute("messageErreur", "Erreur pendant l'envoi de l'email. Veuillez réessayer plus tard.");
         }
 
@@ -83,8 +82,8 @@ public class ForgotPasswordController {
         String content = "<p>Bonjour,</p>"
                 + "<p>Vous avez demandé un reset de votre mot de passe.</p>"
                 + "<p>Cliquez sur le lien ci-dessous pour changer votre mot de passe :</p>"
-                +"<p><b><a href=\""+resetPasswordLink+"\" > Changer mon mot de passe</a></b></p>"
-                +"<p>Ignorez cet email si vous vous souvenez du mot de passe ou si vous n'avez fais demandé ce changement.</p>";
+                + "<p><b><a href=\"" + resetPasswordLink + "\" > Changer mon mot de passe</a></b></p>"
+                + "<p>Ignorez cet email si vous vous souvenez du mot de passe ou si vous n'avez fais demandé ce changement.</p>";
         helper.setSubject(subject);
         helper.setText(content, true);
 
@@ -96,7 +95,7 @@ public class ForgotPasswordController {
     public String showResetPasswordForm(@Param(value = "token") String token, RedirectAttributes ra, Model model) {
         System.out.println(token);
         User user = userService.findByToken(token);
-        if (user == null){
+        if (user == null) {
             ra.addFlashAttribute("messageErreur", "Token invalide");
             return "redirect:/forgotPassword/reset";
         }
@@ -105,20 +104,20 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/reset_password")
-    public String updatePass(@RequestParam("password") String password, @RequestParam("password2") String password2,@RequestParam("token") String token, RedirectAttributes ra, Model model){
-        if(password.isEmpty() || password2.isEmpty()){
+    public String updatePass(@RequestParam("password") String password, @RequestParam("password2") String password2, @RequestParam("token") String token, RedirectAttributes ra, Model model) {
+        if (password.isEmpty() || password2.isEmpty()) {
             ra.addFlashAttribute("messageErreur", "Tous les champs doivent être remplis.");
 
             return "redirect:/forgotPassword/reset_password?token=" + token;
-        } else if(!password.equals(password2)) {
+        } else if (!password.equals(password2)) {
             ra.addFlashAttribute("messageErreur", "Les mots de passe ne correspondent pas.");
-            return "redirect:/forgotPassword/reset_password?token="+ token;
-        }else if(false) {
+            return "redirect:/forgotPassword/reset_password?token=" + token;
+        } else if (false) {
             ra.addFlashAttribute("messageErreur", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial.");
-            return "redirect:/forgotPassword/reset_password?token="+ token;
+            return "redirect:/forgotPassword/reset_password?token=" + token;
         }
         User user = userService.findByToken(token);
-        userService.updatePass(user.getId(),password);
+        userService.updatePass(user.getId(), password);
         model.addAttribute("message", "Votre mot de passe a bien été changé.");
         return "/public/login.html";
     }

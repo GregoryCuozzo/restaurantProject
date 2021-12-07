@@ -34,7 +34,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Modifying
     @Transactional
     @Query("update User r set r.resetPasswordToken=?1 where r.id=?2")
-    int updateToken(String token, Long id );
+    int updateToken(String token, Long id);
 
     public User findByResetPasswordToken(String token);
 

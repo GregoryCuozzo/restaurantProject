@@ -11,7 +11,12 @@
     <img id="banner" th:src="@{/chefs.png}"/>
 
     <h2 style="text-align:center;color:white;"> Bienvenue  </h2>
-
+    <div th:if="${messageErreur}" class="alert alert-danger text-center">
+        [[${messageErreur}]]
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
 
 <br>
 
