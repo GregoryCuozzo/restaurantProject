@@ -45,6 +45,7 @@ public class ReservationControllerRestau {
     public String create(Model model) {
         model.addAttribute("reservations", new CreateReservationIn());
         model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("users",ServiceUser.getAll());
         return "/restaurateur/reservation/create.html";
     }
 
@@ -106,6 +107,7 @@ public class ReservationControllerRestau {
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("reservations", Service.get(Long.valueOf(id)));
         model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("users",ServiceUser.getAll());
         return "/restaurateur/reservation/update.html";
     }
 
