@@ -84,8 +84,14 @@ public class User implements UserDetails {
     @Column (name="email")
     private String email;
 
+    @Column (name="phone")
+    private String phone;
+
     @Column (name = "resto")
     private Integer resto;
+
+    @Column (name = "contact")
+    private String contact;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
