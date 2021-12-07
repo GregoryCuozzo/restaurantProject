@@ -64,26 +64,10 @@ public class UtilisateurController {
         }
 
         // Check duplicate
-        List<UserOut> users = new ArrayList<UserOut>(service.getAll());
-        boolean checkDuplicate = true;
-        for (UserOut user: users) {
-            if (service.getCurrentUser().getUsername() != user.getUsername())
-            {
-                if (user.getUsername().equals(patchUserIn.getUsername()))
-                {
-                    checkDuplicate = false;
-                    ra.addFlashAttribute("messageErreur", "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.");
-                }
-            }
-            if (service.getCurrentUser().getEmail() != user.getEmail()) {
-                if (user.getEmail().equals(patchUserIn.getEmail())) {
-                    checkDuplicate = false;
-                    ra.addFlashAttribute("messageErreur", "Cette adresse email existe déjà, veuillez en choisir une autre.");
-                }
-            }
-        }
-        if (checkDuplicate == false) {
-            ra.addFlashAttribute("messageErreur");
+        String message = service.checkDuplicateUpdate(patchUserIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
             return "redirect:/user/update";
         }
         service.patch(patchUserIn.getId(), patchUserIn);

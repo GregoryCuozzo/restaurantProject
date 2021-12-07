@@ -5,6 +5,7 @@ import com.example.resthony.model.dto.user.PatchUserIn;
 import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.entities.User;
 import com.example.resthony.repositories.UserRepository;
+import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.security.enterprise.credential.Password;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -220,4 +224,37 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         }
         return message;
     }
+
+    // Methodes pour reset password - mot de passe oublié
+
+    //Set password token in DB
+    @Override
+    public void updateResetPassword(String token, String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email);
+
+
+        if (user!= null){
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException("Pas d'utilisateur trouvé avec l'adresse email : " + email);
+        }
+    }
+
+    //Get by token reset password
+    public User get(String resetPasswordToken) {
+        return userRepository.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    //Set updated password
+
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+
+        user.setPassword(encodedPassword);
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
+    }
+
 }

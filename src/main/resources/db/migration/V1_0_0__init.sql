@@ -9,6 +9,7 @@ create table users (
                        account_non_locked bit,
                        credentials_non_expired bit,
                        enabled bit,
+                       reset_password_token varchar(45),
                        firstname varchar(255) not null,
                        lastname varchar(255) not null,
                        password varchar(255) not null,

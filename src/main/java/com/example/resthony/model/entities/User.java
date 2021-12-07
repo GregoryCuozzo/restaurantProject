@@ -80,6 +80,9 @@ public class User implements UserDetails {
     private boolean enabled;
 
 
+    @Column(name= "reset_password_token")
+    private String resetPasswordToken;
+
     @NotNull(message = "Email obligatoire")
     @Column (name="email")
     private String email;

@@ -35,8 +35,10 @@
             <button type="submit" name="login" class="btn btn-warning"> Se connecter </button>
             <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  S'inscrire </button>
         </div>
-
     </form>
+    <div>
+        <a th:href="@{/forgotPassword/reset}"><button class="btn btn-secondary m-2">Mot de passe oublié ?</button></a>
+    </div>
 </div>
 
 <script type="text/javascript">
