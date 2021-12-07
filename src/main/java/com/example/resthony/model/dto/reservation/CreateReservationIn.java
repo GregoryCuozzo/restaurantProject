@@ -19,13 +19,13 @@ import java.sql.Time;
 @AllArgsConstructor
 public class CreateReservationIn {
 
-    @NotBlank(message = "Nom d'utilisateur obligatoire")
+    @NotNull(message = "Nom d'utilisateur obligatoire")
     public String user;
 
     @NotNull(message = "Heure obligatoire")
     public Time time;
 
-    @NotBlank(message = "Restaurant obligatoire")
+    @NotNull(message = "Restaurant obligatoire")
     public String restaurant;
 
     @NotNull(message = "Date obligatoire")
