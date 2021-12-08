@@ -28,6 +28,7 @@
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
+            <th>Username</th>
             <th>First Name</th>
             <th>Last name </th>
             <th>E-mail</th>
@@ -39,6 +40,7 @@
         <th:block th:each="User: ${Users}">
             <div th:switch="${User.roles[0].toString()}">
                 <tr th:case="'restaurateur'">
+                    <td>[[${User.username}]]</td>
                     <td>[[${User.firstname}]]</td>
                     <td>[[${User.lastname}]]</td>
                     <td>[[${User.email}]]</td>
@@ -61,6 +63,7 @@
         <table class="table table-bordered">
             <thead class="thead-dark">
             <tr>
+                <th>Username</th>
                 <th>First Name</th>
                 <th>Last name </th>
                 <th>E-mail</th>
@@ -73,6 +76,7 @@
             <th:block th:each="User: ${Users}">
                 <div th:switch="${User.roles[0].toString()}">
                     <tr th:case="'ADMIN'">
+                        <td>[[${User.username}]]</td>
                         <td>[[${User.firstname}]]</td>
                         <td>[[${User.lastname}]]</td>
                         <td>[[${User.email}]]</td>
@@ -99,6 +103,7 @@
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
+            <th>Username</th>
             <th>First Name</th>
             <th>Last name </th>
             <th>E-mail</th>
@@ -110,6 +115,7 @@
         <th:block th:each="User: ${Users}">
             <div th:switch="${User.roles[0].toString()}">
             <tr th:case="'USER'">
+                <td>[[${User.username}]]</td>
                 <td>[[${User.firstname}]]</td>
                 <td>[[${User.lastname}]]</td>
                 <td>[[${User.email}]]</td>

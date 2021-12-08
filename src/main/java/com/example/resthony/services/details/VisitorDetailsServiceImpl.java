@@ -66,7 +66,6 @@ public class VisitorDetailsServiceImpl implements VisitorService {
     @Override
     public VisitorOut create(CreateVisitorIn createVisitorIn) {
         Visitor visitor = convertVisitorInToVisitorEntity(createVisitorIn);
-        System.out.println(visitor);
         Visitor newVisitor = visitorRepository.save(visitor);
         return convertVisitorEntityToVisitorOut(newVisitor);
     }

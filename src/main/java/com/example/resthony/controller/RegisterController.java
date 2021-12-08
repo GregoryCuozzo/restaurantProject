@@ -1,41 +1,30 @@
 package com.example.resthony.controller;
-
 import com.example.resthony.model.dto.user.CreateUserIn;
-import com.example.resthony.model.dto.user.UserOut;
-import com.example.resthony.model.entities.User;
+import com.example.resthony.services.principal.EmailService;
 import com.example.resthony.services.principal.UserService;
 import com.example.resthony.utils.BCryptManagerUtil;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.UnsupportedEncodingException;
+
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
 
     private final UserService service;
-    private AuthenticationManager authManager;
+    private final EmailService ServiceEmail;
 
-    public RegisterController(UserService service) {
+    public RegisterController(UserService service, EmailService serviceEmail) {
         this.service = service;
+        ServiceEmail = serviceEmail;
     }
 
     @GetMapping
@@ -65,7 +54,28 @@ public class RegisterController {
         createUserIn.setPassword(restPasswordValue);
         service.register(createUserIn);
         // response.login(createUserIn.getUsername(), uncryptedPass);
-        return "redirect:/user/index.html";
+
+
+        try {
+            //Info sur le user
+
+            String registerName = createUserIn.getLastname();
+
+            //Info email
+            String emailAdress = createUserIn.getEmail();
+            String emailSubject = "Compte crée chez Resthony.";
+            String emailText = "<p>Bonjour monsieur "+registerName+",</p>"
+                    + "<p>Merci d'avoir crée un compte chez nous, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
+                    + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
+            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+        }
+        catch (MessagingException | UnsupportedEncodingException e){
+            ra.addFlashAttribute("messageErreur", "Problème avec l'envoie de l'email de confirmation du compte.");
+            return "redirect:/";
+        }
+        ra.addFlashAttribute("message", "Un email de confirmation de création du compte vous a été envoyé.");
+
+        return "redirect:/";
 
     }
 

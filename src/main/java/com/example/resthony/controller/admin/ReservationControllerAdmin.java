@@ -3,20 +3,20 @@ package com.example.resthony.controller.admin;
 
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
+import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.model.dto.visitor.PatchVisitorIn;
-import com.example.resthony.model.entities.User;
 import com.example.resthony.services.principal.*;
 import javassist.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
 
 
 @Controller
@@ -26,13 +26,15 @@ public class ReservationControllerAdmin {
     private final RestoService ServiceResto;
     private final UserService ServiceUser;
     private final VisitorService ServiceVisitor;
+    private final EmailService ServiceEmail;
 
 
-    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor) {
+    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor, EmailService serviceEmail) {
         Service = service;
         ServiceResto = serviceResto;
         ServiceUser = serviceUser;
         ServiceVisitor = serviceVisitor;
+        ServiceEmail = serviceEmail;
     }
 
 
@@ -55,14 +57,39 @@ public class ReservationControllerAdmin {
     }
 
     @PostMapping("/create")
-    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult,RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             return "/create";
 
         }
 
         Service.create(createReservationIn);
+        try {
+            //Info de la réservation - récupération de l'email de l'utilisateur
+            String reservationUser = createReservationIn.getUser();
+            UserOut userEntity = ServiceUser.findByUsername(reservationUser);
+            String reservationEmail = userEntity.getEmail();
+            //Info de la réservation
+            String reservationResto = createReservationIn.getRestaurant();
+            String reservationName = createReservationIn.getUser();
+            String reservationDate = createReservationIn.getDate().toString();
+            String reservationTime = createReservationIn.getTime().toString();
+            String reservationNbPersonne = createReservationIn.getNbcouverts().toString();
+            //Info email
+            String emailAdress = reservationEmail;
+            String emailSubject = "Merci pour votre réservation chez " +reservationResto+".";
+            String emailText = "<p>Bonjour monsieur "+reservationName+",</p>"
+                    + "<p>Merci pour votre réservation chez " +reservationResto+".</p>"
+                    + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
+                    + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>"
+                    + "<p>Ou rendez-vous sur votre compte Resthony.";
+            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+        }
+        catch (MessagingException | UnsupportedEncodingException e){
+            ra.addFlashAttribute("messageErreur", "Réservation envoyée mais problème avec l'envoie de l'email de confirmation.");
+            return "redirect:/admin/reservation/list";
+        }
+        ra.addFlashAttribute("message", "Réservation : Un email de confirmation été envoyé à l'utilisateur.");
         return "redirect:/admin/reservation/list";
     }
 
@@ -75,16 +102,36 @@ public class ReservationControllerAdmin {
 
 
     @PostMapping("/createVisitor")
-    public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult) {
+    public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             return "/createVisitor";
         }
 
         ServiceVisitor.create(createVisitorIn);
+        try {
+            //Info de la réservation
+            String reservationResto = createVisitorIn.getResto();
+            String reservationName = createVisitorIn.getLastname();
+            String reservationDate = createVisitorIn.getDate().toString();
+            String reservationTime = createVisitorIn.getTime().toString();
+            String reservationNbPersonne = createVisitorIn.getNbcouverts().toString();
 
+            //Info email
+            String emailAdress = createVisitorIn.getEmail();
+            String emailSubject = "Merci pour votre réservation chez " +reservationResto+".";
+            String emailText = "<p>Bonjour monsieur "+reservationName+",</p>"
+                    + "<p>Merci pour votre réservation chez " +reservationResto+".</p>"
+                    + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
+                    + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>";
+            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+        }
+        catch (MessagingException | UnsupportedEncodingException e){
+            ra.addFlashAttribute("messageErreur", "Réservation envoyée mais problème avec l'envoie de l'email de confirmation.");
+            return "redirect:/admin/reservation/list";
+        }
+        ra.addFlashAttribute("message", "Réservation : Un email de confirmation été envoyé à l'utilisateur.");
         return "redirect:/admin/reservation/list";
     }
-
 
 
     @GetMapping("/delete/{id}")

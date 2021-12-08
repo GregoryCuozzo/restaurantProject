@@ -1,6 +1,5 @@
 package com.example.resthony.controller;
 
-
 import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.services.principal.EmailService;
 import com.example.resthony.services.principal.RestoService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
@@ -52,6 +50,7 @@ public class VisitorsController {
         //Envoi de l'email de confirmation
         try {
             //Info de la réservation
+            String reservationResto = createVisitorIn.getResto();
             String reservationName = createVisitorIn.getLastname();
             String reservationDate = createVisitorIn.getDate().toString();
             String reservationTime = createVisitorIn.getTime().toString();
@@ -59,9 +58,9 @@ public class VisitorsController {
 
             //Info email
             String emailAdress = createVisitorIn.getEmail();
-            String emailSubject = "Merci pour votre réservation chez NOM DU RESTO";
+            String emailSubject = "Merci pour votre réservation chez " +reservationResto+".";
             String emailText = "<p>Bonjour monsieur "+reservationName+",</p>"
-                    + "<p>Vous avez effectué une réservation chez NOM DU RESTO.</p>"
+                    + "<p>Merci pour votre réservation chez " +reservationResto+".</p>"
                     + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
                     + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>";
             ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);

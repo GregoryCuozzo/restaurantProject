@@ -201,13 +201,18 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         String message = "" ;
         for (User user : userRepository.findAll()) {
             if (user.getEmail().equals(createUserIn.getEmail())) {
-                message = "Cette adresse email existe déjà, veuillez en choisir une autre.";
+                message = "Il existe déjà un compte avec cette adresse email, veuillez en choisir une autre.";
+                break;
             }
             if (user.getUsername().equals(createUserIn.getUsername())) {
                 message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
+                break;
             }
-            if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
-                message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+            if (createUserIn.getContact()!= null) {
+                if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
+                    message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+                    break;
+                }
             }
         }
         return message;
@@ -226,7 +231,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         for (User user : userRepository.findAll()) {
             if (!emailUserPatch.equals(patchUserIn.getEmail())) {
                 if (user.getEmail().equals(patchUserIn.getEmail())) {
-                    message = "Cette adresse email existe déjà, veuillez en choisir une autre.";
+                    message = "Il existe déjà un compte avec cette adresse email, veuillez en choisir une autre.";
                 }
             }
             if (!usernameUserPatch.equals(patchUserIn.getUsername())) {
@@ -234,8 +239,10 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                     message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 }
             }
-            if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
-                message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+            if (patchUserIn.getContact() != null){
+                if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
+                    message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+                }
             }
         }
         return message;

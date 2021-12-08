@@ -20,7 +20,7 @@
     <hr>
     <div class="border border-secondary rounded p-3">
         <div class="form-group row">
-            <label for="user" class="col-sm-4 col-form-label">Utilisateurs :</label>
+            <label for="user" class="col-sm-4 col-form-label">Utilisateur :</label>
             <div class="col-sm-8">
                 <select th:field="*{user}" id="user" class="form-control">
                     <option th:each="User: ${users}" th:value="${User.username}"

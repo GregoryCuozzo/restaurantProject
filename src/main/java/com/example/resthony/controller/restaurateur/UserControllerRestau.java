@@ -3,7 +3,7 @@ package com.example.resthony.controller.restaurateur;
 import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
-import com.example.resthony.model.entities.User;
+import com.example.resthony.services.principal.EmailService;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.UserNotFoundException;
 import com.example.resthony.services.principal.UserService;
@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.json.bind.annotation.JsonbTransient;
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * User controller
@@ -33,10 +31,12 @@ public class UserControllerRestau {
 
     private final UserService service;
     private final RestoService ServiceResto;
+    private final EmailService ServiceEmail;
 
-    public UserControllerRestau(UserService service, RestoService serviceResto) {
+    public UserControllerRestau(UserService service, RestoService serviceResto, EmailService serviceEmail) {
         this.service = service;
         ServiceResto = serviceResto;
+        ServiceEmail = serviceEmail;
     }
     @GetMapping("/list")
     public String all(Model model){
@@ -83,6 +83,26 @@ public class UserControllerRestau {
         }else{
             return "/restaurateur/users/create.html";
         }
+            //Email de confirmation envoyé à l'utilisateur
+        try {
+            //Info sur le user
+
+            String registerName = createUserIn.getLastname();
+
+            //Info email
+            String emailAdress = createUserIn.getEmail();
+            String emailSubject = "Compte crée chez Resthony.";
+            String emailText = "<p>Bonjour monsieur "+registerName+",</p>"
+                    + "<p>Un compte a été crée pour vous chez Resthony.</p>"
+                    + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
+            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+        }
+        catch (MessagingException | UnsupportedEncodingException e){
+            ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation du compte.");
+            service.create(createUserIn);
+            return "redirect:/restaurateur/user/list";
+        }
+        ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
         service.create(createUserIn);
         return "redirect:/restaurateur/user/list";
     }
