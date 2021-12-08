@@ -1021,7 +1021,6 @@ section {
   font-size: 13px;
 }
 .book-a-table .php-email-form .error-message {
-  display: none;
   color: #fff;
   background: #ed3c0d;
   text-align: left;
@@ -1520,4 +1519,33 @@ section {
   text-align: center;
   font-size: 13px;
   color: #fff;
+}
+
+/*-------------------------------------------------
+Scott
+ */
+
+select option{
+  margin: 0px;
+  background-color: #0c0b09;
+  color: #a49b89;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+select{
+
+  margin: 0px;
+  background-color: #0c0b09;
+  color: #100c0c;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  border-color: #625b4b;
+}
+
+
+.selectColourForm{
+  background-color: #0c0b09;
+  color: #a49b89;
+  border: 1px;
+  border-style: solid;
+  border-color: #625b4b;
 }

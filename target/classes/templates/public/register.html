@@ -24,41 +24,40 @@
         </div>
 
         <form th:action="@{/register/create}" th:object="${createUserIn}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
-           <hr>
             <div class="row">
                 <div class="col-lg-4 col-md-6 form-group">
-                    <input type="text" th:field="*{username}" class="form-control" id="name" placeholder="Pseudo">
+                    <input type="text" th:field="*{username}" class="form-control" id="name" placeholder="Pseudo*">
                     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger text-center"></div>
                 </div>
                 <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                    <input type="text" th:field="*{firstname}" class="form-control" id="email" placeholder="Prénom" >
+                    <input type="text" th:field="*{firstname}" class="form-control" id="email" placeholder="Prénom*" >
                     <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>
                 </div>
                 <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                    <input type="text" th:field="*{lastname}" class="form-control" id="phone" placeholder="Nom">
+                    <input type="text" th:field="*{lastname}" class="form-control" id="phone" placeholder="Nom*">
                     <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="alert alert-danger text-center"></div>
                 </div>
                 <div class="col-lg-4 col-md-6 form-group mt-3">
-                    <input type="email" th:field="*{email}" class="form-control" id="date" placeholder="Email" >
+                    <input type="email" th:field="*{email}" class="form-control" id="date" placeholder="Email*" >
                     <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
                 </div>
                 <div class="col-lg-4 col-md-6 form-group mt-3">
                     <input type="text" th:field="*{phone}" class="form-control"  id="time" placeholder="Téléphone">
                     <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Préférence de contact* :</label>
-                    <div class="col-sm-8">
-                        <select th:field="*{contact}" class="form-control" >
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="password" th:field="*{password}"class="form-control" id="people" placeholder="Mot de passe*">
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form">
+
+                        <select th:field="*{contact}" class="form-control selectColourForm" >
+                            <option type="text" th:value="default">Préférence de contact* (Pour réservation)</option>
                             <option type="text" th:value="sms">Email</option>
                             <option type="text" th:value="email">SMS</option>
                             <option type="text" th:value="aucun">Aucun</option>
                         </select>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 form-group mt-3">
-                    <input type="password" th:field="*{password}"class="form-control" id="people" placeholder="Mot de passe">
-                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger text-center"></div>
+                        <div th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="text-center"><button type="submit">Inscription</button></div>
