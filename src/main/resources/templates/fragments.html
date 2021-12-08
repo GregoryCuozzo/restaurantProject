@@ -5,96 +5,160 @@
 
 <head th:fragment="header">
     <title>Resthony</title>
-    <!-- ---------------------------------------- Bootstrap --------------------------------- -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <!-- ---------------------------------------- CSS --------------------------------------- -->
-    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
-    <link rel="stylesheet" th:href="@{/dataTables.bootstrap4.min.css}">
-    <link rel="stylesheet" th:href="@{/solid.min.css}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- Vendor JS Files -->
+    <script src="/vendor/aos/aos.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/js/main.js"></script>
 </head>
 
 <!-- Différentes navBar -->
 
 <!-- Pas loggé -->
 <body>
-<div th:fragment="navbarNotLogged">
-    <img id="banner" th:src="@{/chefs.png}"/>
-    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;">
-        <ul class="nav navbar-nav " style="padding-left:300px">
-            <li class="nav-item"><a class="nav-link" th:href="@{/user}"><i class="fa fa-user-plus"></i> Accueil </a>
-            </li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/user/reservation/list}"><i class="fa fa-user-plus"></i> Mes
-                réservations </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/user/profil}"><i class="fa fa-user-plus"></i> Mon
-                profil </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fa fa-user-plus"></i> Déconnexion
-            </a></li>
-        </ul>
-    </nav>
-</div>
+
+    <div th:fragment="navbarNotLogged">
+        <div id="header" class=" container-xl d-flex align-items-center justify-content-lg-between">
+            <h1 class="logo me-auto me-lg-0"><a th:href="@{/}">Resthony</a></h1>
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="nav-link scrollto active" th:href="@{/}"> Accueil </a></li>
+                    <li><a class="nav-link scrollto" th:href="@{/register}"> S'inscrire </a></li>
+                    <li><a class="nav-link scrollto" th:href="@{/login}">Se connecter </a></li>
+                    <li><a class="nav-link scrollto" th:href="@{/visitor/create}"> Réserver</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
 
 <!-- User -->
 <div th:fragment="navbarUser">
-    <img id="banner" th:src="@{/chefs.png}"/>
-    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;">
-        <ul class="nav navbar-nav " style="padding-left:300px">
-            <li class="nav-item"><a class="nav-link" th:href="@{/user}"><i class="fa fa-user-plus"></i> Accueil </a>
-            </li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/user/reservation/list}"><i class="fa fa-user-plus"></i> Mes
-                réservations </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/user/profil}"><i class="fa fa-user-plus"></i> Mon
-                profil </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fa fa-user-plus"></i> Déconnexion
-            </a></li>
+    <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+            <li><a class="nav-link scrollto active" th:href="@{/user}"> Accueil </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/user/reservation/list}"> Mes réservations </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/user/profil}">Mon profil </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion</a></li>
         </ul>
     </nav>
 </div>
 
 <!-- Admin -->
 <div th:fragment="navbarAdmin">
-    <img id="banner" th:src="@{/chefs.png}"/>
-    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;">
-        <ul class="nav navbar-nav " style="padding-left:300px">
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin}"><i class="fa fa-user-plus"></i> Accueil </a>
-            </li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/user/list}"><i class="fa fa-user-plus"></i>
-                Utilisateurs </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/reservation/list}"><i
-                    class="fa fa-user-plus"></i> Réservations </a></li>
 
-            <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fa fa-user-plus"></i> Déconnexion
-            </a></li>
-        </ul>
+    <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active"th:href="@{/admin}">Accueil</a></li>
+                <li><a class="nav-link scrollto" th:href="@{/admin/user/list}"> Utilisateurs </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/admin/reservation/list}"> Réservations </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/logout}"></i>Déconnexion</a></li>
+            </ul>
     </nav>
 </div>
 
 <div th:fragment="navbarResto">
-    <img id="banner" th:src="@{/chefs.png}"/>
-    <nav class="navbar navbar-expand-lg navbar-dark " style="margin-left:0px;">
-        <ul class="nav navbar-nav " style="padding-left:300px">
-            <li class="nav-item"><a class="nav-link" th:href="@{/restaurateur}"><i class="fa fa-user-plus"></i> Accueil </a>
-            </li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/restaurateur/user/list}"><i class="fa fa-user-plus"></i>
-                Utilisateurs </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/restaurateur/restaurant/list}"><i class="fa fa-user-plus"></i>
-                Restaurants </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/restaurateur/reservation/list}"><i
-                    class="fa fa-user-plus"></i> Réservations </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/restaurateur/villes/list}"><i class="fa fa-user-plus"></i>
-                Villes </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/logout}"><i class="fa fa-user-plus"></i> Déconnexion
-            </a></li>
+    <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+            <li><a class="nav-link scrollto active" th:href="@{/restaurateur}"> Accueil </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/list}"> Utilisateurs </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/restaurateur/restaurant/list}"> Restaurants </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/restaurateur/reservation/list}"> Réservations </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/restaurateur/villes/list}"> Villes </a></li>
+            <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
         </ul>
     </nav>
 </div>
 
+<footer id="footer" th:fragment="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
 
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-info">
+                        <h3>Restaurantly</h3>
+                        <p>
+                            A108 Adam Street <br>
+                            NY 535022, USA<br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                    </ul>
+                </div>
 
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
 
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                    </form>
 
+                </div>
 
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Resthony</span></strong>. All Rights Reserved
+        </div>
+    </div>
+</footer><!-- End Footer -->
 </body>
+
+
 </html>

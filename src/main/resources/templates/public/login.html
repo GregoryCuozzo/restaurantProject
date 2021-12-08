@@ -3,63 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: header">
+<head th:replace="fragments :: header"></head>
 
 
 <body>
-
-<img id="banner" th:src="@{/chefs.png}"/>
-
+<div th:replace="fragments :: navbarNotLogged"></div>
 
 
-<h2 style="text-align:center;color:white;"> Page de connexion   </h2>
 <div th:if="${messageErreur}" class="alert alert-danger text-center">
     [[${messageErreur}]]
 </div>
 <div th:if="${message}" class="alert alert-success text-center">
     [[${message}]]
 </div>
-<div>
-    <div th:if="${loginError}" class="alert alert-danger text-center">Mauvais nom d'utilisateur ou mot de passe</div>
-    <form th:action="@{/login}" method="post" style="width:500px; margin: 0 auto;color:white;">
-        <hr>
-        <div class="border border-secondary rounded p-3">
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <input type="text" class="form-control" name="username"  placeholder="Nom d'utilisateur" id="username">
+
+<section id="book-a-table" class="book-a-table">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Mon compte</h2>
+            <p>Se connecter</p>
+        </div>
+        <div th:if="${loginError}" class="alert alert-danger text-center">Mauvais nom d'utilisateur ou mot de passe</div>
+
+        <form th:action="@{/login}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 form-group">
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Nom d'utilisateur" >
+                    <div class="validate"></div>
                 </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                    <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="Mot de passe" >
+                    <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0 "><button type="submit" name="login">Se connecter</button></div>
             </div>
+        </form>
+        <br>
+        <div><a th:href="@{/forgotPassword/reset}"><button class="forgotPassword"> Mot de passe oublié ?</button></a></div>
 
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Mots de passe">
-            </div>
-        </div>
-        <div class="form-group row " style="padding-left:150px;">
-            <button type="submit" name="login" class="btn btn-warning"> Se connecter </button>
-            <button type="button" class="btn btn-secondary m-2" onclick="redirectForm()" style="color:black;">  S'inscrire </button>
-        </div>
-    </form>
-    <div>
-        <a th:href="@{/forgotPassword/reset}"><button class="btn btn-secondary m-2">Mot de passe oublié ?</button></a>
     </div>
-</div>
+</section>
 
-<script type="text/javascript">
-    function redirectForm(){
-        window.location ="[[@{/register}]]";
-    }
-</script>
 
+<footer th:replace="fragments :: footer"></footer>
 </body>
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 </html>
 
