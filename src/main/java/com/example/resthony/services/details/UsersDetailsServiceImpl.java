@@ -22,6 +22,7 @@ import javax.security.enterprise.credential.Password;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -43,8 +44,6 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
             return user;
         }
     }
-
-
 
 
     @Override
@@ -71,22 +70,35 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     }
 
     @Override
-    public UserOut findByUsername(String username){
-       User user = userRepository.findByUsername(username);
+    public UserOut findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
 
-        if(user == null) return null;;
+        if (user == null) return null;
+        ;
         UserOut userOut = convertUserEntityToUserOut(user);
         return userOut;
     }
 
-
+    @Override
+    public int countUser() {
+        List<User> userEntities = userRepository.findAll();
+        int count = 0;
+        for (User user : userEntities) {
+            UserOut userOut = convertUserEntityToUserOut(user);
+            String role = userOut.roles.toString();
+            if (Objects.equals(role, "[USER]")) {
+                count += 1;
+            }
+        }
+        return count;
+    }
 
 
     @Override
     public UserOut create(CreateUserIn createUserIn) {
         User user = convertUserInToUserEntity(createUserIn);
         User newUser = userRepository.save(user);
-       return convertUserEntityToUserOut(newUser);
+        return convertUserEntityToUserOut(newUser);
     }
 
 
@@ -117,13 +129,13 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     }
 
     @Override
-    public UserOut updatePass(Long id, String password){
+    public UserOut updatePass(Long id, String password) {
         String passwordEncrypt = BCryptManagerUtil.passwordEncoder().encode(password);
-        userRepository.updatePass(id,passwordEncrypt);
+        userRepository.updatePass(id, passwordEncrypt);
         User userEntity = userRepository.getById(id);
         String token = userEntity.getResetPasswordToken();
         // On supprime le token du user s'il en a un
-        if(!token.isEmpty()){
+        if (!token.isEmpty()) {
             userRepository.updateToken(null, id);
         }
         return convertUserEntityToUserOut(userEntity);
@@ -144,7 +156,6 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     public void updateUserResto(Long idResto, String username) {
         userRepository.updateResto(idResto, username);
     }
-
 
 
     private UserOut convertUserEntityToUserOut(User user) {
@@ -184,12 +195,12 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
     }
 
     @Override
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = "";
 
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
             username = principal.toString();
         }
@@ -198,7 +209,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
 
     public String checkDuplicateCreate(CreateUserIn createUserIn) {
         // Check duplicate
-        String message = "" ;
+        String message = "";
         for (User user : userRepository.findAll()) {
             if (user.getEmail().equals(createUserIn.getEmail())) {
                 message = "Il existe déjà un compte avec cette adresse email, veuillez en choisir une autre.";
@@ -208,7 +219,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 break;
             }
-            if (createUserIn.getContact()!= null) {
+            if (createUserIn.getContact() != null) {
                 if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
                     message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
                     break;
@@ -221,7 +232,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
 
     public String checkDuplicateUpdate(PatchUserIn patchUserIn) {
         // Check duplicate
-        String message = "" ;
+        String message = "";
         long idUserPatch = patchUserIn.getId();
         UserOut userPatch = this.get(idUserPatch);
 
@@ -239,7 +250,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                     message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 }
             }
-            if (patchUserIn.getContact() != null){
+            if (patchUserIn.getContact() != null) {
                 if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
                     message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
                 }
@@ -256,7 +267,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         User user = userRepository.findByEmail(email);
 
 
-        if (user!= null){
+        if (user != null) {
             user.setResetPasswordToken(token);
             userRepository.save(user);
         } else {
