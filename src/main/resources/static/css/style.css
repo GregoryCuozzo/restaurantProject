@@ -1549,3 +1549,7 @@ select{
   border-style: solid;
   border-color: #625b4b;
 }
+
+.align-items-center{
+  align-content: center;
+}
