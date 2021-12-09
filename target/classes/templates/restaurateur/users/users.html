@@ -50,7 +50,7 @@
 
                     </td>
                     <td>
-                        <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                        <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}" onclick="return confirm('Êtes-vous sûr?')">Delete</a>
                     </td>
                 </tr>
             </div>
@@ -89,7 +89,7 @@
 
                         </td>
                         <td>
-                            <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                            <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}" onclick="return confirm('Êtes-vous sûr?')">Delete</a>
                         </td>
                     </tr>
                 </div>
@@ -124,7 +124,7 @@
 
                 </td>
                 <td>
-                    <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                    <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}" onclick="return confirm('Êtes-vous sûr?')">Delete</a>
                 </td>
             </tr>
             </div>
