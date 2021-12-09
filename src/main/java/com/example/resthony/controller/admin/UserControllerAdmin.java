@@ -3,6 +3,7 @@ package com.example.resthony.controller.admin;
 import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
+import com.example.resthony.model.entities.SmsRequest;
 import com.example.resthony.services.principal.*;
 import com.example.resthony.utils.BCryptManagerUtil;
 import javassist.NotFoundException;
@@ -32,16 +33,19 @@ public class UserControllerAdmin {
     private final UserService service;
     private final RestoService ServiceResto;
     private final EmailService ServiceEmail;
+    private final SmsService ServiceSms;
 
-    public UserControllerAdmin(UserService service, RestoService serviceResto, EmailService serviceEmail) {
+    public UserControllerAdmin(UserService service, RestoService serviceResto, EmailService serviceEmail, SmsService serviceSms) {
         this.service = service;
         ServiceResto = serviceResto;
         ServiceEmail = serviceEmail;
+        ServiceSms = serviceSms;
     }
+
     @GetMapping("/list")
-    public String all(Model model){
-        model.addAttribute("Users",service.getAll());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+    public String all(Model model) {
+        model.addAttribute("Users", service.getAll());
+        model.addAttribute("restaurants", ServiceResto.getAll());
         return "/admin/users/users.html";
 
     }
@@ -49,20 +53,20 @@ public class UserControllerAdmin {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("users", new CreateUserIn());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("restaurants", ServiceResto.getAll());
         model.addAttribute("rolesList", RoleEnum.values());
         return "/admin/users/create.html";
     }
 
     @PostMapping("/create")
-    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult,RedirectAttributes ra) {
+    public String createUser(@Valid @ModelAttribute("users") CreateUserIn createUserIn, BindingResult bindingResult, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             return "/admin/users/create";
         }
         String message = service.checkDuplicateCreate(createUserIn);
 
         if (!message.equals("")) {
-            ra.addFlashAttribute("messageErreur",message);
+            ra.addFlashAttribute("messageErreur", message);
             return "redirect:/admin/user/create";
         }
 
@@ -72,28 +76,50 @@ public class UserControllerAdmin {
 
         createUserIn.addRole(RoleEnum.USER);
         try {
-            //Info sur le user
-
-            String registerName = createUserIn.getLastname();
-
-            //Info email
-            String emailAdress = createUserIn.getEmail();
-            String emailSubject = "Compte crée chez Resthony.";
-            String emailText = "<p>Bonjour monsieur "+registerName+",</p>"
-                    + "<p>Un compte a été crée pour vous chez Resthony.</p>"
-                    + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
-            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
-        }
-        catch (MessagingException | UnsupportedEncodingException e){
-            ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation du compte.");
             service.create(createUserIn);
+        } catch (Exception e) {
+            ra.addFlashAttribute("messageErreur", "Problème avec la création de l'utilisateur.");
             return "redirect:/admin/user/list";
         }
-        ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
-        service.create(createUserIn);
+        if (createUserIn.getContact().equals("email")) {
+            try {
+                //Info sur le user
+
+                String registerName = createUserIn.getLastname();
+
+                //Info email
+                String emailAdress = createUserIn.getEmail();
+                String emailSubject = "Compte crée chez Resthony.";
+                String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
+                        + "<p>Un compte a été crée pour vous chez Resthony.</p>"
+                        + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
+                ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+            } catch (MessagingException | UnsupportedEncodingException e) {
+                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi de l'email de confirmation du compte.");
+                return "redirect:/admin/user/list";
+            }
+            ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
+            return "redirect:/admin/user/list";
+        }
+
+        if (createUserIn.getContact().equals("sms")) {
+            try {
+                String registerName = createUserIn.getLastname();
+                String smsMessage = "Bonjour monsieur " + registerName + "," +
+                        " Un compte a été crée pour vous chez Resthony." +
+                        " N'hésitez pas à nous contacter si vous avez des questions.";
+                SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);
+                ServiceSms.sendSms(smsRequest);
+            } catch (Exception e) {
+                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation du compte.");
+                return "redirect:/restaurateur/user/list";
+            }
+            ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
+            return "redirect:/admin/user/list";
+        }
+        ra.addFlashAttribute("message", "Compte créé *<|:^)");
         return "redirect:/admin/user/list";
     }
-
 
 
     @GetMapping("/delete/{id}")
@@ -111,21 +137,21 @@ public class UserControllerAdmin {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") String id, Model model) {
         model.addAttribute("users", service.get(Long.valueOf(id)));
-        model.addAttribute("restaurants",ServiceResto.getAll());
+        model.addAttribute("restaurants", ServiceResto.getAll());
         return "/admin/users/update.html";
     }
 
     @PostMapping("/update")
     public String updateUser(@Valid @ModelAttribute("users") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "/admin/users/update.html";
         }
 
         String message = service.checkDuplicateUpdate(patchUserIn);
 
         if (!message.equals("")) {
-            ra.addFlashAttribute("messageErreur",message);
-            return "redirect:/admin/user/update/"+patchUserIn.getId();
+            ra.addFlashAttribute("messageErreur", message);
+            return "redirect:/admin/user/update/" + patchUserIn.getId();
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);
@@ -136,37 +162,36 @@ public class UserControllerAdmin {
 
 
     @GetMapping("/updatePass")
-    public String updatePass (Model model){
+    public String updatePass(Model model) {
 
         return "admin/newpass.html";
     }
 
     @PostMapping("/updatePass")
-    public String updatePass(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPassword2") String newPassword2, RedirectAttributes ra){
+    public String updatePass(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPassword2") String newPassword2, RedirectAttributes ra) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Pattern p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{10,}$");
         Matcher m = p.matcher(newPassword);
         boolean b = m.matches();
-        if(oldPassword.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()){
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()) {
             ra.addFlashAttribute("messageErreur", "Tous les champs doivent être remplis");
             return "redirect:/admin/user/updatePass";
-        }else if(!encoder.matches(oldPassword, service.getCurrentUser().getPassword()) ){
+        } else if (!encoder.matches(oldPassword, service.getCurrentUser().getPassword())) {
             ra.addFlashAttribute("messageErreur", "L'ancien mot de passe est mauvais");
             return "redirect:/admin/user/updatePass";
-        }else if(!b){
+        } else if (!b) {
             ra.addFlashAttribute("messageErreur", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial");
             return "redirect:/admin/user/updatePass";
-        }else if(!newPassword.equals(newPassword2)){
+        } else if (!newPassword.equals(newPassword2)) {
             ra.addFlashAttribute("messageErreur", "Les mots de passe ne correspondent pas");
             return "redirect:/admin/user/updatePass";
-        }else if(oldPassword.equals(newPassword2)) {
+        } else if (oldPassword.equals(newPassword2)) {
             ra.addFlashAttribute("messageErreur", "Le nouveau mot de passe doit être différent de l'ancien");
             return "redirect:/admin/user/updatePass";
-        }else{
+        } else {
             try {
                 service.updatePass(service.getCurrentUser().getId(), newPassword);
-            }
-            catch(Exception exception){
+            } catch (Exception exception) {
                 ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réassayer plus tard ou nous contacter si l'erreur persiste");
             }
         }

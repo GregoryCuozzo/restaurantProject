@@ -113,7 +113,6 @@ public class UserControllerRestau {
                 ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
             } catch (MessagingException | UnsupportedEncodingException e) {
                 ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation du compte.");
-                service.create(createUserIn);
                 return "redirect:/restaurateur/user/list";
             }
             ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
