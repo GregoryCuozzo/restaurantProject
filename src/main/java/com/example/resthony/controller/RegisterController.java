@@ -68,7 +68,6 @@ public class RegisterController {
 
         System.out.println("CREATE USER IN =" + createUserIn);
         if (createUserIn.getContact().equals("email")) {
-            System.out.println("EMAIIIIL" );
             try {
                 //Info sur le user
 
@@ -80,7 +79,11 @@ public class RegisterController {
                 String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
                         + "<p>Merci d'avoir crée un compte chez nous, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
                         + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
-                ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+                message = ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+                if (!message.equals("")){
+                    ra.addFlashAttribute("messageErreur", message);
+                    return "redirect:/";
+                }
 
             } catch (MessagingException | UnsupportedEncodingException e) {
                 ra.addFlashAttribute("messageErreur", "Problème avec l'envoie de l'email de confirmation du compte.");
@@ -92,7 +95,6 @@ public class RegisterController {
 
         if (createUserIn.getContact().equals("sms"))
         {
-            System.out.println("SMSMSMSMSMSMSMS" );
             try {
                 String registerName = createUserIn.getLastname();
                 String smsMessage = "Bonjour monsieur " + registerName + "," +
