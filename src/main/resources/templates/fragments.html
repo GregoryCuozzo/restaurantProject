@@ -52,6 +52,12 @@
                 </ul>
             </nav>
         </div>
+        <div th:if="${message}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+        <div th:if="${messageErreur}" class="alert alert-danger text-center">
+            [[${messageErreur}]]
+        </div>
     </div>
 
 
@@ -68,6 +74,12 @@
                 </ul>
             </nav>
         </div>
+        <div th:if="${message}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+        <div th:if="${messageErreur}" class="alert alert-danger text-center">
+            [[${messageErreur}]]
+        </div>
     </div>
 
     <!-- Admin -->
@@ -83,6 +95,12 @@
                     <li><a class="nav-link scrollto" th:href="@{/admin/user/updatePass}" > Changer mon mot de passe </a></li>
                 </ul>
             </nav>
+        </div>
+        <div th:if="${message}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+        <div th:if="${messageErreur}" class="alert alert-danger text-center">
+            [[${messageErreur}]]
         </div>
     </div>
 
@@ -101,6 +119,12 @@
                     <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/updatePass}" > Changer mon mot de passe </a></li>
                 </ul>
             </nav>
+        </div>
+        <div th:if="${message}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+        <div th:if="${messageErreur}" class="alert alert-danger text-center">
+            [[${messageErreur}]]
         </div>
     </div>
 
