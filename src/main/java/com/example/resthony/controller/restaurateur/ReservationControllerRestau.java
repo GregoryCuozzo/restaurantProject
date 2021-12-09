@@ -140,7 +140,7 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
         } catch (NotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        ra.addFlashAttribute("message", "La réservation a bien été supprimée");
         return "redirect:/restaurateur/reservation/list";
     }
 
@@ -152,7 +152,7 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
         } catch (NotFoundException | UserNotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        ra.addFlashAttribute("message", "La réservation a bien été supprimée");
         return "redirect:/restaurateur/reservation/list";
     }
 
@@ -171,7 +171,7 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
         }
 
         Service.patch(patchReservationIn.getId(), patchReservationIn);
-        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+        ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/restaurateur/reservation/list";
     }
@@ -192,7 +192,7 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
         }
 
         ServiceVisitor.patch(patchVisitorIn.getId(), patchVisitorIn);
-        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+        ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/restaurateur/reservation/list";
     }

@@ -26,6 +26,7 @@ public class PatchReservationIn {
     public Time time;
 
     @NotNull(message = "Restaurant obligatoire")
+    @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
     public String restaurant;
 
     @NotNull(message = "Utilisateur obligatoire")

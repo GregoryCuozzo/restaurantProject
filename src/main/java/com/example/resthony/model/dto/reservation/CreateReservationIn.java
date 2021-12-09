@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -26,6 +23,7 @@ public class CreateReservationIn {
     public Time time;
 
     @NotNull(message = "Restaurant obligatoire")
+    @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
     public String restaurant;
 
     @NotNull(message = "Date obligatoire")

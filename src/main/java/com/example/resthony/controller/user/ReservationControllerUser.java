@@ -49,6 +49,7 @@ public class ReservationControllerUser {
         model.addAttribute("restaurants", ServiceResto.getAll());
 
         User user = ServiceUser.getCurrentUser();
+        System.out.println("GET = "+user);
         model.addAttribute("user", user.getUsername());
 
         return "/user/reservation/create.html";
@@ -56,6 +57,7 @@ public class ReservationControllerUser {
 
     @PostMapping("/create")
     public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             return "/create";
         }
@@ -67,11 +69,10 @@ public class ReservationControllerUser {
     public String deleteResto(@PathVariable("id") Long id, RedirectAttributes ra) {
         try {
             Service.delete(id);
-
         } catch (NotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        ra.addFlashAttribute("message", "La réservation a bien été supprimée");
         return "redirect:/user/reservation/list";
     }
 
@@ -92,7 +93,7 @@ public class ReservationControllerUser {
         }
 
         Service.patch(patchReservationIn.getId(), patchReservationIn);
-        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+        ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/user/reservation/list";
     }
