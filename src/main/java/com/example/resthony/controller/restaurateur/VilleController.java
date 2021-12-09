@@ -41,14 +41,20 @@ public class VilleController {
     }
 
     @PostMapping("/create")
-    public String createVille(@Valid @ModelAttribute("ville") CreateVilleIn createVilleIn, BindingResult bindingResult, Model model) {
-        System.out.println(createVilleIn);
+    public String createVille(@Valid @ModelAttribute("ville") CreateVilleIn createVilleIn, BindingResult bindingResult, Model model, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("pays", paysService.getAll());
             return "/restaurateur/villes/create.html";
         }
 
-        villeService.create(createVilleIn);
+        try {
+            villeService.create(createVilleIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la création de la ville.");
+            return "redirect:/restaurateur/villes/list";
+        }
+
 
         return "redirect:/restaurateur/villes/list";
     }
@@ -59,7 +65,8 @@ public class VilleController {
             villeService.delete(id);
 
         } catch (NotFoundException e) {
-
+            ra.addFlashAttribute("messageErreur", "Pas de ville trouvée avec l'id "+ id);
+            return "redirect:/restaurateur/villes/list";
         }
         ra.addFlashAttribute("message", "La ville a été supprimée ");
         return "redirect:/restaurateur/villes/list";
@@ -73,13 +80,19 @@ public class VilleController {
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("ville") PatchVilleIn patchVilleIn, BindingResult bindingResult,Model model) {
+    public String updateResto(@Valid @ModelAttribute("ville") PatchVilleIn patchVilleIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("pays", paysService.getAll());
             return "restaurateur/villes/update/" + patchVilleIn.getId();
         }
 
-        villeService.patch(patchVilleIn.getId(), patchVilleIn);
+        try {
+            villeService.patch(patchVilleIn.getId(), patchVilleIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la modification de la ville.");
+            return "redirect:/restaurateur/villes/list";
+        }
 
         return "redirect:/restaurateur/villes/list";
     }

@@ -45,7 +45,6 @@ public class UserControllerRestau {
     @GetMapping("/list")
     public String all(Model model) {
         int nbUsers = service.countUser();
-        System.out.println(nbUsers);
         model.addAttribute("Users", service.getAll());
         model.addAttribute("restaurants", ServiceResto.getAll());
         model.addAttribute("nbUsers", nbUsers);
@@ -112,7 +111,7 @@ public class UserControllerRestau {
                         + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
                 ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
             } catch (MessagingException | UnsupportedEncodingException e) {
-                ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation du compte.");
+                ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation de création du compte.");
                 return "redirect:/restaurateur/user/list";
             }
             ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
@@ -128,13 +127,13 @@ public class UserControllerRestau {
                 SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);
                 ServiceSms.sendSms(smsRequest);
             } catch (Exception e) {
-                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation du compte.");
+                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation de création du compte.");
                 return "redirect:/restaurateur/user/list";
             }
             ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
             return "redirect:/restaurateur/user/list";
         }
-        ra.addFlashAttribute("message", "compte créé *<|:^)");
+        ra.addFlashAttribute("message", "Compte créé");
         return "redirect:/restaurateur/user/list";
     }
 
@@ -164,11 +163,9 @@ public class UserControllerRestau {
         if (bindingResult.hasErrors()) {
             model.addAttribute("restaurants", ServiceResto.getAll());
             model.addAttribute("role", role);
-            System.out.println(patchUserIn.getRoles());
             return "/restaurateur/users/update.html";
         }
 
-        System.out.println(patchUserIn);
         String message = service.checkDuplicateUpdate(patchUserIn);
 
         if (!message.equals("")) {
@@ -178,7 +175,15 @@ public class UserControllerRestau {
             return "redirect:/restaurateur/user/update/" + patchUserIn.getId() + "/" + role;
         }
 
-        service.patch(patchUserIn.getId(), patchUserIn);
+
+        try {
+            service.patch(patchUserIn.getId(), patchUserIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la modification de l'utilisateur.");
+            return "redirect:/restaurateur/user/list";
+        }
+
         ra.addFlashAttribute("message", "L'utilisateur a été modifié");
 
         return "redirect:/restaurateur/user/list";

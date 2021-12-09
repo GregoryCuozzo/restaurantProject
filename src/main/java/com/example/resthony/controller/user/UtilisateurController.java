@@ -72,7 +72,14 @@ public class UtilisateurController {
             ra.addFlashAttribute("messageErreur",message);
             return "redirect:/user/update";
         }
-        service.patch(patchUserIn.getId(), patchUserIn);
+
+        try {
+            service.patch(patchUserIn.getId(), patchUserIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Un problème est survenu avec la modification des vos informations, veuillez nous contacter si le problème persiste.");
+            return "redirect:/user/profil";
+        }
         ra.addFlashAttribute("message", "Votre profil a bien été modifié");
 
         return "redirect:/user/profil";
@@ -112,6 +119,7 @@ public class UtilisateurController {
             }
             catch(Exception exception){
                 ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réassayer plus tard ou nous contacter si l'erreur persiste");
+                return "redirect:/user/profil";
             }
         }
         ra.addFlashAttribute("message", "Votre mot de passe a bien été changé");

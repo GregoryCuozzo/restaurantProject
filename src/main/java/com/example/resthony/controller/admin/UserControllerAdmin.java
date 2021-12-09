@@ -117,7 +117,7 @@ public class UserControllerAdmin {
             ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
             return "redirect:/admin/user/list";
         }
-        ra.addFlashAttribute("message", "Compte créé *<|:^)");
+        ra.addFlashAttribute("message", "Compte créé");
         return "redirect:/admin/user/list";
     }
 
@@ -154,7 +154,14 @@ public class UserControllerAdmin {
             return "redirect:/admin/user/update/" + patchUserIn.getId();
         }
 
-        service.patch(patchUserIn.getId(), patchUserIn);
+        try {
+            service.patch(patchUserIn.getId(), patchUserIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la modification de l'utilisateur.");
+            return "redirect:/admin/user/list";
+        }
+
         ra.addFlashAttribute("message", "L'utilisateur a été modifié.");
 
         return "redirect:/admin/user/list";
@@ -192,7 +199,7 @@ public class UserControllerAdmin {
             try {
                 service.updatePass(service.getCurrentUser().getId(), newPassword);
             } catch (Exception exception) {
-                ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réassayer plus tard ou nous contacter si l'erreur persiste");
+                ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réessayer plus tard ou nous contacter si l'erreur persiste");
             }
         }
         ra.addFlashAttribute("message", "Votre mot de passe a bien été changé");

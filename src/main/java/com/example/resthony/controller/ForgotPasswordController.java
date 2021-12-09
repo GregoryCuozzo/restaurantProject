@@ -92,7 +92,6 @@ public class ForgotPasswordController {
 
     @GetMapping("/reset_password")
     public String showResetPasswordForm(@Param(value = "token") String token, RedirectAttributes ra, Model model) {
-        System.out.println(token);
         User user = userService.findByToken(token);
         if (user == null) {
             ra.addFlashAttribute("messageErreur", "Token invalide");
@@ -118,8 +117,17 @@ public class ForgotPasswordController {
             ra.addFlashAttribute("messageErreur", "Le nouveau mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial.");
             return "redirect:/forgotPassword/reset_password?token=" + token;
         }
+
         User user = userService.findByToken(token);
-        userService.updatePass(user.getId(), password);
+
+        try {
+            userService.updatePass(user.getId(), password);
+        }
+        catch(Exception exception){
+            ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réassayer plus tard ou nous contacter si l'erreur persiste");
+            return "redirect:/forgotPassword/reset_password?token=" + token;
+        }
+
         model.addAttribute("message", "Votre mot de passe a bien été changé.");
         return "/public/login.html";
     }

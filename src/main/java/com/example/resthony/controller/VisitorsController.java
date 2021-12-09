@@ -44,8 +44,13 @@ public class VisitorsController {
             return "/create";
         }
 
-
-        ServiceVisitor.create(createVisitorIn);
+        try {
+            ServiceVisitor.create(createVisitorIn);
+        }
+        catch (Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème dans la création de votre réservation. Nous nous en excusons. Veuillez nous contacter.");
+            return "redirect:/";
+        }
 
         //Envoi de l'email de confirmation
         try {
@@ -66,7 +71,7 @@ public class VisitorsController {
             ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
         }
         catch (MessagingException | UnsupportedEncodingException e){
-            ra.addFlashAttribute("messageErreur", "Problème avec l'envoie de l'email de confirmation. Contactez-nous.");
+            ra.addFlashAttribute("messageErreur", "Problème avec l'envoie de l'email de confirmation. Contactez-nous pour plus d'informations.");
         }
         ra.addFlashAttribute("message", "Un email de confirmation vous a été envoyé.");
         return "redirect:/";

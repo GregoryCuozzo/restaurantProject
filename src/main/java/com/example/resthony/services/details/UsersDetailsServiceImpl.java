@@ -70,7 +70,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         User user = userRepository.findByUsername(username);
 
         if (user == null) return null;
-        ;
+
         UserOut userOut = convertUserEntityToUserOut(user);
         return userOut;
     }

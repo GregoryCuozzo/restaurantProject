@@ -43,12 +43,19 @@ import javax.validation.Valid;
         }
 
         @PostMapping("/create")
-        public String createResto(@Valid @ModelAttribute("resto") CreateRestoIn createRestoIn, BindingResult bindingResult, Model model) {
+        public String createResto(@Valid @ModelAttribute("resto") CreateRestoIn createRestoIn, BindingResult bindingResult, Model model, RedirectAttributes ra) {
             if(bindingResult.hasErrors()) {
                 return "/restaurateur/restaurant/create.html";
             }
 
-            restoService.create(createRestoIn);
+
+            try{
+                restoService.create(createRestoIn);
+            }
+            catch (Exception e){
+                ra.addFlashAttribute("messageErreur", "Problème avec la création du restaurant");
+                return "redirect:/restaurateur/restaurant/list";
+            }
             model.addAttribute("restos",restoService.getAll());
             return "redirect:/restaurateur/restaurant/list";
         }
@@ -59,7 +66,8 @@ import javax.validation.Valid;
             restoService.delete(id);
 
         } catch (NotFoundException e) {
-
+            ra.addFlashAttribute("messageErreur", "Pas d'utilisateur touvé avec l'id " + id);
+            return "redirect:/restaurateur/restaurant/list";
         }
         ra.addFlashAttribute("message", "le restaurant a été supprimé ");
         return "redirect:/restaurateur/restaurant/list";
@@ -78,7 +86,15 @@ import javax.validation.Valid;
                 return "/restaurateur/restaurant/update";
             }
 
-            restoService.patch(patchRestoIn.getId(), patchRestoIn);
+            try{
+                restoService.patch(patchRestoIn.getId(), patchRestoIn);
+            }
+            catch (Exception e){
+                ra.addFlashAttribute("messageErreur", "Problème dans la modification du restaurant.");
+                return "redirect:/restaurateur/restaurant/list";
+            }
+
+
             ra.addFlashAttribute("message", "le restaurant a été modifié  ");
 
             return "redirect:/restaurateur/restaurant/list";
