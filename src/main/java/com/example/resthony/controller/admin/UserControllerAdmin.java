@@ -6,6 +6,7 @@ import com.example.resthony.model.dto.user.PatchUserIn;
 import com.example.resthony.services.principal.*;
 import com.example.resthony.utils.BCryptManagerUtil;
 import javassist.NotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -129,6 +130,43 @@ public class UserControllerAdmin {
         ra.addFlashAttribute("message", "L'utilisateur a été modifié.");
 
         return "redirect:/admin/user/list";
+    }
+
+
+    @GetMapping("/updatePass")
+    public String updatePass (Model model){
+
+        return "admin/newpass.html";
+    }
+
+    @PostMapping("/updatePass")
+    public String updatePass(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPassword2") String newPassword2, RedirectAttributes ra){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if(oldPassword.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()){
+            ra.addFlashAttribute("messageErreur", "Tous les champs doivent être remplis");
+            return "redirect:/admin/user/updatePass";
+        }else if(!encoder.matches(oldPassword, service.getCurrentUser().getPassword()) ){
+            ra.addFlashAttribute("messageErreur", "L'ancien mot de passe est mauvais");
+            return "redirect:/admin/user/updatePass";
+        }else if(false){
+            ra.addFlashAttribute("messageErreur", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial");
+            return "redirect:/admin/user/updatePass";
+        }else if(!newPassword.equals(newPassword2)){
+            ra.addFlashAttribute("messageErreur", "Les mots de passe ne correspondent pas");
+            return "redirect:/admin/user/updatePass";
+        }else if(oldPassword.equals(newPassword2)) {
+            ra.addFlashAttribute("messageErreur", "Le nouveau mot de passe doit être différent de l'ancien");
+            return "redirect:/admin/user/updatePass";
+        }else{
+            try {
+                service.updatePass(service.getCurrentUser().getId(), newPassword);
+            }
+            catch(Exception exception){
+                ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réassayer plus tard ou nous contacter si l'erreur persiste");
+            }
+        }
+        ra.addFlashAttribute("message", "Votre mot de passe a bien été changé");
+        return "redirect:/admin";
     }
 
 
