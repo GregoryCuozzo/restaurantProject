@@ -142,7 +142,7 @@ public class ReservationControllerAdmin {
         } catch (NotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        ra.addFlashAttribute("message", "La réservation a bien été supprimée");
         return "redirect:/admin/reservation/list";
     }
 
@@ -154,7 +154,7 @@ public class ReservationControllerAdmin {
         } catch (NotFoundException | UserNotFoundException e) {
 
         }
-        ra.addFlashAttribute("message", "la réservation  a été supprimée ");
+        ra.addFlashAttribute("message", "La réservation a bien été supprimée");
         return "redirect:/admin/reservation/list";
     }
 
@@ -175,7 +175,7 @@ public class ReservationControllerAdmin {
         }
 
         Service.patch(patchReservationIn.getId(), patchReservationIn);
-        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+        ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/admin/reservation/list";
     }
@@ -196,7 +196,7 @@ public class ReservationControllerAdmin {
         }
 
         ServiceVisitor.patch(patchVisitorIn.getId(), patchVisitorIn);
-        ra.addFlashAttribute("message", "la réservation a été modifiée  ");
+        ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/admin/reservation/list";
     }

@@ -123,7 +123,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         User userEntity = userRepository.getById(id);
         String token = userEntity.getResetPasswordToken();
         // On supprime le token du user s'il en a un
-        if(!token.isEmpty()){
+        if(token != null) {
             userRepository.updateToken(null, id);
         }
         return convertUserEntityToUserOut(userEntity);
