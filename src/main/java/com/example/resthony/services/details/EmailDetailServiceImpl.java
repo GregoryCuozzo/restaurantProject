@@ -21,17 +21,25 @@ public class EmailDetailServiceImpl implements EmailService {
     private UserService userService;
 
     @Override
-    public void sendEmail(String email, String object, String text) throws MessagingException, UnsupportedEncodingException, MailSendException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+    public String sendEmail(String email, String object, String text) throws MessagingException, UnsupportedEncodingException, MailSendException {
+        try {
 
-        helper.setFrom("contact@resthony.com", "Resthony Team");
-        helper.setTo(email);
-        String subject = object;
-        String content = text;
-        helper.setSubject(subject);
-        helper.setText(content, true);
-        mailSender.send(message);
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+
+            helper.setFrom("contact@resthony.com", "Resthony Team");
+            helper.setTo(email);
+            String subject = object;
+            String content = text;
+            helper.setSubject(subject);
+            helper.setText(content, true);
+            mailSender.send(message);
+        }
+        catch (Exception e){
+            return "probleme à l'envoi du mail";
+        }
+        return "";
     }
 
 }

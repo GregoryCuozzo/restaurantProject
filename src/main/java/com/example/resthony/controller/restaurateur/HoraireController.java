@@ -37,14 +37,12 @@ public class HoraireController {
     @GetMapping("/create/{id}")
     public String create(@PathVariable("id") Long id, Model model) {
         model.addAttribute("resto", id);
-        System.out.println(id);
         model.addAttribute("horaire", new CreateHoraireIn());
         return "/restaurateur/horaire/create.html";
     }
 
     @PostMapping("/create")
     public String createHoraire(@Valid @ModelAttribute("horaire") CreateHoraireIn createHoraireIn, BindingResult bindingResult, Model model, RedirectAttributes ra) {
-        System.out.print("HELOOOOOOOOO");
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/create.html";
         }
@@ -56,7 +54,13 @@ public class HoraireController {
             return "redirect:/restaurateur/horaire/create/" + createHoraireIn.restaurant;
         }
 
-        horaireService.create(createHoraireIn);
+        try {
+            horaireService.create(createHoraireIn);
+        } catch (Exception e) {
+            ra.addFlashAttribute("messageErreur", "Problème dans la création de l'horaire.");
+            return "redirect:/restaurateur/horaire/list/" + createHoraireIn.restaurant;
+        }
+
         model.addAttribute("horaires", horaireService.findByRestaurant(createHoraireIn.restaurant));
         return "redirect:/restaurateur/horaire/list/" + createHoraireIn.restaurant;
     }
@@ -69,13 +73,13 @@ public class HoraireController {
         System.out.printf("horaire");
         try {
             horaireService.delete(id);
-            System.out.println("deleted");
 
         } catch (NotFoundException e) {
-
+            ra.addFlashAttribute("messageErreur", "Pas d'horaire trouvé avec l'id "+id);
+            return "redirect:/restaurateur/horaire/list/" + horaire.restaurant;
         }
-        System.out.println(horaire);
-        ra.addFlashAttribute("message", "l'horaire' a été supprimé ");
+
+        ra.addFlashAttribute("message", "L'horaire' a été supprimé ");
         return "redirect:/restaurateur/horaire/list/" + Long.toString(horaire.restaurant);
     }
 
@@ -89,22 +93,28 @@ public class HoraireController {
 
     @PostMapping("/update")
     public String updateHoraire(@Valid @ModelAttribute("horaire") PatchHoraireIn patchHoraireIn, BindingResult bindingResult, RedirectAttributes ra, Model model) {
-        System.out.println(patchHoraireIn);
         if (bindingResult.hasErrors()) {
             return "/restaurateur/horaire/update/" + patchHoraireIn.id;
         }
-        //HoraireOut horairePatch = horaireService.get(patchHoraireIn.id);
+
         String message = horaireService.checkDuplicateUpdate(patchHoraireIn);
+        HoraireOut horaire = horaireService.get(patchHoraireIn.id);
 
         if (!message.equals("")) {
-            System.out.println(message);
             ra.addFlashAttribute("messageErreur", message);
-            return "redirect:/restaurateur/user/update/" + patchHoraireIn.id;
+            return "redirect:/restaurateur/horaire/update/" + patchHoraireIn.id;
         }
 
-        horaireService.patch(patchHoraireIn.getId(), patchHoraireIn);
+        try{
+            horaireService.patch(patchHoraireIn.getId(), patchHoraireIn);
+        }
+        catch (Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la modification des horaires du restaurant " + horaire.getRestaurant());
+            return "redirect:/restaurateur/horaire/list/" + horaire.restaurant;
+        }
+
         ra.addFlashAttribute("message", "l'horaire' a été modifié  ");
-        HoraireOut horaire = horaireService.get(patchHoraireIn.id);
+
         model.addAttribute("resto", horaire.restaurant);
         return "redirect:/restaurateur/horaire/list/" + horaire.restaurant;
     }

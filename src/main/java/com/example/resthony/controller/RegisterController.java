@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.util.Objects;
+
 
 
 @Controller
@@ -66,7 +66,6 @@ public class RegisterController {
             return "redirect:/";
         }
 
-
         if (createUserIn.getContact().equals("email")) {
             try {
                 //Info sur le user
@@ -77,9 +76,13 @@ public class RegisterController {
                 String emailAdress = createUserIn.getEmail();
                 String emailSubject = "Compte crée chez Resthony.";
                 String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
-                        + "<p>Merci d'avoir crée un compte chez nous, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
+                        + "<p>Merci d'avoir crée un compte chez Resthony, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
                         + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
-                ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+                message = ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+                if (!message.equals("")){
+                    ra.addFlashAttribute("messageErreur", message);
+                    return "redirect:/";
+                }
 
             } catch (MessagingException | UnsupportedEncodingException e) {
                 ra.addFlashAttribute("messageErreur", "Problème avec l'envoie de l'email de confirmation du compte.");
@@ -99,14 +102,14 @@ public class RegisterController {
                 SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);
                 ServiceSms.sendSms(smsRequest);
             } catch (Exception e) {
-                ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'sms de confirmation du compte.");
+                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation du compte.");
                 return "redirect:/";
             }
-            ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte vous a été envoyé.");
+            ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
             return "redirect:/";
         }
 
-        ra.addFlashAttribute("message", "Votre compte a bien été crée.");
+        ra.addFlashAttribute("message", "Votre compte a bien été créé.");
         return "redirect:/";
 
     }

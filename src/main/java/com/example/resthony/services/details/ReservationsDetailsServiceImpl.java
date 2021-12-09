@@ -128,7 +128,6 @@ public class ReservationsDetailsServiceImpl implements ReservationService {
     private Reservation convertReservationInToReservationEntity(CreateReservationIn createReservationIn) {
         User user = userRepository.findByUsername(createReservationIn.getUser());
         Restaurant restaurant = restauRepository.findByName(createReservationIn.getRestaurant());
-        System.out.println(createReservationIn.getRestaurant());
         Reservation reservation = Reservation.builder()
                 .user(user)
                 .time(createReservationIn.getTime())

@@ -6,6 +6,7 @@ import com.example.resthony.model.dto.reservation.PatchReservationIn;
 import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.model.dto.visitor.PatchVisitorIn;
+import com.example.resthony.model.entities.SmsRequest;
 import com.example.resthony.services.principal.*;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
@@ -25,13 +26,15 @@ public class ReservationControllerRestau {
     private final UserService ServiceUser;
     private final VisitorService ServiceVisitor;
     private final EmailService ServiceEmail;
+    private final SmsService ServiceSms;
 
-    public ReservationControllerRestau(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor, EmailService serviceEmail) {
+    public ReservationControllerRestau(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor, EmailService serviceEmail, SmsService serviceSms) {
         Service = service;
         ServiceResto = serviceResto;
         ServiceUser = serviceUser;
         ServiceVisitor = serviceVisitor;
         ServiceEmail = serviceEmail;
+        ServiceSms = serviceSms;
     }
 
 
@@ -58,37 +61,73 @@ public class ReservationControllerRestau {
         if(bindingResult.hasErrors()) {
             return "/create";
         }
-
-        Service.create(createReservationIn);
-        System.out.println(createReservationIn.getUser());
-        try {
-            //Info de la réservation - récupération de l'email de l'utilisateur
-            String reservationUser = createReservationIn.getUser();
-            UserOut userEntity = ServiceUser.findByUsername(reservationUser);
-            String reservationEmail = userEntity.getEmail();
-            //Info de la réservation
-            String reservationResto = createReservationIn.getRestaurant();
-            String reservationName = createReservationIn.getUser();
-            String reservationDate = createReservationIn.getDate().toString();
-            String reservationTime = createReservationIn.getTime().toString();
-            String reservationNbPersonne = createReservationIn.getNbcouverts().toString();
-            //Info email
-            String emailAdress = reservationEmail;
-            String emailSubject = "Merci pour votre réservation chez " +reservationResto+".";
-            String emailText = "<p>Bonjour monsieur "+reservationName+",</p>"
-                    + "<p>Merci pour votre réservation chez " +reservationResto+".</p>"
-                    + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
-                    + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>"
-                    + "<p>Ou rendez-vous sur votre compte Resthony.";
-            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
-        }
-        catch (MessagingException | UnsupportedEncodingException e){
-            ra.addFlashAttribute("messageErreur", "Réservation envoyée mais problème avec l'envoie de l'email de confirmation.");
+        //Info de la réservation
+        String reservationUser = createReservationIn.getUser();
+        UserOut userEntity = ServiceUser.findByUsername(reservationUser);
+        if (userEntity == null) {
+            ra.addFlashAttribute("messageErreur", "Pas d'utilisateur trouvé ce nom d'utilisateur");
             return "redirect:/restaurateur/reservation/list";
         }
-        ra.addFlashAttribute("message", "Réservation : Un email de confirmation été envoyé à l'utilisateur.");
+        String reservationResto = createReservationIn.getRestaurant();
+        String reservationName = createReservationIn.getUser();
+        String reservationDate = createReservationIn.getDate().toString();
+        String reservationTime = createReservationIn.getTime().toString();
+        String reservationNbPersonne = createReservationIn.getNbcouverts().toString();
+        try {
+            Service.create(createReservationIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la création de la réservation.");
+            return "redirect:/restaurateur/reservation/list";
+        }
+
+
+        // Envoi de mail
+        if (userEntity.getContact().equals("email")) {
+            try {
+                //Info de la réservation - récupération de l'email de l'utilisateur
+                String reservationEmail = userEntity.getEmail();
+
+                //Info email
+                String emailAdress = reservationEmail;
+                String emailSubject = "Merci pour votre réservation chez " + reservationResto + ".";
+                String emailText = "<p>Bonjour monsieur " + reservationName + ",</p>"
+                        + "<p>Merci pour votre réservation chez " + reservationResto + ".</p>"
+                        + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
+                        + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>"
+                        + "<p>Ou rendez-vous sur votre compte Resthony.";
+                ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+            } catch (MessagingException | UnsupportedEncodingException e) {
+                ra.addFlashAttribute("messageErreur", "Réservation envoyée mais problème avec l'envoi de l'email de confirmation.");
+                return "redirect:/restaurateur/reservation/list";
+            }
+            ra.addFlashAttribute("message", "Réservation : Un email de confirmation été envoyé à l'utilisateur.");
+            return "redirect:/restaurateur/reservation/list";
+        }
+
+        // Envoi de SMS
+        if (userEntity.getContact().equals("sms")) {
+            try {
+                String smsMessage = "Bonjour monsieur " + reservationName + ", " +
+                        "Merci pour votre réservation chez " + reservationResto + ", " +
+                        "Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. " +
+                        "Pour annuler votre réservation, rendez-vous sur votre compte Resthony en ligne. " ;
+                SmsRequest smsRequest = new SmsRequest(userEntity.getPhone(), smsMessage);
+                ServiceSms.sendSms(smsRequest);
+            } catch (Exception e) {
+                ra.addFlashAttribute("messageErreur", "Réservation envoyée mais problème avec l'envoi du SMS de confirmation.");
+                return "redirect:/restaurateur/reservation/list";
+            }
+            ra.addFlashAttribute("message", "Réservation : Un SMS de confirmation été envoyé à l'utilisateur.");
+            return "redirect:/restaurateur/reservation/list";
+        }
+        ra.addFlashAttribute("message", "Réservation créée");
         return "redirect:/restaurateur/reservation/list";
     }
+
+
+
+
 
     @GetMapping("/createVisitor")
     public String createVisitor(Model model){
@@ -103,8 +142,13 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
         if(bindingResult.hasErrors()) {
             return "/createVisitor";
         }
-
-        ServiceVisitor.create(createVisitorIn);
+        try {
+            ServiceVisitor.create(createVisitorIn);
+        }
+        catch(Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la création de la réservation.");
+            return "redirect:/restaurateur/reservation/list";
+        }
         try {
             //Info de la réservation
             String reservationResto = createVisitorIn.getResto();
@@ -167,8 +211,13 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
         if(bindingResult.hasErrors()) {
             return "/update";
         }
-
-        Service.patch(patchReservationIn.getId(), patchReservationIn);
+        try{
+            Service.patch(patchReservationIn.getId(), patchReservationIn);
+        }
+        catch (Exception e){
+            ra.addFlashAttribute("messageErreur", "Problème avec la modification de la réservation");
+            return "redirect:/restaurateur/reservation/list";
+        }
         ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/restaurateur/reservation/list";
@@ -185,11 +234,16 @@ public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn c
     @PostMapping("/updateVisitor")
     public String updateVisitor(@Valid @ModelAttribute("visitors") PatchVisitorIn patchVisitorIn, BindingResult bindingResult, RedirectAttributes ra) {
         if(bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             return "/restaurateur/reservation/updateVisitor.html";
         }
 
-        ServiceVisitor.patch(patchVisitorIn.getId(), patchVisitorIn);
+        try {
+            ServiceVisitor.patch(patchVisitorIn.getId(), patchVisitorIn);
+        } catch (Exception e) {
+            ra.addFlashAttribute("messageErreur", "Problème dans la modification de la réservation.");
+            return "redirect:/restaurateur/reservation/list";
+        }
+
         ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/restaurateur/reservation/list";
