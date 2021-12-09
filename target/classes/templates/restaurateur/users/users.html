@@ -22,6 +22,7 @@
     <a th:href="@{/restaurateur/user/create/restaurateur}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau restaurateur</button></a>
     <a th:href="@{/restaurateur/user/create/ADMIN}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau admin</button></a>
 </div>
+<div>Nombre de users : <span>[[${nbUsers}]]</span></div>
 <h2>Liste des restaurateurs</h2>
 
 <div class="tableau">
@@ -98,7 +99,6 @@
     </div>
 
 <h2>Liste des utilisateurs</h2>
-
 <div class="tableau">
     <table class="table table-bordered">
         <thead class="thead-dark">
