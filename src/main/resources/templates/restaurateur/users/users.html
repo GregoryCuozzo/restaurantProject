@@ -34,7 +34,6 @@
             <th>Last name </th>
             <th>E-mail</th>
             <th>Edit</th>
-            <th>Delete </th>
         </tr>
         </thead>
         <tbody>
@@ -48,9 +47,6 @@
                     <td>
                         <a th:href="@{'/restaurateur/user/update/' + ${User.id} + '/' + ${User.roles[0].toString()}}">edit</a>
 
-                    </td>
-                    <td>
-                        <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
                     </td>
                 </tr>
             </div>
@@ -89,7 +85,7 @@
 
                         </td>
                         <td>
-                            <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                            <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}" onclick="return confirm('Êtes-vous sûr?')">Delete</a>
                         </td>
                     </tr>
                 </div>
@@ -124,7 +120,7 @@
 
                 </td>
                 <td>
-                    <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}">Delete</a>
+                    <a th:href="@{'/restaurateur/user/delete/' + ${User.id}}" onclick="return confirm('Êtes-vous sûr?')">Delete</a>
                 </td>
             </tr>
             </div>

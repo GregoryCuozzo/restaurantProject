@@ -51,7 +51,7 @@
 
                     </td>
                     <td>
-                        <a th:href="@{'/admin/user/delete/' + ${User.id}}">Delete</a>
+                        <a th:href="@{'/admin/user/delete/' + ${User.id}}" onclick="return confirm('Êtes-vous sûr?')">Delete</a>
                     </td>
                 </tr>
             </div>

@@ -22,6 +22,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/forgotPassword")
@@ -102,6 +104,9 @@ public class ForgotPasswordController {
 
     @PostMapping("/reset_password")
     public String updatePass(@RequestParam("password") String password, @RequestParam("password2") String password2, @RequestParam("token") String token, RedirectAttributes ra, Model model) {
+        Pattern p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{10,}$");
+        Matcher m = p.matcher(password);
+        boolean b = m.matches();
         if (password.isEmpty() || password2.isEmpty()) {
             ra.addFlashAttribute("messageErreur", "Tous les champs doivent être remplis.");
 
@@ -109,8 +114,8 @@ public class ForgotPasswordController {
         } else if (!password.equals(password2)) {
             ra.addFlashAttribute("messageErreur", "Les mots de passe ne correspondent pas.");
             return "redirect:/forgotPassword/reset_password?token=" + token;
-        } else if (false) {
-            ra.addFlashAttribute("messageErreur", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial.");
+        } else if (!b) {
+            ra.addFlashAttribute("messageErreur", "Le nouveau mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial.");
             return "redirect:/forgotPassword/reset_password?token=" + token;
         }
         User user = userService.findByToken(token);

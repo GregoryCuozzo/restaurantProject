@@ -76,10 +76,11 @@
             <h1 class="logo me-auto me-lg-0"><a th:href="@{/admin}">Resthony</a></h1>
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="nav-link scrollto active"th:href="@{/admin}">Accueil</a></li>
+                    <li><a class="nav-link scrollto active"th:href="@{/admin}"> Accueil </a></li>
                     <li><a class="nav-link scrollto" th:href="@{/admin/user/list}"> Utilisateurs </a></li>
                     <li><a class="nav-link scrollto" th:href="@{/admin/reservation/list}"> Réservations </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/logout}"></i>Déconnexion</a></li>
+                    <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
+                    <li><a class="nav-link scrollto" th:href="@{/admin/user/updatePass}" > Changer mon mot de passe </a></li>
                 </ul>
             </nav>
         </div>
@@ -97,6 +98,7 @@
                     <li><a class="nav-link scrollto" th:href="@{/restaurateur/reservation/list}"> Réservations </a></li>
                     <li><a class="nav-link scrollto" th:href="@{/restaurateur/villes/list}"> Villes </a></li>
                     <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
+                    <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/updatePass}" > Changer mon mot de passe </a></li>
                 </ul>
             </nav>
         </div>

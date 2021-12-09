@@ -46,7 +46,7 @@
 
                 </td>
                 <td>
-                    <a th:href="@{'/restaurateur/reservation/delete/' + ${Reservation.id}}">delete</a>
+                    <a th:href="@{'/restaurateur/reservation/delete/' + ${Reservation.id}}" onclick="return confirm('Êtes-vous sûr?')">delete</a>
                 </td>
 
             </tr>
@@ -90,7 +90,7 @@
 
                 </td>
                 <td>
-                    <a th:href="@{'/restaurateur/reservation/deleteVisitor/' + ${Visitor.id}}">delete</a>
+                    <a th:href="@{'/restaurateur/reservation/deleteVisitor/' + ${Visitor.id}}" onclick="return confirm('Êtes-vous sûr?')">delete</a>
                 </td>
 
             </tr>

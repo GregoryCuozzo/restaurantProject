@@ -3,14 +3,14 @@
 <head th:replace="fragments :: header ">
 </head>
 <body>
-<div th:replace="fragments :: navbarUser"/>
+<div th:replace="fragments :: navbarAdmin"/>
 <div th:if="${message}" class="alert alert-success text-center">
     [[${message}]]
 </div>
 <div th:if="${messageErreur}" class="alert alert-danger text-center">
     [[${messageErreur}]]
 </div>
-<form th:action="@{/user/updatePass}" method="post" style="width:500px; margin: 0 auto;color:white;" >
+<form th:action="@{/admin/user/updatePass}" method="post" style="width:500px; margin: 0 auto;color:white;" >
     <hr>
     <div class="border border-secondary rounded p-3">
         <div class="form-group row">
@@ -20,22 +20,22 @@
             </div>
         </div>
         <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Nouveau mot de passe</label>
-        <div class="col-sm-8">
-            <input type="password" name ="newPassword" class="form-control">
-        </div>
+            <label class="col-sm-4 col-form-label">Nouveau mot de passe</label>
+            <div class="col-sm-8">
+                <input type="password" name ="newPassword" class="form-control">
+            </div>
         </div>
         <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Confirmer mot de passe</label>
-        <div class="col-sm-8">
-            <input type="password" name ="newPassword2" class="form-control">
-        </div>
+            <label class="col-sm-4 col-form-label">Confirmer mot de passe</label>
+            <div class="col-sm-8">
+                <input type="password" name ="newPassword2" class="form-control">
+            </div>
         </div>
 
         <div class="form-group row" style="padding-left:200px;">
             <button type="submit"  class="btn btn-primary m-2"> Mettre à jour </button>
         </div>
-        </div>
+    </div>
 </form>
 </body>
 </html>
