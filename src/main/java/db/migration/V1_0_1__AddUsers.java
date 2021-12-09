@@ -46,7 +46,7 @@ public class V1_0_1__AddUsers extends BaseJavaMigration {
         statement.execute(
                 "INSERT INTO restaurants" +
                         "(id_restaurants, name, adress, nb_place, opening_day, email, telephone, restaurateur) values" +
-                        "('1', 'nomduresto', 'adresseduresto', 150, 'lundi', 'derfqqsdffSQdf@dsqfv.com', '0496824571', 3)" );
+                        "('1', 'RestoTest', 'adresseduresto', 150, 'lundi', 'restoTest@resthony.com', '0496824571', 3)" );
 
         statement.execute("UPDATE users SET password='" + adminPasswordValue + "' WHERE username='admin'");
         statement.execute("INSERT INTO roles (id_user, `role`) values (1, 'ADMIN')");

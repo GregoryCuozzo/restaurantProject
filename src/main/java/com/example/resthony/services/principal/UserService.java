@@ -23,7 +23,10 @@ public interface UserService {
     User getCurrentUser();
     UserOut updatePass(Long id,String password);
     void updateUserResto(Long id, String username);
+    public void updateResetPassword(String token, String email) throws UserNotFoundException;
     String checkDuplicateCreate(CreateUserIn createUserIn);
    String checkDuplicateUpdate(PatchUserIn patchUserIn);
+    public User findByToken(String resetPasswordToken);
+    public int countUser();
 
 }

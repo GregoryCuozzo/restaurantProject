@@ -11,6 +11,7 @@ import java.util.List;
 public interface VisitorService {
     VisitorOut get(Long id);
     VisitorOut create(CreateVisitorIn createVisitorIn);
+    void deleteVisitor(Long id) throws NotFoundException, UserNotFoundException;
     VisitorOut patch(Long id, PatchVisitorIn patchVisitorIn);
     List<VisitorOut> getAll();
 }

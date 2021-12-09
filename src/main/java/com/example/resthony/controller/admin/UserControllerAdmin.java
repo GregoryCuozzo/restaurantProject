@@ -3,15 +3,9 @@ package com.example.resthony.controller.admin;
 import com.example.resthony.constants.RoleEnum;
 import com.example.resthony.model.dto.user.CreateUserIn;
 import com.example.resthony.model.dto.user.PatchUserIn;
-import com.example.resthony.model.dto.user.UserOut;
-import com.example.resthony.repositories.UserRepository;
-import com.example.resthony.services.principal.RestoService;
-import com.example.resthony.services.principal.UserNotFoundException;
-import com.example.resthony.services.principal.UserService;
+import com.example.resthony.services.principal.*;
 import com.example.resthony.utils.BCryptManagerUtil;
 import javassist.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -34,10 +28,12 @@ public class UserControllerAdmin {
 
     private final UserService service;
     private final RestoService ServiceResto;
+    private final EmailService ServiceEmail;
 
-    public UserControllerAdmin(UserService service, RestoService serviceResto) {
+    public UserControllerAdmin(UserService service, RestoService serviceResto, EmailService serviceEmail) {
         this.service = service;
         ServiceResto = serviceResto;
+        ServiceEmail = serviceEmail;
     }
     @GetMapping("/list")
     public String all(Model model){
@@ -72,9 +68,29 @@ public class UserControllerAdmin {
         createUserIn.roles = new ArrayList<>();
 
         createUserIn.addRole(RoleEnum.USER);
+        try {
+            //Info sur le user
+
+            String registerName = createUserIn.getLastname();
+
+            //Info email
+            String emailAdress = createUserIn.getEmail();
+            String emailSubject = "Compte crée chez Resthony.";
+            String emailText = "<p>Bonjour monsieur "+registerName+",</p>"
+                    + "<p>Un compte a été crée pour vous chez Resthony.</p>"
+                    + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
+            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+        }
+        catch (MessagingException | UnsupportedEncodingException e){
+            ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation du compte.");
+            service.create(createUserIn);
+            return "redirect:/admin/user/list";
+        }
+        ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
         service.create(createUserIn);
         return "redirect:/admin/user/list";
     }
+
 
 
     @GetMapping("/delete/{id}")
@@ -110,7 +126,7 @@ public class UserControllerAdmin {
         }
 
         service.patch(patchUserIn.getId(), patchUserIn);
-        ra.addFlashAttribute("message", "L'utilisateur a été modifié");
+        ra.addFlashAttribute("message", "L'utilisateur a été modifié.");
 
         return "redirect:/admin/user/list";
     }

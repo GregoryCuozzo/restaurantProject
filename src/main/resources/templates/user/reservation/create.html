@@ -1,9 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="fragments :: header ">
-</head>
+
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: header">
+
 <body>
+
 <div th:replace="fragments :: navbarUser"/>
+
+<h2 style="text-align:center;color:white;"> Ajouter une reservation </h2>
+
+<section id="book-a-table" class="book-a-table">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>J'ai faim</h2>
+            <p>Réservation</p>
+        </div>
+
+        <form th:action="@{/user/reservation/create}" th:object="${reservations}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div>
+                    <input type="hidden" name="user" th:value="${user}">
+                    <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form">
+                    <select th:field="*{restaurant}" id="restaurant" class="form-control selectColourForm">
+                        <option type="text" th:value="default">Choisir un restaurant</option>
+                        <option type="text" th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}"></option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="date" th:field="*{date}"class="form-control"  placeholder="Date*">
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="time" step="1" th:field="*{time}"class="form-control"  placeholder="Heure*">
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{time}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form" >
+                    <input type="number" th:field="*{nbcouverts}"class="form-control"  placeholder="Nombre de couverts*">
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center"><button type="submit">Confirmer</button></div>
+        </form>
+    </div>
+</section>
+
+<footer th:replace="fragments :: footer"></footer>
 
 </body>
 </html>

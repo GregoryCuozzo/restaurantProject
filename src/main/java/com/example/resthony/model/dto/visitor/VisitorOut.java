@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,7 +24,12 @@ public class VisitorOut {
 
     public String phone;
 
-    public Integer resto;
+    public String resto;
 
+    public Integer nbcouverts;
+
+    public Date date;
+
+    public Time time;
 
 }

@@ -64,26 +64,10 @@ public class UtilisateurController {
         }
 
         // Check duplicate
-        List<UserOut> users = new ArrayList<UserOut>(service.getAll());
-        boolean checkDuplicate = true;
-        for (UserOut user: users) {
-            if (service.getCurrentUser().getUsername() != user.getUsername())
-            {
-                if (user.getUsername().equals(patchUserIn.getUsername()))
-                {
-                    checkDuplicate = false;
-                    ra.addFlashAttribute("messageErreur", "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.");
-                }
-            }
-            if (service.getCurrentUser().getEmail() != user.getEmail()) {
-                if (user.getEmail().equals(patchUserIn.getEmail())) {
-                    checkDuplicate = false;
-                    ra.addFlashAttribute("messageErreur", "Cette adresse email existe déjà, veuillez en choisir une autre.");
-                }
-            }
-        }
-        if (checkDuplicate == false) {
-            ra.addFlashAttribute("messageErreur");
+        String message = service.checkDuplicateUpdate(patchUserIn);
+
+        if (!message.equals("")) {
+            ra.addFlashAttribute("messageErreur",message);
             return "redirect:/user/update";
         }
         service.patch(patchUserIn.getId(), patchUserIn);
@@ -103,24 +87,29 @@ public class UtilisateurController {
     public String updatePass(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPassword2") String newPassword2, RedirectAttributes ra){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if(oldPassword.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()){
-            ra.addFlashAttribute("message", "Tous les champs doivent être remplis");
+            ra.addFlashAttribute("messageErreur", "Tous les champs doivent être remplis");
             return "redirect:/user/updatePass";
         }else if(!encoder.matches(oldPassword, service.getCurrentUser().getPassword()) ){
-            ra.addFlashAttribute("message", "L'ancien mot de passe est mauvais");
+            ra.addFlashAttribute("messageErreur", "L'ancien mot de passe est mauvais");
             return "redirect:/user/updatePass";
         }else if(false){
-            ra.addFlashAttribute("message", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial");
+            ra.addFlashAttribute("messageErreur", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial");
             return "redirect:/user/updatePass";
         }else if(!newPassword.equals(newPassword2)){
-            ra.addFlashAttribute("message", "Les mots de passe ne correspondent pas");
+            ra.addFlashAttribute("messageErreur", "Les mots de passe ne correspondent pas");
             return "redirect:/user/updatePass";
         }else if(oldPassword.equals(newPassword2)) {
-            ra.addFlashAttribute("message", "Le nouveau mot de passe doit être différent de l'ancien");
+            ra.addFlashAttribute("messageErreur", "Le nouveau mot de passe doit être différent de l'ancien");
             return "redirect:/user/updatePass";
         }else{
-            String passwordEncrypt = BCryptManagerUtil.passwordEncoder().encode(newPassword);
-            service.updatePass(service.getCurrentUser().getId(),passwordEncrypt);
+            try {
+                service.updatePass(service.getCurrentUser().getId(), newPassword);
+            }
+            catch(Exception exception){
+                ra.addFlashAttribute("messageErreur", "Un erreur s'est produite, veuillez réassayer plus tard ou nous contacter si l'erreur persiste");
+            }
         }
+        ra.addFlashAttribute("message", "Votre mot de passe a bien été changé");
         return "redirect:/user/profil";
     }
 

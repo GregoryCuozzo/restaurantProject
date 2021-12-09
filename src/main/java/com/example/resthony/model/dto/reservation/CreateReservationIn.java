@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -19,19 +16,20 @@ import java.sql.Time;
 @AllArgsConstructor
 public class CreateReservationIn {
 
-    @NotBlank(message = "Nom d'utilisateur obligatoire")
+    @NotNull(message = "Nom d'utilisateur obligatoire")
     public String user;
 
-    @NotBlank(message = "Heure obligatoire")
+    @NotNull(message = "Heure obligatoire")
     public Time time;
 
-    @NotBlank(message = "Restaurant obligatoire")
+    @NotNull(message = "Restaurant obligatoire")
+    @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
     public String restaurant;
 
-    @NotBlank(message = "Date obligatoire")
+    @NotNull(message = "Date obligatoire")
     public Date date ;
 
-    @NotBlank(message = "Nombre de couverts obligatoire")
+    @NotNull(message = "Nombre de couverts obligatoire")
     public Integer nbcouverts;
 
     public Integer admin ;

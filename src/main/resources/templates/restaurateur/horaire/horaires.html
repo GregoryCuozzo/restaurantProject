@@ -31,7 +31,7 @@
 
                 </td>
                 <td>
-                    <a th:href="@{'/restaurateur/horaire/delete/' + ${horaire.id}}">delete</a>
+                    <a th:href="@{'/restaurateur/horaire/delete/' + ${horaire.id}}" onclick="return confirm('Êtes-vous sûr?')">delete</a>
                 </td>
             </tr>
         </th:block>

@@ -7,137 +7,63 @@
 <head th:replace="fragments :: header">
 
 <body>
+<div th:replace="fragments :: navbarNotLogged"></div>
 
-<h2 style="text-align:center;color:white;"> Ajouter une reservation </h2>
 
-<div>
 
-    <form th:action="@{/visitor/create}" method="post" th:object="${visitor}"
-          style="width:500px; margin: 0 auto;color:white;">
-        <hr>
-        <div class="border border-secondary rounded p-3">
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Prénom :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{firstname}" class="form-control" required minlength="4"
-                           maxlength="45">
-                </div>
-            </div>
+<section id="book-a-table" class="book-a-table">
+    <div class="container" data-aos="fade-up">
 
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nom :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{lastname}" class="form-control" required minlength="4"
-                           maxlength="45">
-                </div>
-            </div>
-            <!--            <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Restaurant :</label>
-                            <div class="col-sm-8">
-                                <input type="text" th:field="*{restaurant}" class="form-control" required minlength="4"
-                                       maxlength="45">
-                            </div>
-
-                        </div>-->
-            <div class="form-group row">
-                <label for="restaurant" class="col-sm-4 col-form-label">Restaurant :</label>
-                <div class="col-sm-8">
-                    <select th:field="*{restaurant}" id="restaurant" class="form-control">
-                        <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}">
-                        </option>
-                    </select>
-
-                    <!--<input type="text" th:field="*{restaurant}" class="form-control">-->
-                </div>
-<!--            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Date:</label>
-                <div class="col-sm-8">
-                    <input type="date" th:field="*{date}" class="form-control" required minlength="4"
-                           maxlength="45">
-                </div>
-            </div>-->
-<!--
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Heure :</label>
-                <div class="col-sm-8">
-                    <input type="time" th:field="*{time}" step="1" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nombre de couvert</label>
-                <div class="col-sm-8">
-                    <input type="number" th:field="*{nbcouverts}" class="form-control" required minlength="5"
-                           maxlength="15">
-                </div>
-            </div>
--->
-
-            <!--            <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Restaurant:</label>
-                            <div class="col-sm-8">
-                                <select th:field="*{resto}">
-                                    <option th:each="restaurant: ${restaurants}" th:value="${restaurant.id}"
-                                            th:text="${restaurant.nom}"></option>
-                                </select>
-                            </div>
-                        </div>-->
-
-            <!--
-                        <th:block th:each="resto: ${restos}">
-                            <tr>
-                                <td th:text="${resto.id}">id</td>
-                                <td th:text="${resto.nom}">Nom</td>
-                                <td th:text="${resto.adress}">Adresse</td>
-                                <td th:text="${resto.nb_place}">Nombre de places</td>
-                                <td th:text="${resto.opening_day}">Jour d'ouverture</td>
-                                <td th:text="${resto.email}">Email</td>
-                            </tr>
-                        </th:block>
-            -->
-
-            <div class="form-group row" style="padding-left:200px;">
-                <button type="submit" class="btn btn-primary m-2"> Valider</button>
-                <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()" style="color:black;">
-                    retour
-                </button>
-            </div>
-
+        <div class="section-title">
+            <h2>J'ai faim</h2>
+            <p>Réservation</p>
         </div>
-    </form>
-</div>
 
-<!--<div>
-        <form th:action="@{/admin/reservation/create}" method="post" th:object="${reservations}"
-              style="width:500px; margin: 0 auto;color:white;">
-
-
-            <hr>
-            <div class="border border-secondary rounded p-3">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">prenom :</label>
-                    <div class="col-sm-8">
-                        <input type="text" th:field="*{user}" class="form-control">
-                    </div>
+        <form th:action="@{/visitor/create}" th:object="${visitor}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form">
+                    <select th:field="*{resto}" id="restaurant" class="form-control selectColourForm">
+                        <option type="text" th:value="default">Choisir un restaurant</option>
+                        <option type ="text" th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}" class="alert alert-danger text-center"></div>
                 </div>
-
-
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="text" th:field="*{firstname}" class="form-control" id="email" placeholder="Prénom*" >
+                    <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="text" th:field="*{lastname}" class="form-control" id="phone" placeholder="Nom*">
+                    <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="email" th:field="*{email}" class="form-control" id="date" placeholder="Email*" >
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="text" th:field="*{phone}" class="form-control"  id="time" placeholder="Téléphone">
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="date" th:field="*{date}"class="form-control"  placeholder="Date*">
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="time" step="1" th:field="*{time}"class="form-control"  placeholder="Heure*">
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{time}" class="alert alert-danger text-center"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form" >
+                    <input type="number" th:field="*{nbcouverts}"class="form-control"  placeholder="Nombre de couverts*">
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
+                </div>
             </div>
+            <div class="text-center"><button type="submit">Confirmer</button></div>
         </form>
-</div>
-
-</div>-->
-
-
-<script type="text/javascript">
-    function cancelForm() {
-        window.location = "[[@{/}]]";
-    }
-</script>
+    </div>
+</section>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<footer th:replace="fragments :: footer"></footer>
 
 </body>
 </html>
