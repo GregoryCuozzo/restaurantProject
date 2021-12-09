@@ -66,9 +66,8 @@ public class RegisterController {
             return "redirect:/";
         }
 
-        System.out.println("CREATE USER IN =" + createUserIn);
+
         if (createUserIn.getContact().equals("email")) {
-            System.out.println("EMAIIIIL" );
             try {
                 //Info sur le user
 
@@ -92,7 +91,6 @@ public class RegisterController {
 
         if (createUserIn.getContact().equals("sms"))
         {
-            System.out.println("SMSMSMSMSMSMSMS" );
             try {
                 String registerName = createUserIn.getLastname();
                 String smsMessage = "Bonjour monsieur " + registerName + "," +
