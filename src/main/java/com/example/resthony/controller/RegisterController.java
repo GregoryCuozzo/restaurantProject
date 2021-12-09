@@ -66,7 +66,6 @@ public class RegisterController {
             return "redirect:/";
         }
 
-        System.out.println("CREATE USER IN =" + createUserIn);
         if (createUserIn.getContact().equals("email")) {
             try {
                 //Info sur le user
@@ -103,14 +102,14 @@ public class RegisterController {
                 SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);
                 ServiceSms.sendSms(smsRequest);
             } catch (Exception e) {
-                ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'sms de confirmation du compte.");
+                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation du compte.");
                 return "redirect:/";
             }
-            ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte vous a été envoyé.");
+            ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
             return "redirect:/";
         }
 
-        ra.addFlashAttribute("message", "Votre compte a bien été crée.");
+        ra.addFlashAttribute("message", "Votre compte a bien été créé.");
         return "redirect:/";
 
     }
