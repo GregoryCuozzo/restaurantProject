@@ -45,6 +45,7 @@
             </div>
             <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form" th:if="${role == 'USER'}">
                     <select th:field="*{contact}" class="form-control selectColourForm" >
+                        <option type="text" th:value="default">Préférence de contact* (Pour réservation)</option>
                         <option type="text" th:value="email">Email</option>
                         <option type="text" th:value="sms">SMS</option>
                         <option type="text" th:value="aucun">Aucun</option>

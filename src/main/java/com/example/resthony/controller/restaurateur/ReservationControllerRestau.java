@@ -6,7 +6,6 @@ import com.example.resthony.model.dto.reservation.PatchReservationIn;
 import com.example.resthony.model.dto.user.UserOut;
 import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.model.dto.visitor.PatchVisitorIn;
-import com.example.resthony.model.entities.User;
 import com.example.resthony.services.principal.*;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;

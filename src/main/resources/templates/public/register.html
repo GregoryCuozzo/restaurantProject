@@ -53,8 +53,8 @@
 
                         <select th:field="*{contact}" class="form-control selectColourForm" >
                             <option type="text" th:value="default">Préférence de contact* (Pour réservation)</option>
-                            <option type="text" th:value="sms">Email</option>
-                            <option type="text" th:value="email">SMS</option>
+                            <option type="text" th:value="email">Email</option>
+                            <option type="text" th:value="sms">SMS</option>
                             <option type="text" th:value="aucun">Aucun</option>
                         </select>
                         <div th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}" class="alert alert-danger text-center"></div>

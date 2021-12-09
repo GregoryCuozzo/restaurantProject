@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "phoneNumber",
+      "type": "java.lang.String",
+      "description": "Description for phoneNumber."
+    },
+    {
+      "name": "accountSID",
+      "type": "java.lang.String",
+      "description": "Description for accountSID."
+    }
+  ] }

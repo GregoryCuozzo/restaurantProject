@@ -6,7 +6,6 @@ import com.example.resthony.model.dto.villes.PatchVilleIn;
 import com.example.resthony.model.dto.villes.VilleOut;
 import com.example.resthony.model.entities.Ville;
 import com.example.resthony.repositories.VilleRepository;
-import com.example.resthony.repositories.VilleRepository;
 import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

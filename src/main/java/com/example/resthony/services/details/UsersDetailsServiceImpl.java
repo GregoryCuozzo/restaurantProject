@@ -17,13 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.security.enterprise.credential.Password;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
@@ -219,7 +215,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 break;
             }
-            if (createUserIn.getContact() != null) {
+            if (!createUserIn.getContact().equals("default")) {
                 if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
                     message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
                     break;
@@ -250,7 +246,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                     message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 }
             }
-            if (patchUserIn.getContact() != null) {
+            if (!patchUserIn.getContact().equals("default")) {
                 if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
                     message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
                 }

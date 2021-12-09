@@ -3,12 +3,11 @@ package com.example.resthony.controller.restaurateur;
 import com.example.resthony.model.dto.horaire.CreateHoraireIn;
 import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.horaire.PatchHoraireIn;
-import com.example.resthony.model.dto.restaurant.PatchRestoIn;
-import com.example.resthony.model.entities.Horaire;
+
 import com.example.resthony.services.principal.HoraireService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

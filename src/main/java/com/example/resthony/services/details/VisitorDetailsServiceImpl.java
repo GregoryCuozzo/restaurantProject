@@ -7,14 +7,11 @@ import com.example.resthony.model.entities.Restaurant;
 import com.example.resthony.model.entities.Visitor;
 import com.example.resthony.repositories.RestauRepository;
 import com.example.resthony.repositories.VisitorRepository;
-
-
 import com.example.resthony.services.principal.VisitorService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

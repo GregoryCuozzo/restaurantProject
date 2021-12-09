@@ -62,6 +62,7 @@
                 <label class="col-sm-4 col-form-label">Preference de contact :</label>
                 <div class="col-sm-8">
                     <select th:field="*{contact}" class="form-control" >
+                        <option type="text" th:value="default">Préférence de contact* (Pour réservation)</option>
                         <option type="text" value="email">Email</option>
                         <option type="text" value="sms">SMS</option>
                         <option type="text" value="aucun">Aucun</option>
