@@ -21,6 +21,8 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User controller
@@ -169,13 +171,16 @@ public class UserControllerRestau {
     @PostMapping("/updatePass")
     public String updatePass(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPassword2") String newPassword2, RedirectAttributes ra){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Pattern p = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{10,}$");
+        Matcher m = p.matcher(newPassword);
+        boolean b = m.matches();
         if(oldPassword.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()){
             ra.addFlashAttribute("messageErreur", "Tous les champs doivent être remplis");
             return "redirect:/restaurateur/user/updatePass";
         }else if(!encoder.matches(oldPassword, service.getCurrentUser().getPassword()) ){
             ra.addFlashAttribute("messageErreur", "L'ancien mot de passe est mauvais");
             return "redirect:/restaurateur/user/updatePass";
-        }else if(false){
+        }else if(!b){
             ra.addFlashAttribute("messageErreur", "Le mot de passe doit être de minimum 10 caratères et contenir au minimum des lettres, un chiffre et un caractère spécial");
             return "redirect:/restaurateur/user/updatePass";
         }else if(!newPassword.equals(newPassword2)){
