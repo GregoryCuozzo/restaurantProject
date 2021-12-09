@@ -7,91 +7,65 @@
 <head th:replace="fragments :: header">
 
 <body>
+<div th:replace="fragments :: navbarNotLogged"></div>
 
 
-<h2 style="text-align:center;color:white;"> Page d'inscription </h2>
 
-
-<div>
     <div th:if="${messageErreur}" class="alert alert-danger text-center">
         [[${messageErreur}]]
     </div>
-    <form th:action="@{/register/create}" th:object="${createUserIn}" method="post"  style="width:500px; margin: 0 auto;color:white;">
 
-        <hr>
-        <div class="border border-secondary rounded p-3">
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Pseudo* :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{username}" class="form-control" placeholder="Entrez un pseudo">
+<section id="book-a-table" class="book-a-table">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Nouveau compte</h2>
+            <p>Inscription</p>
+        </div>
+
+        <form th:action="@{/register/create}" th:object="${createUserIn}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 form-group">
+                    <input type="text" th:field="*{username}" class="form-control" id="name" placeholder="Pseudo*">
                     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger text-center"></div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Prénom* :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{firstname}" class="form-control" placeholder="Entrez un prénom">
+                <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                    <input type="text" th:field="*{firstname}" class="form-control" id="email" placeholder="Prénom*" >
                     <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nom* :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{lastname}"  class="form-control" placeholder="Entrez un nom">
+                <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                    <input type="text" th:field="*{lastname}" class="form-control" id="phone" placeholder="Nom*">
                     <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="alert alert-danger text-center"></div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Email* :</label>
-                <div class="col-sm-8">
-                    <input type="email" th:field="*{email}"  class="form-control" placeholder="Entrez un email">
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="email" th:field="*{email}" class="form-control" id="date" placeholder="Email*" >
                     <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Téléphone :</label>
-                <div class="col-sm-8">
-                    <input type="text" th:field="*{phone}"  class="form-control" placeholder="Entrez votre numéro de téléphone">
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="text" th:field="*{phone}" class="form-control"  id="time" placeholder="Téléphone">
                     <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Préférence de contact* :</label>
-                <div class="col-sm-8">
-                    <select th:field="*{contact}" class="form-control" >
-                        <option type="text" th:value="sms">Email</option>
-                        <option type="text" th:value="email">SMS</option>
-                        <option type="text" th:value="aucun">Aucun</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Mot de passe* :</label>
-                <div class="col-sm-8">
-                    <input  type="password" th:field="*{password}"  class="form-control" placeholder="Entrez un mot de passe">
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="password" th:field="*{password}"class="form-control" id="people" placeholder="Mot de passe*">
                     <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger text-center"></div>
                 </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form">
+
+                        <select th:field="*{contact}" class="form-control selectColourForm" >
+                            <option type="text" th:value="default">Préférence de contact* (Pour réservation)</option>
+                            <option type="text" th:value="sms">Email</option>
+                            <option type="text" th:value="email">SMS</option>
+                            <option type="text" th:value="aucun">Aucun</option>
+                        </select>
+                        <div th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}" class="alert alert-danger text-center"></div>
+                </div>
             </div>
-            <div class="form-group row" style="padding-left:200px;">
-                <button type="submit"  class="btn btn-primary m-2"> Inscription</button>
-                <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()" style="color:black;"> retour</button>
-            </div>
+            <div class="text-center"><button type="submit">Inscription</button></div>
+        </form>
 
-        </div>
-    </form>
-</div>
-
-<script type="text/javascript">
-    function cancelForm(){
-        window.location ="[[@{/}]]";
-    }
-</script>
-
-
+    </div>
+</section>
+<footer th:replace="fragments :: footer"></footer>
 </body>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </html>
 

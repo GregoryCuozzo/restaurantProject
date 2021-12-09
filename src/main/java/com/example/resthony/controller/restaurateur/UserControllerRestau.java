@@ -40,9 +40,11 @@ public class UserControllerRestau {
     }
     @GetMapping("/list")
     public String all(Model model){
+        int nbUsers = service.countUser();
+        System.out.println(nbUsers);
         model.addAttribute("Users",service.getAll());
         model.addAttribute("restaurants",ServiceResto.getAll());
-
+        model.addAttribute("nbUsers", nbUsers);
         return "/restaurateur/users/users.html";
 
     }

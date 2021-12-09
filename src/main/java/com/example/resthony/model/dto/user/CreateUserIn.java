@@ -44,6 +44,7 @@ public class CreateUserIn {
 
     public Integer resto;
 
+    @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
     public String contact;
 
 

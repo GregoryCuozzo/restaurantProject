@@ -4,112 +4,64 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: header">
-
-
+    <div th:replace="fragments :: navbarNotLogged"></div>
+    <header>
+        <section id="hero" class="d-flex align-items-center">
+            <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Bienvenue chez <span>Resthony</span></h1>
+                        <h2>Plateforme professionnelle de réservations</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
 <body>
 
-    <img id="banner" th:src="@{/chefs.png}"/>
 
-    <h2 style="text-align:center;color:white;"> Bienvenue  </h2>
     <div th:if="${messageErreur}" class="alert alert-danger text-center">
         [[${messageErreur}]]
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
+    <section id="why-us" class="why-us">
+        <div class="container" data-aos="fade-up">
 
-<br>
+            <div class="section-title">
+                <h2>Resthony</h2>
+                <p>Bienvenue</p>
+            </div>
 
-
-    <table style="margin-left:350px;background-color:black;text-align:center;">
-
-        <tr style="color:white;">
-            <th><p>S'inscrire </p></th>
-            <th><p>Se connecter</p></th>
-            <th><p>réserver sans inscription </p></th>
-
-        </tr>
-        <tr>
-            <td>
-                <div class="col-sm-4" >
-                    <div class="card text-white bg-primary mb-3" style="width:230px">
-                        <div class="card-header">
-                            <div class="row" >
-                                <div class="col-sm-8"style="padding-left:30px;">
-                                    <div class="float-center"  > <img th:src="@{/chefs.png}" alt="Restaurant" titre="Restaurant" height="200px" width="200px">  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item-primary list-group-item list-group-item-action">
-                            <div class="row">
-                                <div class="float-sm-8" >
-                                    <a th:href="@{/register}"><p class="">Inscription </p></a>
-                                    <hr>
-                                    <p style="text-align:left;color:black;">
-                                        Cliquez ici pour avoir vous inscrire et bénéficier des avantages utilisateur
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div class="col-sm-4">
-                    <div class="card text-white bg-primary mb-3" style="width:250px">
-                        <div class="card-header">
-                            <div class="row">
-
-                                <div class="col-sm-8" style="padding-left:40px;">
-                                    <div class="float-sm-center" > <img th:src="@{/drinks.jpg}"alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item-primary list-group-item list-group-item-action">
-                            <div class="row">
-                                <div class="float-sm-8" >
-                                    <a th:href="@{/login}"><p class=""> Connexion  </p></a>
-                                    <hr>
-                                    <p style="text-align:left;color:black;"> Cliquez ici pour vous connecter sur votre compte </p>
-                                </div>
-
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                        <a th:href="@{/register}"><span>S'inscrire</span></a>
+                        <p>Cliquez ici pour avoir vous inscrire et bénéficier des avantages utilisateur</p>
                     </div>
                 </div>
 
-            </td>
-            <td>
-                <div class="col-sm-4" >
-                    <div class="card text-white bg-primary mb-3" style="width:250px">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-sm-8" style="padding-left:40px;">
-                                    <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item-primary list-group-item list-group-item-action">
-                            <div class="row">
-                                <div class="float-sm-8">
-                                    <a th:href="@{/visitor/create}"><p class=""> Réservation  </p></a>
-                                    <hr>
-                                    <p style="text-align:left;color:black;">
-                                        Cliquez ici pour réserver une table dans votre restaurant sans inscription
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                        <a th:href="@{/login}"><span>Se connecter</span></a>
+                        <p>Cliquez ici pour vous connecter sur votre compte et accéder à vos réservations</p>
                     </div>
                 </div>
-            </td>
 
-        </tr>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                        <a th:href="@{/visitor/create}"><span>Réserver</span></a>
+                        <p>Cliquez ici pour réserver une table dans votre restaurant préféré sans inscription</p>
+                    </div>
+                </div>
 
-    </table>
+            </div>
+
+        </div>
+    </section><!-- End Why Us Section -->
+
     <br><br>
-
+    <footer th:replace="fragments :: footer"></footer>
 </body>
 </html>

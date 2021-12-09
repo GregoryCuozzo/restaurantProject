@@ -27,5 +27,6 @@ public interface UserService {
     String checkDuplicateCreate(CreateUserIn createUserIn);
    String checkDuplicateUpdate(PatchUserIn patchUserIn);
     public User findByToken(String resetPasswordToken);
+    public int countUser();
 
 }
