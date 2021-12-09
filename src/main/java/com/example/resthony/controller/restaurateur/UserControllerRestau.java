@@ -89,6 +89,14 @@ public class UserControllerRestau {
         } else {
             return "/restaurateur/users/create.html";
         }
+        try {
+            service.create(createUserIn);
+        }
+        catch(Exception e) {
+            ra.addFlashAttribute("messageErreur", "Problème avec la création de l'utilisateur.");
+            return "redirect:/restaurateur/user/list";
+        }
+
         //Email de confirmation envoyé à l'utilisateur
         if (createUserIn.getContact().equals("email")) {
             try {
@@ -127,7 +135,6 @@ public class UserControllerRestau {
             ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
             return "redirect:/restaurateur/user/list";
         }
-        service.create(createUserIn);
         ra.addFlashAttribute("message", "compte créé *<|:^)");
         return "redirect:/restaurateur/user/list";
     }

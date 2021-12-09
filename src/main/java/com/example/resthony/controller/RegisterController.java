@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.util.Objects;
+
 
 
 @Controller
@@ -76,7 +76,7 @@ public class RegisterController {
                 String emailAdress = createUserIn.getEmail();
                 String emailSubject = "Compte crée chez Resthony.";
                 String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
-                        + "<p>Merci d'avoir crée un compte chez nous, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
+                        + "<p>Merci d'avoir crée un compte chez Resthony, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
                         + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
                 message = ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
                 if (!message.equals("")){
