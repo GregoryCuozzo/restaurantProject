@@ -79,7 +79,7 @@ public class EmailDetailServiceImpl implements EmailService {
                         helper.setTo(user.getEmail());
                         String subject = "Rappel réservation" + resto.getName();
                         String content = "Vous avez réservé une table de " + reservation.getNbcouverts() +
-                                " personnes chez " + resto.getName() + " à la date du INCLURE DATE MDR";
+                                " personnes chez " + resto.getName() + " à la date du " + reservation.getDate() + " à " + reservation.getTime();
                         helper.setSubject(subject);
                         helper.setText(content, true);
                         System.out.println("email envoyé");
