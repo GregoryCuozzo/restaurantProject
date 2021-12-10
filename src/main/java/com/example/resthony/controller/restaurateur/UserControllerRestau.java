@@ -97,41 +97,43 @@ public class UserControllerRestau {
         }
 
         //Email de confirmation envoyé à l'utilisateur
-        if (createUserIn.getContact().equals("email")) {
-            try {
-                //Info sur le user
+        if (createUserIn.getContact() != null) {
+            if (createUserIn.getContact().equals("email")) {
+                try {
+                    //Info sur le user
 
-                String registerName = createUserIn.getLastname();
+                    String registerName = createUserIn.getLastname();
 
-                //Info email
-                String emailAdress = createUserIn.getEmail();
-                String emailSubject = "Compte crée chez Resthony.";
-                String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
-                        + "<p>Un compte a été crée pour vous chez Resthony.</p>"
-                        + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
-                ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
-            } catch (MessagingException | UnsupportedEncodingException e) {
-                ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation de création du compte.");
+                    //Info email
+                    String emailAdress = createUserIn.getEmail();
+                    String emailSubject = "Compte crée chez Resthony.";
+                    String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
+                            + "<p>Un compte a été crée pour vous chez Resthony.</p>"
+                            + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
+                    ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+                } catch (MessagingException | UnsupportedEncodingException e) {
+                    ra.addFlashAttribute("messageErreur", "Compte crée mais problème avec l'envoie de l'email de confirmation de création du compte.");
+                    return "redirect:/restaurateur/user/list";
+                }
+                ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
                 return "redirect:/restaurateur/user/list";
             }
-            ra.addFlashAttribute("message", "Utilisateur crée et email de confirmation de création de compte envoyé.");
-            return "redirect:/restaurateur/user/list";
-        }
 
-        if (createUserIn.getContact().equals("sms")) {
-            try {
-                String registerName = createUserIn.getLastname();
-                String smsMessage = "Bonjour monsieur " + registerName + "," +
-                        " Un compte a été crée pour vous chez Resthony." +
-                        " N'hésitez pas à nous contacter si vous avez des questions.";
-                SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);
-                ServiceSms.sendSms(smsRequest);
-            } catch (Exception e) {
-                ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation de création du compte.");
+            if (createUserIn.getContact().equals("sms")) {
+                try {
+                    String registerName = createUserIn.getLastname();
+                    String smsMessage = "Bonjour monsieur " + registerName + "," +
+                            " Un compte a été crée pour vous chez Resthony." +
+                            " N'hésitez pas à nous contacter si vous avez des questions.";
+                    SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);
+                    ServiceSms.sendSms(smsRequest);
+                } catch (Exception e) {
+                    ra.addFlashAttribute("messageErreur", "Compte créé mais problème avec l'envoi du sms de confirmation de création du compte.");
+                    return "redirect:/restaurateur/user/list";
+                }
+                ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
                 return "redirect:/restaurateur/user/list";
             }
-            ra.addFlashAttribute("message", "Un SMS de confirmation de création du compte a été envoyé.");
-            return "redirect:/restaurateur/user/list";
         }
         ra.addFlashAttribute("message", "Compte créé");
         return "redirect:/restaurateur/user/list";
@@ -144,7 +146,8 @@ public class UserControllerRestau {
             service.delete(id);
 
         } catch (NotFoundException | UserNotFoundException e) {
-
+            ra.addFlashAttribute("messageErreur", "Pas d'utilisateur trouvé à l'id" + id);
+            return "redirect:/restaurateur/user/list";
         }
         ra.addFlashAttribute("message", "L'utilisateur  a été supprimé");
         return "redirect:/restaurateur/user/list";

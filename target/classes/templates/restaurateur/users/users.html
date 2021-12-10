@@ -14,9 +14,6 @@
 <h1 style="text-align:center; color:white;"> Liste des inscrits  </h1>
 
 
-<div th:if="${message}" class="alert alert-success text-center">
-    [[${message}]]
-</div>
 <div class="form-group row " style="padding-left:250px;">
     <a th:href="@{/restaurateur/user/create/USER}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau user</button></a>
     <a th:href="@{/restaurateur/user/create/restaurateur}"><button type="button" class="btn btn-secondary m-2"  style="color:black;">Nouveau restaurateur</button></a>

@@ -79,6 +79,7 @@ public class RestauDetailsServiceImpl implements RestoService {
                 patchRestoIn.getOpening_day(),
                 patchRestoIn.getEmail(),
                 patchRestoIn.getTelephone(),
+                patchRestoIn.getRappel(),
                 id
         );
 
@@ -108,6 +109,7 @@ public class RestauDetailsServiceImpl implements RestoService {
                 .opening_day(restaurant.getOpening_day())
                 .email(restaurant.getEmail())
                 .telephone((restaurant.getTelephone()))
+                .rappel((restaurant.getRappel()))
 
                 .build();
         return restoOut;
@@ -122,6 +124,7 @@ public class RestauDetailsServiceImpl implements RestoService {
                 .opening_day(createRestoIn.getOpening_day())
                 .email(createRestoIn.getEmail())
                 .telephone(createRestoIn.getTelephone())
+                .rappel(createRestoIn.getRappel())
                 .build();
         return restaurant;
     }

@@ -49,6 +49,9 @@ public class Restaurant {
     @Column (name = "ville")
     public Integer ville;
 
+    @Column (name = "rappel")
+    public Long rappel;
+
 
 
 

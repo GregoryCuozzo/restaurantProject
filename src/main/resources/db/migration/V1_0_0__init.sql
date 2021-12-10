@@ -46,7 +46,8 @@ create table restaurants (
                              telephone text not null,
                              ville bigint,
                              primary key (id_restaurants),
-                             restaurateur bigint
+                             restaurateur bigint,
+                             rappel bigint
 ) engine=InnoDB;
 
 create table reservations (

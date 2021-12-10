@@ -12,11 +12,8 @@
 
 <h2 style="text-align:center;color:white;"> Ajouter un utilisateur </h2>
 
-<div th:if="${messageErreur}" class="alert alert-danger text-center">
-    [[${messageErreur}]]
-</div>
 
-<div >
+<div>
 
     <form th:action="@{/admin/user/create}" method="post" th:object="${users}" style="width:500px; margin: 0 auto;color:white;">
 

@@ -6,9 +6,7 @@
 <div th:replace="fragments :: navbarResto"/>
 
 <h1 style="text-align:center; color:white;"> Ajouter un horaire </h1>
-<div th:if="${messageErreur}" class="alert alert-danger text-center">
-    [[${messageErreur}]]
-</div>
+
 <div>
 
     <form th:action="@{/restaurateur/horaire/create}" method="post" th:object="${horaire}"
