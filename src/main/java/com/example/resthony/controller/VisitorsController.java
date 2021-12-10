@@ -24,30 +24,29 @@ public class VisitorsController {
     private final RestoService ServiceResto;
     private final EmailService ServiceEmail;
 
-    public VisitorsController(RestoService serviceResto, VisitorService serviceVisitor, EmailService serviceEmail){
+    public VisitorsController(RestoService serviceResto, VisitorService serviceVisitor, EmailService serviceEmail) {
         ServiceVisitor = serviceVisitor;
         ServiceResto = serviceResto;
         ServiceEmail = serviceEmail;
     }
 
     @GetMapping("/create")
-    public String create(Model model){
-        model.addAttribute("visitor",new CreateVisitorIn());
-        model.addAttribute("restaurants",ServiceResto.getAll());
+    public String create(Model model) {
+        model.addAttribute("visitor", new CreateVisitorIn());
+        model.addAttribute("restaurants", ServiceResto.getAll());
         return "/public/visitor.html";
     }
 
 
     @PostMapping("/create")
     public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult, RedirectAttributes ra) throws MessagingException, UnsupportedEncodingException {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "/create";
         }
 
         try {
             ServiceVisitor.create(createVisitorIn);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             ra.addFlashAttribute("messageErreur", "Problème dans la création de votre réservation. Nous nous en excusons. Veuillez nous contacter.");
             return "redirect:/";
         }
@@ -63,19 +62,25 @@ public class VisitorsController {
 
             //Info email
             String emailAdress = createVisitorIn.getEmail();
-            String emailSubject = "Merci pour votre réservation chez " +reservationResto+".";
-            String emailText = "<p>Bonjour monsieur "+reservationName+",</p>"
-                    + "<p>Merci pour votre réservation chez " +reservationResto+".</p>"
+            String emailSubject = "Merci pour votre réservation chez " + reservationResto + ".";
+            String emailText = "<p>Bonjour monsieur " + reservationName + ",</p>"
+                    + "<p>Merci pour votre réservation chez " + reservationResto + ".</p>"
                     + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
                     + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>";
             ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
-        }
-        catch (MessagingException | UnsupportedEncodingException e){
+        } catch (MessagingException | UnsupportedEncodingException e) {
             ra.addFlashAttribute("messageErreur", "Problème avec l'envoie de l'email de confirmation. Contactez-nous pour plus d'informations.");
         }
         ra.addFlashAttribute("message", "Un email de confirmation vous a été envoyé.");
         return "redirect:/";
 
     }
+
+    @GetMapping("/newsLetter")
+    public void newsLetter(String email) {
+        
+    }
+
+
 
 }
