@@ -82,7 +82,6 @@ public class EmailDetailServiceImpl implements EmailService {
                                 " personnes chez " + resto.getName() + " à la date du " + reservation.getDate() + " à " + reservation.getTime();
                         helper.setSubject(subject);
                         helper.setText(content, true);
-                        System.out.println("email envoyé");
                         mailSender.send(message);
                     }
                 }
