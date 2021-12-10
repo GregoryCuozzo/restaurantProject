@@ -22,8 +22,8 @@ public class PatchRestoIn {
     @NotBlank(message = "Adresse obligatoire")
     public String adress;
 
-    @NotBlank(message = "Nombre de place obligatoire")
-    @Pattern(regexp = "^[0-9]+",message ="Veuillez entrer un nombre")
+    @NotNull(message = "Nombre de place obligatoire")
+    //@Pattern(regexp = "^[0-9]+",message ="Veuillez entrer un nombre")
     public Integer nb_place;
 
     @NotBlank(message = "Horaires obligatoires")
@@ -37,10 +37,10 @@ public class PatchRestoIn {
     @NotBlank(message = "Téléphone obligatoire")
     public String telephone;
 
-    @NotBlank(message = "Ville obligatoire")
+    @NotNull(message = "Ville obligatoire")
     public Integer ville;
 
-    public Integer rappel;
+    public Long rappel;
 
 
 

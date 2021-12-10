@@ -21,7 +21,7 @@ public class CreateRestoIn {
     public String adress;
 
     @NotNull(message = "Nombre de place obligatoire")
-    @Pattern(regexp = "^[0-9]+",message ="Veuillez entrer un nombre")
+    //@Pattern(regexp = "^[0-9]+",message ="Veuillez entrer un nombre")
     public Integer nb_place;
 
     @NotBlank(message = "Horaires obligatoires")
@@ -38,7 +38,7 @@ public class CreateRestoIn {
     @NotNull(message = "Ville obligatoire")
     public Integer ville;
 
-    public Integer rappel;
+    public Long rappel;
 
 
 }

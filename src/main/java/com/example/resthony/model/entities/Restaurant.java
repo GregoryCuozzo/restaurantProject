@@ -50,7 +50,7 @@ public class Restaurant {
     public Integer ville;
 
     @Column (name = "rappel")
-    public Integer rappel;
+    public Long rappel;
 
 
 
