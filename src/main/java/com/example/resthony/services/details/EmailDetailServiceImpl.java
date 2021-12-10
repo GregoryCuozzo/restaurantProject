@@ -70,7 +70,7 @@ public class EmailDetailServiceImpl implements EmailService {
                 Long jour = (long) (24 * 60 * 1000);
                 String userString = reservation.getUser();
                 UserOut user = userService.findByUsername(userString);
-                if (Objects.equals(user.getContact(), "email")) {
+                if (Objects.equals(user.getContact(), "email") && user.getContact() != null) {
                     if (reservation.date.getTime() >= reservation.date.getTime() - rappel && reservation.date.getTime() - rappel >= reservation.date.getTime() - jour) {
                         MimeMessage message = mailSender.createMimeMessage();
                         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -97,7 +97,7 @@ public class EmailDetailServiceImpl implements EmailService {
 
 @Configuration
 @EnableScheduling
-class scheduleConfig {
+class scheduleConfigEmail {
 
 }
 
