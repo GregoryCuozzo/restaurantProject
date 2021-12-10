@@ -143,4 +143,67 @@ public class HoraireDetailsServiceImpl implements HoraireService {
         return message;
     }
 
+    public List<String> horaireFiltre(Long id) {
+        Horaire horaireOut = horaireRepository.getById(id);
+        List<String> horaireVue = new ArrayList<>();
+        String horaireDebut = horaireOut.getOuverture();
+        String horaireFin = horaireOut.getFermeture();
+        horaireVue.add(horaireDebut);
+        String minuteDebutString = new StringBuilder().append(horaireDebut.charAt(3)).append(horaireDebut.charAt(4)).toString();
+        String heureDebutString = new StringBuilder().append(horaireDebut.charAt(0)).append(horaireDebut.charAt(1)).toString();
+        String heureFinString = new StringBuilder().append(horaireFin.charAt(0)).append(horaireFin.charAt(1)).toString();
+        Long heureDebutLong = Long.valueOf(heureDebutString);
+        Long heureFinLong = Long.valueOf(heureFinString);
+        Long diff = heureFinLong - heureDebutLong;
+        String horaire = horaireDebut;
+        Long heure = heureDebutLong;
+        for (int i = 0; i < diff; i++) {
+            String minutes = "00";
+            if (!horaire.equals(horaireFin)) {
+                if (!horaire.equals(horaireDebut)) {
+                    heure = heure + 1;
+                }
+                for (int j = 0; j < 4; j++) {
+                    if (j == 0) {
+                        if (minuteDebutString.equals("45")) {
+                            minuteDebutString = "";
+                            break;
+                        } else if (minuteDebutString.equals("00")) {
+                            horaire = heure.toString() + ":" + "15";
+                            horaireVue.add(horaire);
+                        } else if (minuteDebutString.equals("15")) {
+                            horaire = heure.toString() + ":" + "30";
+                            horaireVue.add(horaire);
+                        } else if (minuteDebutString.equals("30")) {
+                            minuteDebutString = "";
+                            horaire = heure.toString() + ":" + "45";
+                            horaireVue.add(horaire);
+                            break;
+                        }
+                    } else {
+                        if (minutes.equals("00") && !horaire.equals(horaireFin)) {
+                            horaire = heure.toString() + ":" + "00";
+                            horaireVue.add(horaire);
+                            horaire = heure.toString() + ":" + "15";
+                            horaireVue.add(horaire);
+                            minutes = "15";
+                        } else if (minutes.equals("15") && !horaire.equals(horaireFin)) {
+                            horaire = heure.toString() + ":" + "30";
+                            horaireVue.add(horaire);
+                            minutes = "30";
+                        } else if (minutes.equals("30") && !horaire.equals(horaireFin)) {
+                            horaire = heure.toString() + ":" + "45";
+                            horaireVue.add(horaire);
+                            minutes = "45";
+                        }
+                    }
+                }
+            }
+        }
+        horaireVue.add(horaireFin);
+        System.out.println(horaireVue);
+        return horaireVue;
+    }
+
+
 }

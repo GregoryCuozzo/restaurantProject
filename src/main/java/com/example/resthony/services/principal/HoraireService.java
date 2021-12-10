@@ -26,4 +26,6 @@ public interface HoraireService {
     String checkDuplicateCreate(CreateHoraireIn createHoraireIn);
 
     String checkDuplicateUpdate(PatchHoraireIn patchHoraireIn);
+
+    List<String> horaireFiltre(Long id);
 }
