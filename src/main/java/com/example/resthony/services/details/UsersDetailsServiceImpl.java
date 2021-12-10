@@ -215,10 +215,12 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                 message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 break;
             }
-            if (!createUserIn.getContact().equals("default")) {
-                if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
-                    message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
-                    break;
+            if (createUserIn.getContact() != null) {
+                if (!createUserIn.getContact().equals("default")) {
+                    if (createUserIn.getContact().equals("sms") && createUserIn.getPhone().isEmpty()) {
+                        message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+                        break;
+                    }
                 }
             }
         }
@@ -246,9 +248,11 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
                     message = "Ce nom d'utilisateur existe déjà, veuillez en choisir un autre.";
                 }
             }
-            if (!patchUserIn.getContact().equals("default")) {
-                if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
-                    message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+            if (patchUserIn.getContact() != null) {
+                if (!patchUserIn.getContact().equals("default")) {
+                    if (patchUserIn.getContact().equals("sms") && patchUserIn.getPhone().isEmpty()) {
+                        message = "Veuillez entrer un numero de telephone valide si vous avez sélectionné l'option SMS";
+                    }
                 }
             }
         }
