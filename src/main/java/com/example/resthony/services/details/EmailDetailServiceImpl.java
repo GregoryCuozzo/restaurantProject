@@ -59,6 +59,7 @@ public class EmailDetailServiceImpl implements EmailService {
     }
 
     //cron = "0 0 12 * *"
+    //Utiliser fixed rate pour tester, le Cron en commentaire ci-dessus permet d'envoyer les mails de rappel tout les jours à midi.
     @Scheduled(initialDelay = 1000L, fixedRate = 60000L)
     public void rappelEmail() throws MessagingException, UnsupportedEncodingException, MailSendException, InterruptedException {
         List<ReservationOut> reservationOuts = reservationService.getAll();
@@ -80,7 +81,7 @@ public class EmailDetailServiceImpl implements EmailService {
                     System.out.println(jour);
                     System.out.println(reservation.date.getTime());
                     System.out.println(reservation.date.getTime() - rappel);
-                    if (reservation.date.getTime() > reservation.date.getTime() - rappel && reservation.date.getTime() - rappel > reservation.date.getTime() - jour) {
+                    if (reservation.date.getTime() >= reservation.date.getTime() - rappel && reservation.date.getTime() - rappel >= reservation.date.getTime() - jour) {
                         MimeMessage message = mailSender.createMimeMessage();
                         MimeMessageHelper helper = new MimeMessageHelper(message);
 
