@@ -47,7 +47,11 @@ public class UtilisateurController {
 
     @GetMapping("/profil")
     //
-    public String getUser(Model model){
+    public String getUser(Model model,RedirectAttributes ra){
+        if (service.getCurrentUser() == null){
+            ra.addFlashAttribute("message", "Vous devez vous reconnecter car vous avez changé votre nom d'utilisateur.");
+            return"redirect:/";
+        }
         model.addAttribute("user", service.getCurrentUser());
         return "/user/profil.html";
 
@@ -60,7 +64,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra, Model model) {
         if(bindingResult.hasErrors()) {
             return "/user/profil.html";
         }
@@ -78,10 +82,10 @@ public class UtilisateurController {
         }
         catch(Exception e){
             ra.addFlashAttribute("messageErreur", "Un problème est survenu avec la modification des vos informations, veuillez nous contacter si le problème persiste.");
+            model.addAttribute("user", service.getCurrentUser());
             return "redirect:/user/profil";
         }
         ra.addFlashAttribute("message", "Votre profil a bien été modifié");
-
         return "redirect:/user/profil";
     }
 

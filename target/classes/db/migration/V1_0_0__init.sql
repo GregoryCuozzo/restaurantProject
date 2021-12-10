@@ -41,7 +41,7 @@ create table restaurants (
                              name varchar(255) not null,
                              adress text not null,
                              nb_place int not null,
-                             opening_day text not null,
+
                              email text,
                              telephone text not null,
                              ville bigint,
@@ -89,11 +89,11 @@ create index INDEX_USER_ROLE on roles (id_user);
 alter table villes add constraint FK_pays foreign key (pays) references pays(id_pays) on delete CASCADE ;
 alter table users add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username) ;
 alter table roles add constraint FK40d4m5dluy4a79sk18r064avh foreign key (id_user) references users (id_user) on delete CASCADE;
-alter table restaurants add constraint  FK_rest foreign key(restaurateur) references users(id_user) ;
-alter table reservations add constraint FK_user foreign key(user) references users(id_user) ;
-alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) ;
+alter table restaurants add constraint  FK_rest foreign key(restaurateur) references users(id_user) on delete CASCADE;
+alter table reservations add constraint FK_user foreign key(user) references users(id_user) on delete CASCADE;
+alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) on delete CASCADE ;
 alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE;
-alter table reservations add constraint FK_admin foreign key(admin) references users(id_user);
+alter table reservations add constraint FK_admin foreign key(admin) references users(id_user) on delete CASCADE;
 
 
 

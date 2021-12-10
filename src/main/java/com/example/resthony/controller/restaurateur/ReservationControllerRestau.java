@@ -56,11 +56,16 @@ public class ReservationControllerRestau {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String create(Model model, RedirectAttributes ra) {
+        List<HoraireOut> horaire = ServiceHoraire.getAll();
+        if (horaire.isEmpty()){
+            ra.addFlashAttribute("messageErreur", "Vous devez créer un horaire pour le restaurant avant de faire une réservation");
+            return "redirect:/restaurateur/reservation/list";
+        }
         model.addAttribute("reservations", new CreateReservationIn());
         model.addAttribute("restaurants", ServiceResto.getAll());
         model.addAttribute("users", ServiceUser.getAll());
-        model.addAttribute("horaireFiltré", ServiceHoraire.horaireFiltre(1L));
+        model.addAttribute("horaireFiltré", ServiceHoraire.horaireFiltre());
         return "/restaurateur/reservation/create.html";
     }
 
@@ -133,7 +138,12 @@ public class ReservationControllerRestau {
 
 
     @GetMapping("/createVisitor")
-    public String createVisitor(Model model) {
+    public String createVisitor(Model model, RedirectAttributes ra) {
+        List<HoraireOut> horaire = ServiceHoraire.getAll();
+        if (horaire.isEmpty()){
+            ra.addFlashAttribute("messageErreur", "Vous devez créer un horaire pour le restaurant avant de faire une réservation");
+            return "redirect:/restaurateur/reservation/list";
+        }
         model.addAttribute("visitor", new CreateVisitorIn());
         model.addAttribute("restaurants", ServiceResto.getAll());
         return "/restaurateur/reservation/createVisitor.html";

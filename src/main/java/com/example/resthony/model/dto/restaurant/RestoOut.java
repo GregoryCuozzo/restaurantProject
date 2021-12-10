@@ -19,7 +19,7 @@ public class RestoOut {
 
     public Integer nb_place;
 
-    public String opening_day;
+
 
     public String email;
 

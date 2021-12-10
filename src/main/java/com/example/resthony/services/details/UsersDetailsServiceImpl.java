@@ -200,6 +200,9 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         } else {
             username = principal.toString();
         }
+        if(username == null) {
+            return null;
+        }
         return userRepository.findByUsername(username);
     }
 

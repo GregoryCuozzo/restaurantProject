@@ -35,9 +35,6 @@ public class Restaurant {
     @Column(name = "nb_place", nullable = false)
     public int nb_place;
 
-    @NotNull
-    @Column(name = "opening_day", nullable = false)
-    public String opening_day;
 
     @Column(name = "email")
     public String email;

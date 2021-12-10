@@ -143,8 +143,8 @@ public class HoraireDetailsServiceImpl implements HoraireService {
         return message;
     }
 
-    public List<String> horaireFiltre(Long id) {
-        Horaire horaireOut = horaireRepository.getById(id);
+    public List<String> horaireFiltre() {
+        Horaire horaireOut = horaireRepository.getById(1L);
         List<String> horaireVue = new ArrayList<>();
         String horaireDebut = horaireOut.getOuverture();
         String horaireFin = horaireOut.getFermeture();
