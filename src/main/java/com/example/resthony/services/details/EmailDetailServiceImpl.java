@@ -95,11 +95,6 @@ public class EmailDetailServiceImpl implements EmailService {
 
 }
 
-@Configuration
-@EnableScheduling
-class scheduleConfigEmail {
-
-}
 
 
 

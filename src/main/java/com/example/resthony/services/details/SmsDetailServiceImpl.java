@@ -47,8 +47,3 @@ public class SmsDetailServiceImpl implements SmsService {
 
 }
 
-@Configuration
-@EnableScheduling
-class scheduleConfigSms {
-
-}
