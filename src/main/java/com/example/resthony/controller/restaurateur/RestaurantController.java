@@ -1,7 +1,10 @@
 package com.example.resthony.controller.restaurateur;
 
+import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
+import com.example.resthony.model.entities.Horaire;
+import com.example.resthony.services.principal.HoraireService;
 import com.example.resthony.services.principal.RestoService;
 import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
@@ -13,12 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
     @RequestMapping("/restaurateur/restaurant")
     public class RestaurantController {
         private final RestoService restoService;
         private final VilleService villeService;
+
 
 
         @Autowired

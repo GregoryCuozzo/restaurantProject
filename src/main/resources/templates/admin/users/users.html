@@ -30,8 +30,10 @@
             <th>First Name</th>
             <th>Last name </th>
             <th>E-mail</th>
+            <th>Phone</th>
             <th>Edit</th>
             <th>Delete </th>
+
         </tr>
         </thead>
         <tbody>
@@ -42,6 +44,7 @@
                     <td>[[${User.firstname}]]</td>
                     <td>[[${User.lastname}]]</td>
                     <td>[[${User.email}]]</td>
+                    <td>[[${User.phone}]]</td>
                     <td>
                         <a th:href="@{'/admin/user/update/' + ${User.id}}">edit</a>
 

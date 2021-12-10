@@ -26,8 +26,7 @@ public class PatchRestoIn {
     //@Pattern(regexp = "^[0-9]+",message ="Veuillez entrer un nombre")
     public Integer nb_place;
 
-    @NotBlank(message = "Horaires obligatoires")
-    public String opening_day;
+
 
 
 

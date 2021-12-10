@@ -29,11 +29,8 @@ public class RestauDetailsServiceImpl implements RestoService {
     @Override
     public RestoOut get(Long id) {
         Restaurant restaurant = restauRepository.findById(id).orElse(null);
-
         if (restaurant == null) return null;
-
         RestoOut restoOut = convertRestoEntityToRestoOut(restaurant);
-
         return restoOut;
     }
 
@@ -41,20 +38,17 @@ public class RestauDetailsServiceImpl implements RestoService {
     @Override
     public List<RestoOut> getAll() {
         List<Restaurant> restoEntities = restauRepository.findAll();
-
         List<RestoOut> restoOuts = new ArrayList<>();
         for (Restaurant restaurant : restoEntities) {
             restoOuts.add(convertRestoEntityToRestoOut(restaurant));
         }
-
         return restoOuts;
     }
 
     @Override
-    public RestoOut findByName(String name){
+    public RestoOut findByName(String name) {
         Restaurant restaurant = restauRepository.findByName(name);
-
-        if(restaurant == null) return null;;
+        if (restaurant == null) return null;
         RestoOut restoOut = convertRestoEntityToRestoOut(restaurant);
         return restoOut;
     }
@@ -62,7 +56,6 @@ public class RestauDetailsServiceImpl implements RestoService {
     @Override
     public RestoOut create(CreateRestoIn createRestoIn) {
         Restaurant restaurant = convertRestoInToRestoEntity(createRestoIn);
-
         Restaurant newRestaurant = restauRepository.save(restaurant);
 
         return convertRestoEntityToRestoOut(newRestaurant);
@@ -76,7 +69,6 @@ public class RestauDetailsServiceImpl implements RestoService {
                 patchRestoIn.getName(),
                 patchRestoIn.getAdress(),
                 patchRestoIn.getNb_place(),
-                patchRestoIn.getOpening_day(),
                 patchRestoIn.getEmail(),
                 patchRestoIn.getTelephone(),
                 patchRestoIn.getRappel(),
@@ -106,7 +98,6 @@ public class RestauDetailsServiceImpl implements RestoService {
                 .name(restaurant.getName())
                 .adress(restaurant.getAdress())
                 .nb_place(restaurant.getNb_place())
-                .opening_day(restaurant.getOpening_day())
                 .email(restaurant.getEmail())
                 .telephone((restaurant.getTelephone()))
                 .rappel((restaurant.getRappel()))
@@ -121,7 +112,6 @@ public class RestauDetailsServiceImpl implements RestoService {
                 .name(createRestoIn.getName())
                 .adress(createRestoIn.getAdress())
                 .nb_place(createRestoIn.getNb_place())
-                .opening_day(createRestoIn.getOpening_day())
                 .email(createRestoIn.getEmail())
                 .telephone(createRestoIn.getTelephone())
                 .rappel(createRestoIn.getRappel())

@@ -9,13 +9,13 @@
 </head>
 
 
-
 <body>
 
 <div th:replace="fragments :: navbarResto"/>
 
 <h2 style="text-align:center;color:white;"> Page Restaurateur </h2>
 <br>
+<div class="tableau">
 <table style="margin-left:350px;background-color:black;text-align:center;">
     <tr style="color:white;">
         <th><p>Restaurants </p></th>
@@ -26,21 +26,23 @@
     </tr>
     <tr>
         <td>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <div class="card text-white bg-primary mb-3" style="width:250px">
                     <div class="card-header">
-                        <div class="row" >
-                            <div class="col-sm-8"style="padding-left:30px;">
-                                <div class="float-center"  > <img th:src="@{/chefs.png}" alt="Restaurant" titre="Restaurant" height="200px" width="200px">  </div>
+                        <div class="row">
+                            <div class="col-sm-8" style="padding-left:30px;">
+                                <div class="float-center"><img th:src="@{/chefs.png}" alt="Restaurant"
+                                                               titre="Restaurant" height="200px" width="200px"></div>
                             </div>
                         </div>
                     </div>
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
-                            <div class="float-sm-8" >
+                            <div class="float-sm-8">
                                 <a th:href="@{/restaurateur/restaurant/list}"><p class="">Restaurant </p></a>
                                 <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des restaurants </p>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des
+                                    restaurants </p>
                             </div>
                         </div>
                     </div>
@@ -54,16 +56,18 @@
                         <div class="row">
 
                             <div class="col-sm-8" style="padding-left:40px;">
-                                <div class="float-sm-center" > <img th:src="@{/drinks.jpg}"alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                                <div class="float-sm-center"><img th:src="@{/drinks.jpg}" alt="E-tickets"
+                                                                  titre="E-tickets" height="200px" width="200px"></div>
                             </div>
                         </div>
                     </div>
                     <div class="list-group-item-primary list-group-item list-group-item-action">
                         <div class="row">
-                            <div class="float-sm-8" >
+                            <div class="float-sm-8">
                                 <a th:href="@{/restaurateur/user/list}"><p class=""> Utilisateur </p></a>
                                 <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des utilisateurs </p>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour avoir la liste des
+                                    utilisateurs </p>
                             </div>
 
                         </div>
@@ -73,12 +77,13 @@
 
         </td>
         <td>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <div class="card text-white bg-primary mb-3" style="width:250px">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-8" style="padding-left:40px;">
-                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                                <div class="float-sm-center"><img th:src="@{/reservation.jpg}" alt="E-tickets"
+                                                                  titre="E-tickets" height="200px" width="200px"></div>
                             </div>
                         </div>
                     </div>
@@ -87,7 +92,8 @@
                             <div class="float-sm-8">
                                 <a th:href="@{/restaurateur/user/create}"><p class=""> Inscription </p></a>
                                 <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour inscrire un nouvel utilisateur  </p>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour inscrire un nouvel
+                                    utilisateur </p>
                             </div>
 
                         </div>
@@ -99,20 +105,20 @@
 
     </tr>
 
-    <tr style="color:white;" >
+    <tr style="color:white;">
         <th style="padding-top:30px"><p> listes des réservations </p></th>
         <th style="padding-top:30px"><p> Liste des villes </p></th>
-        <th style="padding-top:30px"><p> Liste des pays </p></th>
     </tr>
 
     <tr>
         <td>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <div class="card text-white bg-primary mb-3" style="width:250px">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-8" style="padding-left:40px;">
-                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                                <div class="float-sm-center"><img th:src="@{/reservation.jpg}" alt="E-tickets"
+                                                                  titre="E-tickets" height="200px" width="200px"></div>
                             </div>
                         </div>
                     </div>
@@ -121,7 +127,8 @@
                             <div class="float-sm-8">
                                 <a th:href="@{/restaurateur/reservation/list}"><p class=""> Réservation </p></a>
                                 <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des réservations   </p>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des
+                                    réservations </p>
                             </div>
 
                         </div>
@@ -131,12 +138,13 @@
         </td>
 
         <td>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <div class="card text-white bg-primary mb-3" style="width:250px">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-8" style="padding-left:40px;">
-                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
+                                <div class="float-sm-center"><img th:src="@{/reservation.jpg}" alt="E-tickets"
+                                                                  titre="E-tickets" height="200px" width="200px"></div>
                             </div>
                         </div>
                     </div>
@@ -145,7 +153,8 @@
                             <div class="float-sm-8">
                                 <a th:href="@{/restaurateur/villes/list}"><p class=""> Villes </p></a>
                                 <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des villes   </p>
+                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des
+                                    villes </p>
                             </div>
 
                         </div>
@@ -154,34 +163,11 @@
             </div>
         </td>
 
-
-        <td>
-            <div class="col-sm-4" >
-                <div class="card text-white bg-primary mb-3" style="width:250px">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-8" style="padding-left:40px;">
-                                <div class="float-sm-center" > <img th:src="@{/reservation.jpg}" alt="E-tickets" titre="E-tickets" height="200px" width="200px">  </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item-primary list-group-item list-group-item-action">
-                        <div class="row">
-                            <div class="float-sm-8">
-                                <a th:href="@{/restaurateur/pays/list}"><p class=""> Pays </p></a>
-                                <hr>
-                                <p style="text-align:left;color:black;"> Cliquez ici pour afficher la liste des Pays  </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </td>
 
     </tr>
 
 </table>
+</div>
 
 <br><br>
 

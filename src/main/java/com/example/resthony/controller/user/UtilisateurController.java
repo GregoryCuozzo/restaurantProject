@@ -60,7 +60,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateUser(@Valid @ModelAttribute("user") PatchUserIn patchUserIn, BindingResult bindingResult, RedirectAttributes ra, Model model) {
         if(bindingResult.hasErrors()) {
             return "/user/profil.html";
         }
@@ -78,10 +78,11 @@ public class UtilisateurController {
         }
         catch(Exception e){
             ra.addFlashAttribute("messageErreur", "Un problème est survenu avec la modification des vos informations, veuillez nous contacter si le problème persiste.");
+            model.addAttribute("user", service.getCurrentUser());
             return "redirect:/user/profil";
         }
         ra.addFlashAttribute("message", "Votre profil a bien été modifié");
-
+        model.addAttribute("user", service.getCurrentUser());
         return "redirect:/user/profil";
     }
 

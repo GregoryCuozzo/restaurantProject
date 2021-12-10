@@ -27,5 +27,5 @@ public interface HoraireService {
 
     String checkDuplicateUpdate(PatchHoraireIn patchHoraireIn);
 
-    List<String> horaireFiltre(Long id);
+    List<String> horaireFiltre();
 }
