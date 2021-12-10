@@ -38,5 +38,7 @@ public class CreateRestoIn {
     @NotNull(message = "Ville obligatoire")
     public Integer ville;
 
+    public Integer rappel;
+
 
 }

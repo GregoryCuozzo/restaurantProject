@@ -40,6 +40,8 @@ public class PatchRestoIn {
     @NotBlank(message = "Ville obligatoire")
     public Integer ville;
 
+    public Integer rappel;
+
 
 
 }

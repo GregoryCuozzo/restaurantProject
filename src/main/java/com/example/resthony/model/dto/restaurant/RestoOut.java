@@ -27,4 +27,6 @@ public class RestoOut {
 
     public Integer ville;
 
+    public Integer rappel;
+
 }
