@@ -47,7 +47,11 @@ public class UtilisateurController {
 
     @GetMapping("/profil")
     //
-    public String getUser(Model model){
+    public String getUser(Model model,RedirectAttributes ra){
+        if (service.getCurrentUser() == null){
+            ra.addFlashAttribute("message", "Vous devez vous reconnecter car vous avez changé votre nom d'utilisateur.");
+            return"redirect:/";
+        }
         model.addAttribute("user", service.getCurrentUser());
         return "/user/profil.html";
 
@@ -82,7 +86,6 @@ public class UtilisateurController {
             return "redirect:/user/profil";
         }
         ra.addFlashAttribute("message", "Votre profil a bien été modifié");
-        model.addAttribute("user", service.getCurrentUser());
         return "redirect:/user/profil";
     }
 
