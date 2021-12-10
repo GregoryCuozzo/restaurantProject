@@ -64,23 +64,13 @@ public class EmailDetailServiceImpl implements EmailService {
     public void rappelEmail() throws MessagingException, UnsupportedEncodingException, MailSendException, InterruptedException {
         List<ReservationOut> reservationOuts = reservationService.getAll();
         try {
-            System.out.println("entré dans le try");
-            System.out.println(reservationOuts);
             for (ReservationOut reservation : reservationOuts) {
-                System.out.println("entré dans le for");
                 RestoOut resto = restoService.findByName(reservation.getRestaurant());
-                System.out.println(resto);
                 Long rappel = resto.getRappel() * 60 * 1000;
                 Long jour = (long) (24 * 60 * 1000);
                 String userString = reservation.getUser();
                 UserOut user = userService.findByUsername(userString);
-                System.out.println(user);
                 if (Objects.equals(user.getContact(), "email")) {
-                    System.out.println("entré dans IF");
-                    System.out.println(rappel);
-                    System.out.println(jour);
-                    System.out.println(reservation.date.getTime());
-                    System.out.println(reservation.date.getTime() - rappel);
                     if (reservation.date.getTime() >= reservation.date.getTime() - rappel && reservation.date.getTime() - rappel >= reservation.date.getTime() - jour) {
                         MimeMessage message = mailSender.createMimeMessage();
                         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -103,12 +93,11 @@ public class EmailDetailServiceImpl implements EmailService {
     }
 
 
-
 }
 
 @Configuration
 @EnableScheduling
-class scheduleConfig{
+class scheduleConfig {
 
 }
 
