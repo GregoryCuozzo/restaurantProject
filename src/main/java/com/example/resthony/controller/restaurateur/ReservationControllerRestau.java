@@ -10,6 +10,7 @@ import com.example.resthony.model.dto.visitor.PatchVisitorIn;
 import com.example.resthony.model.entities.SmsRequest;
 import com.example.resthony.services.principal.*;
 import javassist.NotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,7 +87,6 @@ public class ReservationControllerRestau {
             ra.addFlashAttribute("messageErreur", "Problème avec la création de la réservation.");
             return "redirect:/restaurateur/reservation/list";
         }
-
 
         // Envoi de mail
         if (userEntity.getContact().equals("email")) {
