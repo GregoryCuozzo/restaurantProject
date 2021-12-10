@@ -93,7 +93,7 @@ public class ReservationControllerAdmin {
                 //Info email
                 String emailAdress = reservationEmail;
                 String emailSubject = "Merci pour votre réservation chez " + reservationResto + ".";
-                String emailText = "<p>Bonjour monsieur " + reservationName + ",</p>"
+                String emailText = "<p>Bonjour madame/monsieur " + reservationName + ",</p>"
                         + "<p>Merci pour votre réservation chez " + reservationResto + ".</p>"
                         + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
                         + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>"
@@ -110,7 +110,7 @@ public class ReservationControllerAdmin {
         if (userEntity.getContact().equals("sms")) {
             try {
                 String registerName = userEntity.getLastname();
-                String smsMessage = "Bonjour monsieur " + registerName + ", " +
+                String smsMessage = "Bonjour madame/monsieur " + registerName + ", " +
                         "Merci pour votre réservation chez " + reservationResto +
                         " Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. " +
                         "Pour annuler votre réservation, rendez-vous sur votre compte Resthony.";
@@ -158,7 +158,7 @@ public class ReservationControllerAdmin {
             //Info email
             String emailAdress = createVisitorIn.getEmail();
             String emailSubject = "Merci pour votre réservation chez " + reservationResto + ".";
-            String emailText = "<p>Bonjour monsieur " + reservationName + ",</p>"
+            String emailText = "<p>Bonjour madame/monsieur " + reservationName + ",</p>"
                     + "<p>Merci pour votre réservation chez " + reservationResto + ".</p>"
                     + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
                     + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>";

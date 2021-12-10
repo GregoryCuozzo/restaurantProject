@@ -107,7 +107,7 @@ public class UserControllerRestau {
                     //Info email
                     String emailAdress = createUserIn.getEmail();
                     String emailSubject = "Compte crée chez Resthony.";
-                    String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
+                    String emailText = "<p>Bonjour madame/monsieur " + registerName + ",</p>"
                             + "<p>Un compte a été crée pour vous chez Resthony.</p>"
                             + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
                     ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
@@ -122,7 +122,7 @@ public class UserControllerRestau {
             if (createUserIn.getContact().equals("sms")) {
                 try {
                     String registerName = createUserIn.getLastname();
-                    String smsMessage = "Bonjour monsieur " + registerName + "," +
+                    String smsMessage = "Bonjour madame/monsieur " + registerName + "," +
                             " Un compte a été crée pour vous chez Resthony." +
                             " N'hésitez pas à nous contacter si vous avez des questions.";
                     SmsRequest smsRequest = new SmsRequest(createUserIn.getPhone(), smsMessage);

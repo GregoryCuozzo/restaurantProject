@@ -145,11 +145,11 @@
                                 <strong>Email:</strong> contact@resthony.com<br>
                             </p>
                             <div class="social-links mt-3">
-                                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                                <a href="https://twitter.com/" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                <a href="https://www.facebook.com/resthony.lozada.54" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                <a href="https://www.instagram.com/" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                <a href="https://www.skype.com/" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                <a href="https://www.linkedin.com/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -157,24 +157,24 @@
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4>Lien utiles</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Accueil</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">A propos</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Vie privée</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a  th:href="@{/}" >Accueil</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a  th:href="@{/}">A propos</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a th:href="@{/}">Vie privée</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Nos services</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Nos restaurants</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Créer un compte</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a th:href="@{/visitor/create}">Nos restaurants</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a th:href="@{/register}">Créer un compte</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-4 col-md-6 footer-newsletter">
                         <h4>Notre Newsletter</h4>
                         <p>Abonnez-vous à notre Newsletter pour recevoir toutes les informations concernant nos nouvelles promotions!</p>
-                        <form action="/visitor/newsLetter" method="post">
+                        <form th:action="@{/register/newsLetter}" method="post">
                             <input type="email" name="email"><input type="submit" value="Subscribe">
                         </form>
 

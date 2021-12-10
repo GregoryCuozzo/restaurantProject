@@ -98,7 +98,7 @@ public class ReservationControllerUser {
                 //Info email
                 String emailAdress = reservationEmail;
                 String emailSubject = "Merci pour votre réservation chez " + reservationResto + ".";
-                String emailText = "<p>Bonjour monsieur " + reservationName + ",</p>"
+                String emailText = "<p>Bonjour madame/monsieur " + reservationName + ",</p>"
                         + "<p>Merci pour votre réservation chez " + reservationResto + ".</p>"
                         + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
                         + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>"
@@ -116,7 +116,7 @@ public class ReservationControllerUser {
         // Envoi de SMS
         if (userEntity.getContact().equals("sms")) {
             try {
-                String smsMessage = "Bonjour monsieur " + reservationName + ", " +
+                String smsMessage = "Bonjour madame/monsieur " + reservationName + ", " +
                         "Merci pour votre réservation chez " + reservationResto + ", " +
                         "Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. " +
                         "Pour annuler votre réservation, rendez-vous sur votre compte Resthony en ligne. ";

@@ -75,7 +75,7 @@ public class RegisterController {
                 //Info email
                 String emailAdress = createUserIn.getEmail();
                 String emailSubject = "Compte crée chez Resthony.";
-                String emailText = "<p>Bonjour monsieur " + registerName + ",</p>"
+                String emailText = "<p>Bonjour madame/monsieur " + registerName + ",</p>"
                         + "<p>Merci d'avoir crée un compte chez Resthony, vous pouvez maintenant effectuer vos réservations plus facilement en vous connectant.</p>"
                         + "<p>N'hésitez pas à nous contacter si vous avez des questions.</p>";
                 message = ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
@@ -112,6 +112,25 @@ public class RegisterController {
         ra.addFlashAttribute("message", "Votre compte a bien été créé.");
         return "redirect:/";
 
+    }
+
+    @PostMapping("/newsLetter")
+    public String newsLetter(String email, RedirectAttributes ra) throws MessagingException, UnsupportedEncodingException {
+        String emailAdress = email;
+        String emailSubject = "Merci pour votre abonnement à la Newsletter Resthony!";
+        String emailText = "<p>Bonjour madame/monsieur,</p>"
+                + "<p>Merci de l'intérêt que vous nous portez.</p>"
+                + "<p>Nous nous engageons à vous garder au courant de toute nouvelles fonctionnalité nous concernant. </p>"
+                + "<p>A bientôt! </p>"
+                + "<p>L'équipe Resthony </p>";
+        try {
+            ServiceEmail.sendEmail(emailAdress, emailSubject, emailText);
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            ra.addFlashAttribute("messageErreur", "Un problème est survenu, veuillez nous en excuser.");
+            return "redirect:/";
+        }
+        ra.addFlashAttribute("message", "Merci beaucoup! Un email de confirmation vous a été envoyé.");
+        return "redirect:/";
     }
 
 }
