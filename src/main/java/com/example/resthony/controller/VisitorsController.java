@@ -63,7 +63,7 @@ public class VisitorsController {
             //Info email
             String emailAdress = createVisitorIn.getEmail();
             String emailSubject = "Merci pour votre réservation chez " + reservationResto + ".";
-            String emailText = "<p>Bonjour monsieur/madame " + reservationName + ",</p>"
+            String emailText = "<p>Bonjour madame/monsieur " + reservationName + ",</p>"
                     + "<p>Merci pour votre réservation chez " + reservationResto + ".</p>"
                     + "<p>Le " + reservationDate + " à " + reservationTime + " pour " + reservationNbPersonne + " personnes. </p>"
                     + "<p>Pour annuler votre réservation, <b><a href=\"\">cliquez-ici</a></b>.</p>";
