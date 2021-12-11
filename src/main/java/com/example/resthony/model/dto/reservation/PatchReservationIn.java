@@ -33,7 +33,7 @@ public class PatchReservationIn {
     public String user;
 
     @NotNull(message="Nombre de couvert obligatoire")
-    @Min(value = 1, message = "Il doit y avoir au moins un couvert" )
+    @Min(value = 1, message = "Veuillez réserver pour au moins une personne" )
     public Integer nbcouverts;
 
     public Integer admin;

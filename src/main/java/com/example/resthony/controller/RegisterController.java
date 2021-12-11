@@ -1,5 +1,6 @@
 package com.example.resthony.controller;
 import com.example.resthony.model.dto.user.CreateUserIn;
+import com.example.resthony.model.dto.visitor.CreateVisitorIn;
 import com.example.resthony.model.entities.SmsRequest;
 import com.example.resthony.services.principal.EmailService;
 import com.example.resthony.services.principal.SmsService;
@@ -34,7 +35,8 @@ public class RegisterController {
 
     @GetMapping
 
-    public String registerPage(CreateUserIn createUserIn) {
+    public String registerPage(Model model) {
+        model.addAttribute("createUserIn", new CreateUserIn());
         return "/public/register";
     }
 

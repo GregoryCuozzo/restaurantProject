@@ -20,6 +20,7 @@
                 <label class="col-sm-4 col-form-label">Nom du restaurant :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{name}" class="form-control">
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
@@ -29,36 +30,42 @@
                         <option th:each="ville: ${villes}" th:value="${ville.id}" th:text="${ville.name}">${ville.name}
                         </option>
                     </select>
+                    <div th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Adresse :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{adress}" class="form-control">
+                    <div th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Places :</label>
                 <div class="col-sm-8">
                     <input type="number" th:field="*{nb_place}" class="form-control">
+                    <div th:if="${#fields.hasErrors('nb_place')}" th:errors="*{nb_place}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Email :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{email}" class="form-control">
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">telephone :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{telephone}" class="form-control">
+                    <div th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Temps de rappel de réservation :</label>
                 <div class="col-sm-8">
                     <input type="number" th:field="*{rappel}" class="form-control">
+                    <div th:if="${#fields.hasErrors('rappel')}" th:errors="*{rappel}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row" style="padding-left:200px;">

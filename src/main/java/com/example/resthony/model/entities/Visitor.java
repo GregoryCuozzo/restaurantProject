@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,11 +65,11 @@ public class Visitor {
     @Column(name = "nbcouverts", nullable = false)
     private Integer nbcouverts;
 
-    @NotNull
+    @DateTimeFormat
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @NotNull
+
     @Column(name = "time", nullable = false)
     private Time time;
 

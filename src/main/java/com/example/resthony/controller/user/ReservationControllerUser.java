@@ -60,10 +60,16 @@ public class ReservationControllerUser {
     }
 
     @PostMapping("/create")
-    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
 
         if (bindingResult.hasErrors()) {
-            return "/create";
+            model.addAttribute("restaurants", ServiceResto.getAll());
+
+            User user = ServiceUser.getCurrentUser();
+
+            model.addAttribute("user", user.getUsername());
+
+            return "/user/reservation/create.html";
         }
 
         //Info de la réservation
@@ -157,9 +163,12 @@ public class ReservationControllerUser {
     }
 
     @PostMapping("/update")
-    public String updateResto(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateResto(@Valid @ModelAttribute("reservations") PatchReservationIn patchReservationIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
-            return "/update";
+            model.addAttribute("restaurants", ServiceResto.getAll());
+            User user = ServiceUser.getCurrentUser();
+            model.addAttribute("user", user.getUsername());
+            return "/user/reservation/update.html";
         }
 
         try {

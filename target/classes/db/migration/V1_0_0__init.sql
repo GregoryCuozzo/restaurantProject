@@ -91,7 +91,7 @@ alter table users add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username) 
 alter table roles add constraint FK40d4m5dluy4a79sk18r064avh foreign key (id_user) references users (id_user) on delete CASCADE;
 alter table restaurants add constraint  FK_rest foreign key(restaurateur) references users(id_user) on delete CASCADE;
 alter table reservations add constraint FK_user foreign key(user) references users(id_user) on delete CASCADE;
-alter table reservations add constraint FK_rest1 foreign key (restaurant) references restaurants(id_restaurants) on delete CASCADE ;
+alter table reservations add constraint FK_resto foreign key (restaurant) references restaurants(id_restaurants) on delete CASCADE ;
 alter table restaurants add constraint FK_ville foreign key (ville) references villes(id_ville) on delete CASCADE;
 alter table reservations add constraint FK_admin foreign key(admin) references users(id_user) on delete CASCADE;
 
