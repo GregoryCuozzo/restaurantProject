@@ -42,7 +42,6 @@ public class VisitorsController {
     @PostMapping("/create")
     public String createVisitor(@Valid @ModelAttribute("createVisitorIn") CreateVisitorIn createVisitorIn, BindingResult bindingResult, Model model, RedirectAttributes ra) throws MessagingException, UnsupportedEncodingException {
 
-        System.out.println(createVisitorIn);
         if (bindingResult.hasErrors()) {
             model.addAttribute("restaurants", ServiceResto.getAll());
             return "/public/visitor.html";

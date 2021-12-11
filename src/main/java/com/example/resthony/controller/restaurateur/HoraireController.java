@@ -70,7 +70,6 @@ public class HoraireController {
     public String deleteHoraire(@PathVariable("id") Long id, RedirectAttributes ra) {
         HoraireOut horaire = horaireService.get(id);
         Long resto = horaire.id;
-        System.out.printf("horaire");
         try {
             horaireService.delete(id);
 

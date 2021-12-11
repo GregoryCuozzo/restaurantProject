@@ -47,7 +47,6 @@ public class ReservationControllerRestau {
 
     @GetMapping("/list")
     public String all(Model model, RedirectAttributes ra) {
-        System.out.println(ServiceResto.getAll());
         if(ServiceResto.getAll().isEmpty()){
             ra.addFlashAttribute("messageErreur","Veuillez d'abord créer un restaurant pour pouvoir gérer vos réservations");
             return"redirect:/restaurateur";
