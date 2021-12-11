@@ -46,7 +46,13 @@ public class ReservationControllerRestau {
 
 
     @GetMapping("/list")
-    public String all(Model model) {
+    public String all(Model model, RedirectAttributes ra) {
+        System.out.println(ServiceResto.getAll());
+        if(ServiceResto.getAll().isEmpty()){
+            ra.addFlashAttribute("messageErreur","Veuillez d'abord créer un restaurant pour pouvoir gérer vos réservations");
+            return"redirect:/restaurateur";
+        }
+
         model.addAttribute("reservations", Service.getAll());
         model.addAttribute("restaurants", ServiceResto.getAll());
         model.addAttribute("user", ServiceUser.getAll());
@@ -70,9 +76,12 @@ public class ReservationControllerRestau {
     }
 
     @PostMapping("/create")
-    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String createReservation(@Valid @ModelAttribute("reservations") CreateReservationIn createReservationIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
-            return "/create";
+            model.addAttribute("restaurants", ServiceResto.getAll());
+            model.addAttribute("users", ServiceUser.getAll());
+            model.addAttribute("horaireFiltré", ServiceHoraire.horaireFiltre());
+            return "/restaurateur/reservation/create.html";
         }
         //Info de la réservation
         String reservationUser = createReservationIn.getUser();
@@ -151,9 +160,10 @@ public class ReservationControllerRestau {
 
 
     @PostMapping("/createVisitor")
-    public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String createVisitor(@Valid @ModelAttribute("visitor") CreateVisitorIn createVisitorIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
-            return "/createVisitor";
+            model.addAttribute("restaurants", ServiceResto.getAll());
+            return "/restaurateur/reservation/createVisitor.html";
         }
         try {
             ServiceVisitor.create(createVisitorIn);
@@ -243,8 +253,9 @@ public class ReservationControllerRestau {
     }
 
     @PostMapping("/updateVisitor")
-    public String updateVisitor(@Valid @ModelAttribute("visitors") PatchVisitorIn patchVisitorIn, BindingResult bindingResult, RedirectAttributes ra) {
+    public String updateVisitor(@Valid @ModelAttribute("visitors") PatchVisitorIn patchVisitorIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("restaurants", ServiceResto.getAll());
             return "/restaurateur/reservation/updateVisitor.html";
         }
 

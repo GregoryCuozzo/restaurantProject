@@ -30,6 +30,7 @@ public class CreateReservationIn {
     public Date date ;
 
     @NotNull(message = "Nombre de couverts obligatoire")
+    @Min(value = 1, message= "Veuillez réserver pour au moins une personne")
     public Integer nbcouverts;
 
     public Integer admin ;

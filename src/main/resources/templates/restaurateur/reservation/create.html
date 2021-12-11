@@ -25,6 +25,7 @@
                         <option th:each="User: ${users}" th:value="${User.username}"
                                 th:text="${User.username}">
                         </option>
+                        <div th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="alert alert-danger text-center"></div>
                     </select>
                 </div>
             </div>
@@ -36,6 +37,7 @@
                         <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}">
                         </option>
                     </select>
+                    <div th:if="${#fields.hasErrors('restaurant')}" th:errors="*{restaurant}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -43,6 +45,7 @@
                 <label class="col-sm-4 col-form-label">Date :</label>
                 <div class="col-sm-8">
                     <input type="date" th:field="*{date}" class="form-control" >
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -50,6 +53,7 @@
                 <label class="col-sm-4 col-form-label">Heure :</label>
                 <div class="col-sm-8">
                     <input type="time" th:field="*{time}" step="1" class="form-control">
+                    <div th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -57,6 +61,7 @@
                 <label class="col-sm-4 col-form-label">Nombre de couverts :</label>
                 <div class="col-sm-8">
                     <input type="number" th:field="*{nbcouverts}" class="form-control" >
+                    <div th:if="${#fields.hasErrors('nbcouverts')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
 

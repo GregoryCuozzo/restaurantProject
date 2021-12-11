@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
@@ -32,16 +33,19 @@ public class VisitorsController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("visitor", new CreateVisitorIn());
+        model.addAttribute("createVisitorIn", new CreateVisitorIn());
         model.addAttribute("restaurants", ServiceResto.getAll());
         return "/public/visitor.html";
     }
 
 
     @PostMapping("/create")
-    public String createVisitor(@Valid @ModelAttribute("visitors") CreateVisitorIn createVisitorIn, BindingResult bindingResult, RedirectAttributes ra) throws MessagingException, UnsupportedEncodingException {
+    public String createVisitor(@Valid @ModelAttribute("createVisitorIn") CreateVisitorIn createVisitorIn, BindingResult bindingResult, Model model, RedirectAttributes ra) throws MessagingException, UnsupportedEncodingException {
+
+        System.out.println(createVisitorIn);
         if (bindingResult.hasErrors()) {
-            return "/create";
+            model.addAttribute("restaurants", ServiceResto.getAll());
+            return "/public/visitor.html";
         }
 
         try {
@@ -75,8 +79,6 @@ public class VisitorsController {
         return "redirect:/";
 
     }
-
-
 
 
 }

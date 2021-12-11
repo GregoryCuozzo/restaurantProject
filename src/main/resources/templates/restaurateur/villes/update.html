@@ -25,7 +25,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Pays :</label>
                 <div class="col-sm-8">
-                    <select th:field="*{pays}">
+                    <select th:field="*{pays}" class="form-control selectColourForm">
                         <option th:each="payss: ${pays}" th:value="${payss.id}" th:text="${payss.name}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('pays')}" th:errors="*{pays}" class="alert alert-danger text-center"></div>

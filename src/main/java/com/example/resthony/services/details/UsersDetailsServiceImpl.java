@@ -75,6 +75,7 @@ public class UsersDetailsServiceImpl implements UserDetailsService, UserService 
         return userOut;
     }
 
+
     @Override
     public int countUser() {
         List<User> userEntities = userRepository.findAll();

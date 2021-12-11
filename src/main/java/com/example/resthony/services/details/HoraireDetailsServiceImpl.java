@@ -201,7 +201,6 @@ public class HoraireDetailsServiceImpl implements HoraireService {
             }
         }
         horaireVue.add(horaireFin);
-        System.out.println(horaireVue);
         return horaireVue;
     }
 

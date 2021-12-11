@@ -1,11 +1,9 @@
 package com.example.resthony.controller.restaurateur;
 
-import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.restaurant.CreateRestoIn;
 import com.example.resthony.model.dto.restaurant.PatchRestoIn;
-import com.example.resthony.model.entities.Horaire;
-import com.example.resthony.services.principal.HoraireService;
 import com.example.resthony.services.principal.RestoService;
+import com.example.resthony.services.principal.UserService;
 import com.example.resthony.services.principal.VilleService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
     @RequestMapping("/restaurateur/restaurant")
@@ -33,7 +30,12 @@ import java.util.List;
         }
 
         @GetMapping("/list")
-        public String all(Model model){
+        public String all(Model model, RedirectAttributes ra){
+            if(villeService.getAll().isEmpty()){
+                ra.addFlashAttribute("messageErreur","Veuillez d'abord définir la ville dans laquelle votre restaurant se trouve");
+                return "redirect:/restaurateur/villes/list";
+            }
+
             model.addAttribute("restos",restoService.getAll());
             model.addAttribute("villes",villeService.getAll());
             return "/restaurateur/restaurant/restaurants.html";
@@ -50,6 +52,7 @@ import java.util.List;
         @PostMapping("/create")
         public String createResto(@Valid @ModelAttribute("resto") CreateRestoIn createRestoIn, BindingResult bindingResult, Model model, RedirectAttributes ra) {
             if(bindingResult.hasErrors()) {
+                model.addAttribute("villes",villeService.getAll());
                 return "/restaurateur/restaurant/create.html";
             }
 
@@ -70,6 +73,7 @@ import java.util.List;
         try {
             restoService.delete(id);
 
+
         } catch (NotFoundException e) {
             ra.addFlashAttribute("messageErreur", "Pas d'utilisateur touvé avec l'id " + id);
             return "redirect:/restaurateur/restaurant/list";
@@ -86,9 +90,10 @@ import java.util.List;
         }
 
         @PostMapping("/update")
-        public String updateResto(@Valid @ModelAttribute("resto") PatchRestoIn patchRestoIn, BindingResult bindingResult, RedirectAttributes ra) {
+        public String updateResto(@Valid @ModelAttribute("resto") PatchRestoIn patchRestoIn, BindingResult bindingResult,Model model, RedirectAttributes ra) {
             if(bindingResult.hasErrors()) {
-                return "/restaurateur/restaurant/update";
+                model.addAttribute("villes",villeService.getAll());
+                return "/restaurateur/restaurant/update.html";
             }
 
             try{

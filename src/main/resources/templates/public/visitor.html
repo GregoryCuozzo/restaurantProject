@@ -19,7 +19,7 @@
             <p>Réservation</p>
         </div>
 
-        <form th:action="@{/visitor/create}" th:object="${visitor}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+        <form th:action="@{/visitor/create}" th:object="${createVisitorIn}" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
             <div class="row">
                 <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form">
                     <select th:field="*{resto}" id="restaurant" class="form-control selectColourForm">
@@ -50,11 +50,11 @@
                 </div>
                 <div class="col-lg-4 col-md-6 form-group mt-3">
                     <input type="time" step="1" th:field="*{time}"class="form-control"  placeholder="Heure*">
-                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{time}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="alert alert-danger text-center"></div>
                 </div>
                 <div class="col-lg-4 col-md-6 form-group mt-3 php-email-form" >
                     <input type="number" th:field="*{nbcouverts}"class="form-control"  placeholder="Nombre de couverts*">
-                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('nbcouverts')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="text-center"><button type="submit">Confirmer</button></div>
