@@ -28,6 +28,7 @@ public class Reservation {
     @Column(name = "nbcouverts", nullable = false)
     private Integer nbcouverts;
 
+
     @NotNull
     @Column(name = "date", nullable = false, unique = true)
     private Date date;
