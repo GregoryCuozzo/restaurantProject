@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 import java.sql.Time;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Builder

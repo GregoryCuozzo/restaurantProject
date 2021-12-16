@@ -1,20 +1,19 @@
-/*
-      let closedDays = []
+let closedDays = []
 
-      let inputs = document.getElementById("reservation").elements;
-      let inputRestaurant = inputs["restaurant"];
-      let strSelectedResto = inputRestaurant.value;
-      const today = new Date().toLocaleDateString()
+let inputs = document.getElementById("reservation").elements;
+let inputRestaurant = inputs["restaurant"];
+let strSelectedResto = inputRestaurant.value;
+const today = new Date().toLocaleDateString()
 
-      $(document).ready(function () {
-          $('.datepicker').datepicker({
-              format: 'dd/mm/yyyy',
-              todayHighlight: true,
-              startDate: 'today',
-              autoclose: true,
-              daysOfWeekDisabled: [0, 2]
-          });
-      })*/
+$(document).ready(function () {
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        todayHighlight: true,
+        startDate: 'today',
+        autoclose: true,
+        daysOfWeekDisabled: [0, 2]
+    });
+})
 
 
 let closedDays = []
@@ -35,10 +34,10 @@ $(document).ready(function () {
 
     console.log(today)
     options = {
-        format: 'dd/mm/yyyy',
+        format: "dd/mm/yyyy",
         container: container,
         todayHighlight: true,
-        startDate: 'today',
+        startDate: "today",
         autoclose: true,
         daysOfWeekDisabled: [0, 2]
     };
@@ -50,9 +49,7 @@ $(document).ready(function () {
 })
 
 
-/*
-
-function getSelected() {
+/*function getSelected() {
     var inputs = document.getElementById("reservation").elements;
     var inputRestaurant = inputs["restaurant"];
     var idSelectedResto = inputRestaurant.value;
@@ -98,10 +95,10 @@ function getSelected() {
             console.log("closedDAYS : ")
             console.log(closedDays)
             options = {
-                format: 'dd/mm/yyyy',
+                format: "dd/mm/yyyy",
                 container: container,
                 todayHighlight: true,
-                startDate: 'today',
+                startDate: "today",
                 autoclose: true,
                 daysOfWeekDisabled: [5, 6]
             };

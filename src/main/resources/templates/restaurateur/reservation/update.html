@@ -34,7 +34,8 @@
             <label for="restaurant" class="col-sm-4 col-form-label">Restaurant :</label>
             <div class="col-sm-8">
                 <select th:field="*{restaurant}" id="restaurant" class="form-control selectColourForm">
-                    <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}">
+                    <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}"
+                            th:text="${Restaurant.name}">
                     </option>
                 </select>
                 <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>

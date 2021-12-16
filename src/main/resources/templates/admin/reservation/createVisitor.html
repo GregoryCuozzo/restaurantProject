@@ -21,7 +21,8 @@
                 <label class="col-sm-4 col-form-label">Prénom :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{firstname}" class="form-control">
-                    <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -30,7 +31,8 @@
                 <label class="col-sm-4 col-form-label">Nom :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{lastname}" class="form-control">
-                    <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -38,10 +40,12 @@
                 <label for="restaurant" class="col-sm-4 col-form-label">Restaurant :</label>
                 <div class="col-sm-8">
                     <select th:field="*{resto}" id="restaurant" class="form-control selectColourForm">
-                        <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}">
+                        <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}"
+                                th:text="${Restaurant.name}">
                         </option>
                     </select>
-                    <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -49,14 +53,16 @@
                 <label class="col-sm-4 col-form-label">Email :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{email}" class="form-control">
-                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Téléphone :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{phone}" class="form-control">
-                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -64,110 +70,15 @@
                 <label class="col-sm-4 col-form-label">Date :</label>
                 <div class="col-sm-8">
                     <input type="date" th:field="*{date}" class="form-control">
-                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Heure :</label>
                 <div class="col-sm-8">
-                    <select type="text" th:field="*{time}" class="form-control">
-                        <option value="00:00">00:00</option>
-                        <option value="00:15">00:15</option>
-                        <option value="00:30">00:30</option>
-                        <option value="00:45">00:45</option>
-                        <option value="01:00">01:00</option>
-                        <option value="01:15">01:15</option>
-                        <option value="01:30">01:30</option>
-                        <option value="01:45">01:45</option>
-                        <option value="02:00">02:00</option>
-                        <option value="02:15">02:15</option>
-                        <option value="02:30">02:30</option>
-                        <option value="02:45">02:45</option>
-                        <option value="03:00">03:00</option>
-                        <option value="03:15">03:15</option>
-                        <option value="03:30">03:30</option>
-                        <option value="03:45">03:45</option>
-                        <option value="04:00">04:00</option>
-                        <option value="04:15">04:15</option>
-                        <option value="04:30">04:30</option>
-                        <option value="04:45">04:45</option>
-                        <option value="05:00">05:00</option>
-                        <option value="05:15">05:15</option>
-                        <option value="05:30">05:30</option>
-                        <option value="05:45">05:45</option>
-                        <option value="06:00">06:00</option>
-                        <option value="06:15">06:15</option>
-                        <option value="06:30">06:30</option>
-                        <option value="06:45">06:45</option>
-                        <option value="07:00">07:00</option>
-                        <option value="07:15">07:15</option>
-                        <option value="07:30">07:30</option>
-                        <option value="07:45">07:45</option>
-                        <option value="08:00">08:00</option>
-                        <option value="08:15">08:15</option>
-                        <option value="08:30">08:30</option>
-                        <option value="08:45">08:45</option>
-                        <option value="09:00">09:00</option>
-                        <option value="09:15">09:15</option>
-                        <option value="09:30">09:30</option>
-                        <option value="09:45">09:45</option>
-                        <option value="10:00">10:00</option>
-                        <option value="10:15">10:15</option>
-                        <option value="10:30">10:30</option>
-                        <option value="10:45">10:45</option>
-                        <option value="11:00">11:00</option>
-                        <option value="11:15">11:15</option>
-                        <option value="11:30">11:30</option>
-                        <option value="11:45">11:45</option>
-                        <option value="12:00">12:00</option>
-                        <option value="12:15">12:15</option>
-                        <option value="12:30">12:30</option>
-                        <option value="12:45">12:45</option>
-                        <option value="13:00">13:00</option>
-                        <option value="13:15">13:15</option>
-                        <option value="13:30">13:30</option>
-                        <option value="13:45">13:45</option>
-                        <option value="14:00">14:00</option>
-                        <option value="14:15">14:15</option>
-                        <option value="14:30">14:30</option>
-                        <option value="14:45">14:45</option>
-                        <option value="15:00">15:00</option>
-                        <option value="15:15">15:15</option>
-                        <option value="15:30">15:30</option>
-                        <option value="15:45">15:45</option>
-                        <option value="16:00">16:00</option>
-                        <option value="16:15">16:15</option>
-                        <option value="16:30">16:30</option>
-                        <option value="16:45">16:45</option>
-                        <option value="17:00">17:00</option>
-                        <option value="17:15">17:15</option>
-                        <option value="17:30">17:30</option>
-                        <option value="17:45">17:45</option>
-                        <option value="18:00">18:00</option>
-                        <option value="18:15">18:15</option>
-                        <option value="18:30">18:30</option>
-                        <option value="18:45">18:45</option>
-                        <option value="19:00">19:00</option>
-                        <option value="19:15">19:15</option>
-                        <option value="19:30">19:30</option>
-                        <option value="19:45">19:45</option>
-                        <option value="20:00">20:00</option>
-                        <option value="20:15">20:15</option>
-                        <option value="20:30">20:30</option>
-                        <option value="20:45">20:45</option>
-                        <option value="21:00">21:00</option>
-                        <option value="21:15">21:15</option>
-                        <option value="21:30">21:30</option>
-                        <option value="21:45">21:45</option>
-                        <option value="22:00">22:00</option>
-                        <option value="22:15">22:15</option>
-                        <option value="22:30">22:30</option>
-                        <option value="22:45">22:45</option>
-                        <option value="23:00">23:00</option>
-                        <option value="23:15">23:15</option>
-                        <option value="23:30">23:30</option>
-                        <option value="23:45">23:45</option>
+                    <select type="text" th:field="*{time}" id="heure" class="form-control">
                     </select>
                 </div>
             </div>
@@ -176,11 +87,10 @@
                 <label class="col-sm-4 col-form-label">Nombre de couverts :</label>
                 <div class="col-sm-8">
                     <input type="number" th:field="*{nbcouverts}" class="form-control">
-                    <div th:if="${#fields.hasErrors('nbcouverts')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('nbcouverts')}" th:errors="*{nbcouverts}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
-
-
 
 
             <div class="form-group row" style="padding-left:200px;">
@@ -189,6 +99,7 @@
         </div>
 
     </form>
+    <script src="/js/heures.js"></script>
 </div>
 <footer th:replace="fragments :: footerAdmin"></footer>
 </body>
