@@ -6,7 +6,11 @@ function setHeure() {
         if (minutes < 10) {
             minutes = '0' + minutes;
         }
-        heures.push(hours + ':' + minutes);
+        if (hours <10) {
+            heures.push('0'+hours+':'+ minutes);
+        }
+        else
+            heures.push(hours + ':' + minutes);
     }
     return heures
 }
@@ -20,4 +24,15 @@ for (var i = 0; i < options.length; i++) {
     el.textContent = opt;
     el.value = opt;
     select.appendChild(el)
+}
+
+var selectF = document.getElementById("heureFermeture");
+var choix = setHeure()
+
+for (var j = 0; j < choix.length; j++) {
+    var ch = choix[j]
+    var il = document.createElement("option");
+    il.textContent = ch;
+    il.value = ch;
+    selectF.appendChild(il)
 }
