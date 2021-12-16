@@ -21,7 +21,8 @@
                 <label class="col-sm-4 col-form-label">Prénom :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{firstname}" class="form-control">
-                    <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -30,7 +31,8 @@
                 <label class="col-sm-4 col-form-label">Nom :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{lastname}" class="form-control">
-                    <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -38,8 +40,10 @@
                 <label for="restaurant" class="col-sm-4 col-form-label">Restaurant :</label>
                 <div class="col-sm-8">
                     <select th:field="*{resto}" id="restaurant" class="form-control">
-                        <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}" th:text="${Restaurant.name}">
-                            <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}" class="alert alert-danger text-center"></div>
+                        <option th:each="Restaurant: ${restaurants}" th:value="${Restaurant.name}"
+                                th:text="${Restaurant.name}">
+                            <div th:if="${#fields.hasErrors('resto')}" th:errors="*{resto}"
+                                 class="alert alert-danger text-center"></div>
                         </option>
                     </select>
 
@@ -51,14 +55,16 @@
                 <label class="col-sm-4 col-form-label">Email :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{email}" class="form-control">
-                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Telephone :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{phone}" class="form-control">
-                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -66,15 +72,19 @@
                 <label class="col-sm-4 col-form-label">Date :</label>
                 <div class="col-sm-8">
                     <input type="date" th:field="*{date}" class="form-control">
-                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Heure :</label>
                 <div class="col-sm-8">
-                    <input type="time" step="1" th:field="*{time}" class="form-control">
-                    <div th:if="${#fields.hasErrors('time')}" th:errors="*{time}" class="alert alert-danger text-center"></div>
+                    <select type="text" th:field="*{time}" id="heure" class="form-control">
+
+                    </select>
+                    <div th:if="${#fields.hasErrors('time')}" th:errors="*{time}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
 
@@ -82,11 +92,10 @@
                 <label class="col-sm-4 col-form-label">Nombre de couverts :</label>
                 <div class="col-sm-8">
                     <input type="number" th:field="*{nbcouverts}" class="form-control">
-                    <div th:if="${#fields.hasErrors('nbcouverts')}" th:errors="*{nbcouverts}" class="alert alert-danger text-center"></div>
+                    <div th:if="${#fields.hasErrors('nbcouverts')}" th:errors="*{nbcouverts}"
+                         class="alert alert-danger text-center"></div>
                 </div>
             </div>
-
-
 
 
             <div class="form-group row" style="padding-left:200px;">
@@ -95,6 +104,7 @@
         </div>
 
     </form>
+    <script src="/js/heures.js"></script>
 </div>
 </body>
 </html>

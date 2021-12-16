@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 
@@ -19,11 +20,12 @@ public class PatchReservationIn {
     @NotNull
     public Long id;
 
+
     @NotNull(message = "Date obligatoire")
     public Date date;
 
     @NotNull(message = "Heure obligatoire")
-    public Time time;
+    public String time;
 
     @NotNull(message = "Restaurant obligatoire")
     @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
@@ -32,8 +34,8 @@ public class PatchReservationIn {
     @NotNull(message = "Utilisateur obligatoire")
     public String user;
 
-    @NotNull(message="Nombre de couvert obligatoire")
-    @Min(value = 1, message = "Veuillez réserver pour au moins une personne" )
+    @NotNull(message = "Nombre de couvert obligatoire")
+    @Min(value = 1, message = "Veuillez réserver pour au moins une personne")
     public Integer nbcouverts;
 
     public Integer admin;

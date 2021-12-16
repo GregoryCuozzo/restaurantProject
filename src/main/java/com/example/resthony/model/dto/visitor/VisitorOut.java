@@ -30,6 +30,6 @@ public class VisitorOut {
 
     public Date date;
 
-    public Time time;
+    public String time;
 
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.sql.Time;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "visitors")
@@ -65,13 +65,13 @@ public class Visitor {
     @Column(name = "nbcouverts", nullable = false)
     private Integer nbcouverts;
 
-    @DateTimeFormat
+
     @Column(name = "date", nullable = false)
     private Date date;
 
 
     @Column(name = "time", nullable = false)
-    private Time time;
+    private String time;
 
 }
 

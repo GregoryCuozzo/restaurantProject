@@ -1,6 +1,7 @@
 package com.example.resthony.controller.admin;
 
 
+import com.example.resthony.model.dto.horaire.HoraireOut;
 import com.example.resthony.model.dto.reservation.CreateReservationIn;
 import com.example.resthony.model.dto.reservation.PatchReservationIn;
 import com.example.resthony.model.dto.user.UserOut;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 
 @Controller
@@ -29,15 +31,17 @@ public class ReservationControllerAdmin {
     private final VisitorService ServiceVisitor;
     private final EmailService ServiceEmail;
     private final SmsService ServiceSms;
+    private final HoraireService ServiceHoraire;
 
 
-    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor, EmailService serviceEmail, SmsService serviceSms) {
+    public ReservationControllerAdmin(ReservationService service, RestoService serviceResto, UserService serviceUser, VisitorService serviceVisitor, EmailService serviceEmail, SmsService serviceSms, HoraireService serviceHoraire) {
         Service = service;
         ServiceResto = serviceResto;
         ServiceUser = serviceUser;
         ServiceVisitor = serviceVisitor;
         ServiceEmail = serviceEmail;
         ServiceSms = serviceSms;
+        ServiceHoraire = serviceHoraire;
     }
 
 
@@ -261,6 +265,19 @@ public class ReservationControllerAdmin {
         ra.addFlashAttribute("message", "La réservation a bien été modifiée");
 
         return "redirect:/admin/reservation/list";
+    }
+
+    @GetMapping(value = "/getHoraire/{id}", produces = "application/json")
+    public  @ResponseBody  List<HoraireOut> getRestoName(@PathVariable("id") Long id){
+
+        System.out.println(id);
+        List<HoraireOut> horaireResto = ServiceHoraire.findByRestaurant(id);
+        System.out.println(horaireResto);
+
+        //List jour = horaireResto.
+
+        //for
+        return horaireResto;
     }
 
 }

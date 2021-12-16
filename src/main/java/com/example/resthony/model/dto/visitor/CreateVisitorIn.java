@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 @Data
@@ -38,7 +38,7 @@ public class CreateVisitorIn {
     public Date date;
 
     @NotNull(message = "Veuillez choisir une heure")
-    public Time time;
+    public String time;
 
     @NotNull(message= "Restaurant obligatoire")
     @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")

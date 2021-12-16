@@ -1,11 +1,12 @@
 package com.example.resthony.model.entities;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 import java.util.Set;
 
@@ -24,8 +25,9 @@ public class Reservation {
     private Long id;
 
     @NotNull
-    @Column(name= "nbcouverts", nullable = false)
+    @Column(name = "nbcouverts", nullable = false)
     private Integer nbcouverts;
+
 
     @NotNull
     @Column(name = "date", nullable = false, unique = true)
@@ -33,7 +35,7 @@ public class Reservation {
 
     @NotNull
     @Column(name = "time", nullable = false, unique = true)
-    private Time time;
+    private String time;
 
    /* @NotNull
     @Column(name = "restaurant", nullable = false, unique = true)
@@ -46,14 +48,14 @@ public class Reservation {
 
 
     @ManyToOne
-    @JoinColumn(name="user", nullable = true)
+    @JoinColumn(name = "user", nullable = true)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="restaurant", nullable = true)
+    @JoinColumn(name = "restaurant", nullable = true)
     private Restaurant restaurant;
 
 
-    @Column(name= "admin")
+    @Column(name = "admin")
     private Integer admin;
 }

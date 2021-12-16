@@ -33,6 +33,7 @@
 
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>
+
 </head>
 
 <!-- Différentes navBar -->
@@ -40,157 +41,291 @@
 
 <body>
 <!-- Pas loggé -->
-    <div th:fragment="navbarNotLogged">
-        <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
-            <h1 class="logo me-auto me-lg-0"><a th:href="@{/}">Resthony</a></h1>
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto active" th:href="@{/}"> Accueil </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/visitor/create}"> Réserver</a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/register}"> S'inscrire </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/login}">Se connecter </a></li>
-                </ul>
-            </nav>
-        </div>
-        <div th:if="${message}" class="alert alert-success text-center">
-            [[${message}]]
-        </div>
-        <div th:if="${messageErreur}" class="alert alert-danger text-center">
-            [[${messageErreur}]]
-        </div>
+<div th:fragment="navbarNotLogged">
+    <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
+        <h1 class="logo me-auto me-lg-0"><a th:href="@{/}">Resthony</a></h1>
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" th:href="@{/}"> Accueil </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/visitor/create}"> Réserver</a></li>
+                <li><a class="nav-link scrollto" th:href="@{/register}"> S'inscrire </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/login}">Se connecter </a></li>
+            </ul>
+        </nav>
     </div>
-
-
-    <!-- User -->
-    <div th:fragment="navbarUser">
-        <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
-            <h1 class="logo me-auto me-lg-0"><a th:href="@{/user}">Resthony</a></h1>
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto active" th:href="@{/user}"> Accueil </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/user/reservation/list}"> Mes réservations </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/user/profil}">Mon profil </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div th:if="${message}" class="alert alert-success text-center">
-            [[${message}]]
-        </div>
-        <div th:if="${messageErreur}" class="alert alert-danger text-center">
-            [[${messageErreur}]]
-        </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
     </div>
-
-    <!-- Admin -->
-    <div th:fragment="navbarAdmin">
-        <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
-            <h1 class="logo me-auto me-lg-0"><a th:href="@{/admin}">Resthony</a></h1>
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto active"th:href="@{/admin}"> Accueil </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/admin/user/list}"> Utilisateurs </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/admin/reservation/list}"> Réservations </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/admin/user/updatePass}" > Changer mon mot de passe </a></li>
-                </ul>
-            </nav>
-        </div>
-        <div th:if="${message}" class="alert alert-success text-center">
-            [[${message}]]
-        </div>
-        <div th:if="${messageErreur}" class="alert alert-danger text-center">
-            [[${messageErreur}]]
-        </div>
+    <div th:if="${messageErreur}" class="alert alert-danger text-center">
+        [[${messageErreur}]]
     </div>
+</div>
 
-        <!-- Restaurateur -->
-    <div th:fragment="navbarResto">
-        <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
-            <h1 class="logo me-auto me-lg-0"><a th:href="@{/restaurateur}">Resthony</a></h1>
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto active" th:href="@{/restaurateur}"> Accueil </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/list}"> Utilisateurs </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/restaurateur/restaurant/list}"> Restaurants </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/restaurateur/reservation/list}"> Réservations </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/restaurateur/villes/list}"> Villes </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
-                    <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/updatePass}" > Changer mon mot de passe </a></li>
-                </ul>
-            </nav>
-        </div>
-        <div th:if="${message}" class="alert alert-success text-center">
-            [[${message}]]
-        </div>
-        <div th:if="${messageErreur}" class="alert alert-danger text-center">
-            [[${messageErreur}]]
-        </div>
+
+<!-- User -->
+<div th:fragment="navbarUser">
+    <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
+        <h1 class="logo me-auto me-lg-0"><a th:href="@{/user}">Resthony</a></h1>
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" th:href="@{/user}"> Accueil </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/user/reservation/list}"> Mes réservations </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/user/profil}">Mon profil </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion</a></li>
+            </ul>
+        </nav>
     </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageErreur}" class="alert alert-danger text-center">
+        [[${messageErreur}]]
+    </div>
+</div>
+
+<!-- Admin -->
+<div th:fragment="navbarAdmin">
+    <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
+        <h1 class="logo me-auto me-lg-0"><a th:href="@{/admin}">Resthony</a></h1>
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" th:href="@{/admin}"> Accueil </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/admin/user/list}"> Utilisateurs </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/admin/reservation/list}"> Réservations </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/admin/user/updatePass}"> Changer mon mot de passe </a></li>
+            </ul>
+        </nav>
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageErreur}" class="alert alert-danger text-center">
+        [[${messageErreur}]]
+    </div>
+</div>
+
+<!-- Restaurateur -->
+<div th:fragment="navbarResto">
+    <div id="header" class="container-xl d-flex align-items-center justify-content-lg-between">
+        <h1 class="logo me-auto me-lg-0"><a th:href="@{/restaurateur}">Resthony</a></h1>
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" th:href="@{/restaurateur}"> Accueil </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/list}"> Utilisateurs </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/restaurateur/restaurant/list}"> Restaurants </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/restaurateur/reservation/list}"> Réservations </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/restaurateur/villes/list}"> Villes </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/logout}"> Déconnexion </a></li>
+                <li><a class="nav-link scrollto" th:href="@{/restaurateur/user/updatePass}"> Changer mon mot de
+                    passe </a></li>
+            </ul>
+        </nav>
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div th:if="${messageErreur}" class="alert alert-danger text-center">
+        [[${messageErreur}]]
+    </div>
+</div>
 
 
-    <!-- Footer -->
-    <footer id="footer" th:fragment="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
+<!-- Footer -->
+<footer id="footer" th:fragment="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-info">
-                            <h3>Resthony</h3>
-                            <p>
-                                IFOSUP Wavre <br>
-                                Rue de la limite, 6<br><br>
-                                <strong>Phone:</strong> +32 470 08 98 78<br>
-                                <strong>Email:</strong> contact@resthony.com<br>
-                            </p>
-                            <div class="social-links mt-3">
-                                <a href="https://twitter.com/"  target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a>
-                                <a href="https://www.facebook.com/resthony.lozada.54" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
-                                <a href="https://www.instagram.com/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
-                                <a href="https://www.skype.com/" target="_blank" class="google-plus"><i class="bx bxl-skype"></i></a>
-                                <a href="https://www.linkedin.com/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                            </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-info">
+                        <h3>Resthony</h3>
+                        <p>
+                            IFOSUP Wavre <br>
+                            Rue de la limite, 6<br><br>
+                            <strong>Phone:</strong> +32 470 08 98 78<br>
+                            <strong>Email:</strong> contact@resthony.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="https://twitter.com/" target="_blank" class="twitter"><i
+                                    class="bx bxl-twitter"></i></a>
+                            <a href="https://www.facebook.com/resthony.lozada.54" target="_blank" class="facebook"><i
+                                    class="bx bxl-facebook"></i></a>
+                            <a href="https://www.instagram.com/" target="_blank" class="instagram"><i
+                                    class="bx bxl-instagram"></i></a>
+                            <a href="https://www.skype.com/" target="_blank" class="google-plus"><i
+                                    class="bx bxl-skype"></i></a>
+                            <a href="https://www.linkedin.com/" target="_blank" class="linkedin"><i
+                                    class="bx bxl-linkedin"></i></a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-lg-2 col-md-6 footer-links">
-                        <h4>Lien utiles</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a  th:href="@{/}" >Accueil</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a  th:href="@{/}">A propos</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a th:href="@{/}">Vie privée</a></li>
-                        </ul>
-                    </div>
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Lien utiles</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/}">Accueil</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/}">A propos</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/}">Vie privée</a></li>
+                    </ul>
+                </div>
 
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Nos services</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a th:href="@{/visitor/create}">Nos restaurants</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a th:href="@{/register}">Créer un compte</a></li>
-                        </ul>
-                    </div>
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Nos services</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/visitor/create}">Nos restaurants</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a th:href="@{/register}">Créer un compte</a></li>
+                    </ul>
+                </div>
 
-                    <div class="col-lg-4 col-md-6 footer-newsletter">
-                        <h4>Notre Newsletter</h4>
-                        <p>Abonnez-vous à notre Newsletter pour recevoir toutes les informations concernant nos nouvelles promotions!</p>
-                        <form th:action="@{/register/newsLetter}" method="post">
-                            <input type="email" name="email"><input type="submit" value="Subscribe">
-                        </form>
-
-                    </div>
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Notre Newsletter</h4>
+                    <p>Abonnez-vous à notre Newsletter pour recevoir toutes les informations concernant nos nouvelles
+                        promotions!</p>
+                    <form th:action="@{/register/newsLetter}" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                    </form>
 
                 </div>
-            </div>
-        </div>
 
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Resthony</span></strong>. All Rights Reserved
             </div>
         </div>
-    </footer><!-- End Footer -->
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Resthony</span></strong>. All Rights Reserved
+        </div>
+    </div>
+
+</footer>
+
+<footer id="footerAdmin" th:fragment="footerAdmin">
+
+    <!-- Attempt 54 -->
+    <script>
+
+        /*
+
+
+                $(document).ready(function(){
+
+                    const today = new Date().toLocaleDateString()
+                    console.log(today)
+                    var date_input=$('input[name="date"]'); //our date input has the name "date"
+                    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                    var options={
+                        format: 'dd/mm/yyyy',
+                        container: container,
+                        todayHighlight: true,
+                        startDate: 'today',
+                        autoclose: true,
+                    };
+                    date_input.datepicker(options);
+                })
+
+
+
+
+                var inputs = document.getElementById("reservation").elements;
+                var inputRestaurant = inputs["restaurant"];
+                var strSelectedResto = inputRestaurant.value;
+                console.log(strSelectedResto)
+
+
+
+
+
+                app.get('/getRestoName/'+strSelectedResto, function(req, res){
+                    console.log(req)
+                    console.log(res)
+                })
+
+
+
+                async function getSelected()
+                {
+                    var inputs = document.getElementById("reservation").elements;
+                    var inputRestaurant = inputs["restaurant"];
+                    var strSelectedResto = inputRestaurant.value;
+                    console.log(strSelectedResto)
+
+                    const response = await fetch('/admin/reservation/getHoraire');
+                    const data = await response.json();
+                    console.log(data)
+                }
+
+
+
+                /*$('.input-group.date').datepicker({
+                    daysOfWeekDisabled: "0,1",
+                    autoclose: true,
+                    todayHighlight: true
+                    format: "dd/mm/yyyy"
+                });*/
+        /*
+                    nodeList = HTMLFormElement.elements
+
+                    var inputs = document.getElementById("reservation").elements;
+                    var inputDatePicker = inputs["date"];
+                    inputDatePicker.setAttribute('min', today)
+                    inputDatePicker.setAttribute('value', today)
+                    console.log(inputs)
+
+
+
+
+
+
+                    function selectedDates(){
+
+                    }
+
+                    function getHoraire()
+                    {
+
+                    }
+
+
+
+
+
+
+
+
+
+
+                    console.log(today)
+                    const doc = document.getElementsByName("datePicker");
+                    console.log(doc)
+                    console.log(doc[0])
+                    console.log(document.getElementsByName("datePicker")[0])
+                    document.getElementsByName("datePicker")[0].setAttribute('min', today);
+
+
+
+
+
+                    var dateToday = new Date();
+                    var dates = $("#from, #to").datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3,
+                        minDate: dateToday,
+                        onSelect: function(selectedDate) {
+                            var option = this.id == "from" ? "minDate" : "maxDate",
+                                instance = $(this).data("datepicker"),
+                                date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                            dates.not(this).datepicker("option", option, date);
+
+
+                        }
+                    });*/
+    </script>
+
+</footer>
 </body>
 
 
 </html>
+
