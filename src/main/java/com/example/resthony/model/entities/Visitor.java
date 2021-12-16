@@ -71,7 +71,7 @@ public class Visitor {
 
 
     @Column(name = "time", nullable = false)
-    private Time time;
+    private String time;
 
 }
 

@@ -33,7 +33,7 @@ public class Reservation {
 
     @NotNull
     @Column(name = "time", nullable = false, unique = true)
-    private Time time;
+    private String time;
 
    /* @NotNull
     @Column(name = "restaurant", nullable = false, unique = true)

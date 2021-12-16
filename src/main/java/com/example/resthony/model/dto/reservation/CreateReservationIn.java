@@ -20,7 +20,7 @@ public class CreateReservationIn {
     public String user;
 
     @NotNull(message = "Heure obligatoire")
-    public Time time;
+    public String time;
 
     @NotNull(message = "Restaurant obligatoire")
     @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
