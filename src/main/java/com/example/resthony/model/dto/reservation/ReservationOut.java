@@ -21,7 +21,7 @@ public class ReservationOut {
 
     public Date date;
 
-    public Time time;
+    public String time;
 
     public String restaurant;
 

@@ -23,7 +23,7 @@ public class PatchReservationIn {
     public Date date;
 
     @NotNull(message = "Heure obligatoire")
-    public Time time;
+    public String time;
 
     @NotNull(message = "Restaurant obligatoire")
     @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")

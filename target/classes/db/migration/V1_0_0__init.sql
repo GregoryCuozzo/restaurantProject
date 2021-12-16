@@ -26,7 +26,7 @@ create table visitors(
                          firstName varchar(255) not null,
                          lastname varchar(255) not null,
                          date date not null,
-                         time time not null,
+                         time varchar(255) not null,
                          nbcouverts Integer not null,
                          email text not null,
                          phone text not null,
@@ -53,7 +53,7 @@ create table restaurants (
 create table reservations (
                               id_reservation bigint auto_increment  not null,
                               date date not null,
-                              time time not null,
+                              time varchar(255) not null,
                               nbcouverts int not null,
                               restaurant bigint not null,
                               user bigint not null,

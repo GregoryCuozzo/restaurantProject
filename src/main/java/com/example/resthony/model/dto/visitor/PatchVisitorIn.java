@@ -38,7 +38,7 @@ public class PatchVisitorIn {
     public Date date;
 
     @NotNull(message = "Veuillez choisir une heure")
-    public Time time;
+    public String time;
 
     @NotNull(message= "Restaurant obligatoire")
     @Pattern(regexp = "^((?!default).)*$", message = "Veuillez sélectionner une option")
