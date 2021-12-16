@@ -36,6 +36,8 @@ public class CreateRestoIn {
     @NotNull(message = "Ville obligatoire")
     public Integer ville;
 
+    @Min(value = 1, message="Minimum une heure de rappel")
+    @Max(value = 168, message = "Maximum une semaine à l'avance")
     public Long rappel;
 
 
